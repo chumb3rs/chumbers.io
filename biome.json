@@ -1,0 +1,12 @@
+{
+    "formatter": {
+        "enabled": true,
+        "formatWithErrors": true,
+        "indentWidth": 4,
+        "indentStyle": "space"
+    },
+    "linter": {
+        "enabled": true,
+        "ignore": ["node_modules"]
+    }
+}

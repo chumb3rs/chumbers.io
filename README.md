@@ -1,40 +1,47 @@
-# Chumbers.io
+# Astro Starter Kit: Minimal
 
-This is a website I made in the summer of 2021 to host a collection of essays, posts and other content I wrote and am writing.
-
-[View the site](https://chumbers.io)
-
-Make and run a local copy -
-
-```bash
-git clone https://github.com/nickmarks00/chumbers.io.git
-npm install
+```sh
+npm create astro@latest -- --template minimal
 ```
 
-## Tech Stack
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
 
-[chumbers.io](https://chumbers.io) uses a conventional JAMStack.
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-### Next.js
+## 🚀 Project Structure
 
-This website is powered by [Next.js](https://nextjs.org). It is built using the `npx create-next-app` command. I also used the `--with-tailwind` flag for out of the box [Tailwind.css](https://tailwindcss.com) styling (and TypeScript).
+Inside of your Astro project, you'll see the following folders and files:
 
-Whilst most of the site is built statically or hydrated on the server (using `getStaticProps` or `getServerSideProps`), the variable methods for getting props that Next offers adds a lot of control for future features that I may implement.
+```text
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
+```
 
-At the moment, it made it very easy to render the source markdown using a`next-mdx-remote` along with a series of `rehype` and `remark` plugins to handle rendering LaTeX.
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-### Apollo GraphQL
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-The site pulls data from the content server using [GraphQL](https://graphql.com) as the querying layer, in particular [ApolloGraphQL](https://apollographql.com). The latter features a really intuitive and powerful query playground that allows you to interface with your data.
+Any static assets, like images, can be placed in the `public/` directory.
 
-### Vercel
+## 🧞 Commands
 
-It is only logical that a Next.js app should be deployed with [`Vercel`](https://vercel.com). Compared to a competitor, like Netfliy, I much prefer the UI and the feature set seems slightly further progressed.
+All commands are run from the root of the project, from a terminal:
 
-### Headless CMS
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-I write essays locally using a tool such as [Obsidian](https://obsidian.md) that promotes networked thought and note-taking. Importantly, it renders in Markdown which I can easily copy and paste into my headless CMS of choice.
+## 👀 Want to learn more?
 
-For this project, I chose to use [GraphCMS](https://graphcms.com) because of its use of GraphQL for super fast querying. Their modelling schema also contain a wide variety of field types, including more advanced ones like model references that allow me to reflect the linking present in the authoring of the content (with Obsidian) in the final product.
-
-Whilst this Next.js project is configured with `fallback:true` on dynamic page routes, meaning new posts will be pulled automatically into the site after being published on the first load, GraphCMS also has an integration with Vercel that allows you to re-deploy a given build from within the content editing page.
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
