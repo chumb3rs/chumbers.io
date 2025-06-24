@@ -8,15 +8,16 @@ import Nav from "../components/Nav.astro";
 
 // Style import
 import "../styles/main.scss";
+import "@fontsource-variable/manrope";
+import "@fontsource-variable/eb-garamond";
+import "@fontsource-variable/jetbrains-mono";
 ---
 
 <html lang="en">
     <MainHead />
     <body>
         <Nav />
-        <main>
-            Hello from main
-        </main>
+        <main class="font-heading">Hello from main</main>
         <Footer />
     </body>
 </html>
