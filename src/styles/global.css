@@ -12,7 +12,15 @@
     --bg-main: #f2f1ec;
     --bg-muted: #eae9e1;
     --border-main: #171717;
+    --primary: #4ef6c7;
+    --secondary: rgba(78, 246, 199, 0.7);
+    --tertiary: rgba(78, 246, 199, 0.4);
+    --off-black: #1b1b1b;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --white: #fff;
 }
+
 html.dark {
     --text-main: #f2f1ec;
     --bg-main: #171717;
@@ -64,4 +72,30 @@ html.dark {
     .prose blockquote {
         @apply font-serif font-normal italic border-none pl-0 text-[1.375em] leading-snug sm:text-[1.66667em];
     }
+}
+
+/* TYPOGRAPHY */
+/* Base underline style */
+.underline-magic,
+.underline-magic-white {
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+  transition: background-size 0.25s ease-in;
+}
+
+/* Hover effect */
+.underline-magic:hover,
+.underline-magic-white:hover {
+  background-size: 100% 88%;
+  color: var(--off-black);
+}
+
+/* Colored underlines */
+.underline-magic {
+  background-image: linear-gradient(120deg, var(--primary) 0%, var(--primary) 100%);
+}
+
+.underline-magic-white {
+  background-image: linear-gradient(120deg, var(--white) 0%, var(--white) 100%);
 }

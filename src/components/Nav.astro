@@ -1,7 +1,7 @@
 ---
-import NavLink from './NavLink.astro';
-import ThemeToggle from './ThemeToggle.astro';
-import siteConfig from '../data/site-config';
+import NavLink from "./NavLink.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+import siteConfig from "../data/site-config";
 
 const navLinks = siteConfig.headerNavLinks || [];
 ---
@@ -20,12 +20,12 @@ const navLinks = siteConfig.headerNavLinks || [];
                 </button>
                 <ul
                     id="menu-items"
-                    class="menu flex gap-6 max-md:flex-col max-md:gap-1 max-md:absolute max-md:-top-2.5 max-md:-left-2.5 max-md:max-w-64 max-md:px-3 max-md:pt-16 max-md:pb-10 max-md:z-20 max-md:bg-main max-md:border max-md:border-dashed max-md:border-main"
+                    class="menu flex gap-10 max-md:flex-col max-md:gap-1 max-md:absolute max-md:-top-2.5 max-md:-left-2.5 max-md:max-w-64 max-md:px-3 max-md:pt-16 max-md:pb-10 max-md:z-20 max-md:bg-main max-md:border max-md:border-dashed max-md:border-main"
                 >
                     {navLinks.map((link) => (
                         <li class="py-1">
                             <NavLink
-                                class="text-xl font-serif text-main md:text-base"
+                                class="text-xl font-heading italic font-semibold text-main"
                                 href={link.href}
                             >
                                 {link.text}
@@ -63,7 +63,7 @@ const navLinks = siteConfig.headerNavLinks || [];
         .menu-toggle-icon:before,
         .menu-toggle-icon:after {
             @apply w-6 h-px absolute left-1/2 top-0 origin-center -translate-x-1/2 bg-current;
-            content: '';
+            content: "";
             transition:
                 rotate 0.2s cubic-bezier(0.4, 0, 0.2, 1),
                 margin 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
@@ -92,16 +92,23 @@ const navLinks = siteConfig.headerNavLinks || [];
 
 <script>
     function menuToggle() {
-        const menu = document.querySelector('.menu');
-        const menuToggleBtn = document.querySelector('.menu-toggle');
-        menuToggleBtn?.addEventListener('click', () => {
-            const isMenuExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
-            menuToggleBtn.classList.toggle('is-active');
-            menuToggleBtn.setAttribute('aria-expanded', isMenuExpanded ? 'false' : 'true');
-            menuToggleBtn.setAttribute('aria-label', isMenuExpanded ? 'Open Menu' : 'Close Menu');
-            menu?.classList.toggle('is-visible');
+        const menu = document.querySelector(".menu");
+        const menuToggleBtn = document.querySelector(".menu-toggle");
+        menuToggleBtn?.addEventListener("click", () => {
+            const isMenuExpanded =
+                menuToggleBtn.getAttribute("aria-expanded") === "true";
+            menuToggleBtn.classList.toggle("is-active");
+            menuToggleBtn.setAttribute(
+                "aria-expanded",
+                isMenuExpanded ? "false" : "true",
+            );
+            menuToggleBtn.setAttribute(
+                "aria-label",
+                isMenuExpanded ? "Open Menu" : "Close Menu",
+            );
+            menu?.classList.toggle("is-visible");
         });
     }
     menuToggle();
-    document.addEventListener('astro:after-swap', menuToggle);
+    document.addEventListener("astro:after-swap", menuToggle);
 </script>
