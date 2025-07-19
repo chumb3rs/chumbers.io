@@ -26,10 +26,9 @@ const navLinks = siteConfig.headerNavLinks || [];
                         <li class="py-1">
                             <NavLink
                                 class="text-xl font-heading italic font-semibold text-main"
-                                href={link.href}
-                            >
-                                {link.text}
-                            </NavLink>
+                    href={link.href}
+                    text={link.text}
+                            />
                         </li>
                     ))}
                 </ul>
