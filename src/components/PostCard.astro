@@ -1,14 +1,14 @@
 ---
-import { Image } from 'astro:assets'
-import FormattedDate from '@/components/FormattedDate'
-import ArrowUp from '@/components/icons/ArrowUp'
+import { Image } from 'astro:assets';
+import FormattedDate from '@/components/FormattedDate';
+import ArrowUp from '@/components/icons/ArrowUp';
 
 const {
-	id,
-	data: { title, description, pubDate, heroImage, category },
-	readTime,
-	slug
-} = Astro.props
+    id,
+    data: { title, description, pubDate, heroImage, category },
+    readTime,
+    slug,
+} = Astro.props;
 ---
 
 <article class='grid grid-rows-[300px_auto] md:grid-rows-[300px_220px] min-h-full group'>

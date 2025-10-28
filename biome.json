@@ -1,5 +1,5 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json",
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
     "formatter": {
         "enabled": true,
         "formatWithErrors": true,
@@ -16,13 +16,19 @@
     },
     "json": {
         "formatter": {
-            "trailingCommas": "all"
+            "trailingCommas": "none",
+            "indentStyle": "space",
+            "indentWidth": 4
         }
     },
     "css": {
         "formatter": {
             "indentWidth": 4,
-            "indentStyle": "space"
+            "indentStyle": "space",
+            "enabled": true
+        },
+        "parser": {
+            "tailwindDirectives": true
         }
     },
     "linter": {
@@ -30,9 +36,23 @@
     },
     "files": {
         "ignoreUnknown": true,
-        "includes": [
-            "**",
-            "!node_modules/**"
-        ]
-    }
+        "includes": ["**", "!node_modules"]
+    },
+    "overrides": [
+        {
+            "includes": ["**/*.astro"],
+            "linter": {
+                "rules": {
+                    "style": {
+                        "useConst": "off",
+                        "useImportType": "off"
+                    },
+                    "correctness": {
+                        "noUnusedVariables": "off",
+                        "noUnusedImports": "off"
+                    }
+                }
+            }
+        }
+    ]
 }

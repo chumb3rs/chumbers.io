@@ -1,25 +1,31 @@
 ---
-import { siteConfig } from '@/site-config'
-import '../styles/global.css'
-import { ViewTransitions } from 'astro:transitions'
+import { siteConfig } from '@/site-config';
+import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
 
 export interface Props {
-	title: string
-	description?: string
-	ogImage?: string | undefined
-	articleDate?: string | undefined
+    title: string;
+    description?: string;
+    ogImage?: string | undefined;
+    articleDate?: string | undefined;
 }
 
-const { title, description = siteConfig.description, ogImage, articleDate } = Astro.props
-const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-const socialImageURL = new URL(ogImage ? ogImage : '/open-graph.png', Astro.url).href
+const {
+    title,
+    description = siteConfig.description,
+    ogImage,
+    articleDate,
+} = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(ogImage ? ogImage : '/open-graph.png', Astro.url)
+    .href;
 
-const titleSeparator = '•'
+const titleSeparator = '•';
 
-const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`
+const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
 
-import { join } from 'path'
-import { AstroFont } from 'astro-font'
+import { join } from 'path';
+import { AstroFont } from 'astro-font';
 ---
 
 <!-- Global Metadata -->
