@@ -1,101 +1,40 @@
-@import '@fontsource-variable/manrope' layer(base);
-@import '@fontsource-variable/eb-garamond' layer(base);
-@import '@fontsource-variable/eb-garamond/wght-italic.css' layer(base);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
+@layer base {
+	/* body {
+		transition: background-color 0.5s ease;
+	} */
 
-@custom-variant dark (&:where(.dark, .dark *));
+	.prose code {
+		@apply text-base;
+	}
 
-:root {
-    --text-main: #171717;
-    --bg-main: #f2f1ec;
-    --bg-muted: #eae9e1;
-    --border-main: #171717;
-    --primary: #4ef6c7;
-    --secondary: rgba(78, 246, 199, 0.7);
-    --tertiary: rgba(78, 246, 199, 0.4);
-    --off-black: #1b1b1b;
-    --gray-500: #adb5bd;
-    --gray-600: #6c757d;
-    --white: #fff;
+	/* prose styles here */
+	.prose h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply text-zinc-800 dark:text-zinc-100   !important;
+	}
+
+	html.dark .shiki,
+	html.dark .shiki span {
+	  color: var(--shiki-dark) !important;
+	  background-color: theme(colors.gray.900) !important;
+	}
 }
 
-html.dark {
-    --text-main: #f2f1ec;
-    --bg-main: #171717;
-    --bg-muted: #242424;
-    --border-main: #f2f1ec;
+.glass {
+	background: rgba(57, 56, 56, 0.52);
+	backdrop-filter: blur(13px) saturate(150%);
+	-webkit-backdrop-filter: blur(13px) saturate(150%);
+	z-index: -1;
 }
 
-@theme inline {
-    --font-body: 'Manrope Variable', sans-serif;
-    --font-heading: 'EB Garamond Variable', serif;
-    --font-code: 'JetBrains Mono Variable' monospace;
-    --text-color-main: var(--text-main);
-    --background-color-main: var(--bg-main);
-    --background-color-muted: var(--bg-muted);
-    --border-color-main: var(--border-main);
-}
-
-@layer utilities {
-    .prose {
-        --tw-prose-body: var(--text-color-main);
-        --tw-prose-headings: var(--text-color-main);
-        --tw-prose-lead: var(--text-color-main);
-        --tw-prose-links: var(--text-color-main);
-        --tw-prose-bold: var(--text-color-main);
-        --tw-prose-counters: var(--text-color-main);
-        --tw-prose-bullets: var(--text-color-main);
-        --tw-prose-hr: var(--border-color-main);
-        --tw-prose-quotes: var(--text-color-main);
-        --tw-prose-quote-borders: var(--border-color-main);
-        --tw-prose-captions: var(--text-color-main);
-        --tw-prose-kbd: var(--text-color-main);
-        --tw-prose-code: var(--text-color-main);
-        --tw-prose-th-borders: var(--border-color-main);
-        --tw-prose-td-borders: var(--border-color-main);
-    }
-
-    .prose a {
-        @apply underline font-normal decoration-1 underline-offset-2 decoration-dashed hover:decoration-solid;
-    }
-
-    .prose :where(h1, h2, h3, h4, h5, h6) {
-        @apply font-serif font-medium;
-    }
-
-    .prose :where(code, strong) {
-        @apply font-medium;
-    }
-
-    .prose blockquote {
-        @apply font-serif font-normal italic border-none pl-0 text-[1.375em] leading-snug sm:text-[1.66667em];
-    }
-}
-
-/* TYPOGRAPHY */
-/* Base underline style */
-.underline-magic,
-.underline-magic-white {
-  background-repeat: no-repeat;
-  background-size: 100% 0.2em;
-  background-position: 0 88%;
-  transition: background-size 0.25s ease-in;
-}
-
-/* Hover effect */
-.underline-magic:hover,
-.underline-magic-white:hover {
-  background-size: 100% 88%;
-  color: var(--off-black);
-}
-
-/* Colored underlines */
-.underline-magic {
-  background-image: linear-gradient(120deg, var(--primary) 0%, var(--primary) 100%);
-}
-
-.underline-magic-white {
-  background-image: linear-gradient(120deg, var(--white) 0%, var(--white) 100%);
+.shadow {
+	box-shadow: -5px 3px 8px 1px rgba(0, 0, 0, 0.12);
 }

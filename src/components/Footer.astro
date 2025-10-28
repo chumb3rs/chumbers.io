@@ -1,59 +1,10 @@
 ---
-import siteConfig from "../data/site-config";
-import NavLink from "./NavLink.astro";
+import { siteConfig } from '@/site-config'
 
-const socialLinks = siteConfig.socialLinks || [];
-const navLinks = siteConfig.footerNavLinks || [];
+const today = new Date()
 ---
 
-<footer class="w-full max-w-3xl mx-auto pt-12 pb-10 sm:pt-24 sm:pb-14">
-    {
-        navLinks.length > 0 && (
-            <div class="mb-4 flex flex-wrap gap-x-6 gap-y-1">
-                {navLinks.map((link) => (
-                    <NavLink
-                        class="font-heading text-lg italic font-semibold"
-                        href={link.href}
-                        text={link.text}
-                    />
-                ))}
-            </div>
-        )
-    }
-    <div
-        class:list={[
-            "py-6 flex flex-col gap-4 border-t border-dashed border-main text-lg font-heading",
-            {
-                "sm:flex-row-reverse sm:justify-between sm:items-center":
-                    socialLinks.length > 0,
-            },
-        ]}
-    >
-        {
-            socialLinks.length > 0 && (
-                <div class="flex flex-wrap gap-x-4 gap-y-1 italic">
-                    {socialLinks.map((link) => (
-                        <NavLink
-                            class="inline-flex items-center justify-center"
-                            href={link.href}
-                            target="_blank"
-                            rel="noopener noreferer"
-                            text={link.text}
-                        />
-                    ))}
-                </div>
-            )
-        }
-        <p>
-            &copy; {new Date().getFullYear()}&nbsp;
-            <NavLink class="italic font-semibold" href="/" text={siteConfig.title} />
-        </p>
-    </div>
-    <div
-        class="font-code justify-center pt-6 flex gap-4 border-t border-dashed border-main text-sm"
-    >
-        Built with ❤ using <a href="https://astro.build/">Astro</a> and <a
-            href="https://astro.build/themes/details/dante/">Dante</a
-        >
-    </div>
+<footer class='flex justify-center items-center w-full px-16 h-28 border-t-2'>
+	&copy; {today.getFullYear()}
+	{siteConfig.author}. All rights reserved.
 </footer>
