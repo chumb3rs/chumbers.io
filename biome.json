@@ -44,23 +44,6 @@
     },
     "files": {
         "ignoreUnknown": true,
-        "includes": ["**", "!node_modules"]
-    },
-    "overrides": [
-        {
-            "includes": ["**/*.astro"],
-            "linter": {
-                "rules": {
-                    "style": {
-                        "useConst": "off",
-                        "useImportType": "off"
-                    },
-                    "correctness": {
-                        "noUnusedVariables": "off",
-                        "noUnusedImports": "off"
-                    }
-                }
-            }
-        }
-    ]
+        "includes": ["**", "!node_modules", "!**/*.astro"]
+    }
 }

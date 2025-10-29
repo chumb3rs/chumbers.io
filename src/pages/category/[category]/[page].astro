@@ -15,14 +15,14 @@ export async function getStaticPaths({ paginate }: any) {
         const unsluglifyNameCategory = unsluglify(category!.toLowerCase());
         const filteredPosts = allPosts.filter(
             (post) =>
-                post.data.category.toLowerCase() === unsluglifyNameCategory,
+                post.data.category.toLowerCase() === unsluglifyNameCategory
         );
 
         return paginate(filteredPosts, {
             params: {
-                category: sluglify(category.toLowerCase()),
+                category: sluglify(category.toLowerCase())
             },
-            pageSize: siteConfig.paginationSize,
+            pageSize: siteConfig.paginationSize
         });
     });
 }
@@ -31,14 +31,14 @@ const { page } = Astro.props;
 
 const unsluglifyNameCategory = unsluglify(params.category!.toLowerCase());
 const categoryName = (await getCategories()).find(
-    (category) => category.toLowerCase() === unsluglifyNameCategory,
+    (category) => category.toLowerCase() === unsluglifyNameCategory
 );
 const posts = page.data;
 ---
 
 <BaseLayout title={categoryName}>
-	<TitlePage title={categoryName} />
-	<ListCategories activeCategory={params.category} />
-	<ListPosts posts={posts} />
-	<Pagination page={page} />
+    <TitlePage title={categoryName} />
+    <ListCategories activeCategory={params.category} />
+    <ListPosts posts={posts} />
+    <Pagination page={page} />
 </BaseLayout>

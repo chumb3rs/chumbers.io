@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 
     return tags.map((tag) => ({
         params: { tag },
-        props: { tag },
+        props: { tag }
     }));
 }
 
@@ -19,6 +19,6 @@ const posts = await getPostByTag(tag);
 ---
 
 <BaseLayout title={tag}>
-	<TitlePage title={tag} />
-	<ListPosts posts={posts} />
+    <TitlePage title={tag} />
+    <ListPosts posts={posts} />
 </BaseLayout>
