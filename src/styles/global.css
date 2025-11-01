@@ -7,8 +7,15 @@
 		transition: background-color 0.5s ease;
 	} */
 
-    .prose code {
-        @apply text-base;
+    /* .prose code { */
+    /*     @apply text-base; */
+    /* } */
+    html {
+        @apply font-sans; /* makes Manrope default everywhere */
+    }
+
+    code, pre {
+        @apply font-code; /* ensures code blocks use Fira Code */
     }
 
     /* prose styles here */

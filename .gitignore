@@ -2,10 +2,12 @@
 dist/
 # generated types
 .astro/
+# fonts
+.cache/
+public/__astro_font_generated__/
 
 # dependencies
 node_modules/
-
 
 tina-lock.json
 

@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './src/utils/readTime.ts';
 import { siteConfig } from './src/data/site.config';
+import { astroFont } from 'astro-font/integration';
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,6 +18,7 @@ export default defineConfig({
         },
     },
     integrations: [
+        astroFont(),
         mdx({
             syntaxHighlight: 'shiki',
             shikiConfig: {

@@ -81,83 +81,28 @@ import { AstroFont } from 'astro-font';
 <AstroFont
     config={[
         {
-            preload: false,
+            src: [],
+            preload: true,
             display: 'swap',
-            name: 'Manrope',
+            name: 'manrope',
             fallback: 'sans-serif',
-            src: [
-                {
-                    weight: '200',
-                    style: 'normal',
-                    path: join(
-                        process.cwd(),
-                        'public',
-                        'fonts',
-                        'Manrope-ExtraLight.woff2'
-                    )
-                },
-                {
-                    weight: '300',
-                    style: 'normal',
-                    path: join(
-                        process.cwd(),
-                        'public',
-                        'fonts',
-                        'Manrope-Light.woff2'
-                    )
-                },
-                {
-                    weight: '400',
-                    style: 'normal',
-                    path: join(
-                        process.cwd(),
-                        'public',
-                        'fonts',
-                        'Manrope-Regular.woff2'
-                    )
-                },
-                {
-                    weight: '500',
-                    style: 'normal',
-                    path: join(
-                        process.cwd(),
-                        'public',
-                        'fonts',
-                        'Manrope-Medium.woff2'
-                    )
-                },
-                {
-                    weight: '600',
-                    style: 'normal',
-                    path: join(
-                        process.cwd(),
-                        'public',
-                        'fonts',
-                        'Manrope-SemiBold.woff2'
-                    )
-                },
-                {
-                    weight: '700',
-                    preload: true,
-                    style: 'normal',
-                    path: join(
-                        process.cwd(),
-                        'public',
-                        'fonts',
-                        'Manrope-Bold.woff2'
-                    )
-                },
-                {
-                    weight: '800',
-                    style: 'normal',
-                    path: join(
-                        process.cwd(),
-                        'public',
-                        'fonts',
-                        'Manrope-ExtraBold.woff2'
-                    )
-                }
-            ]
+            fetch: true,
+            verbose: true,
+            cacheDir: '.cache',
+            googleFontsURL:
+                'https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap'
+        },
+        {
+            src: [],
+            preload: true,
+            display: 'block',
+            name: 'fira-code',
+            fallback: 'monospace',
+            fetch: true,
+            verbose: true,
+            cacheDir: '.cache',
+            googleFontsURL:
+                'https://fonts.googleapis.com/css2?family=Fira+Code:opsz,wght,FILL,GRAD@24,400,0,0'
         }
     ]}
 />
