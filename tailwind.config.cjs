@@ -11,6 +11,7 @@ module.exports = {
             },
             fontFamily: {
                 body: ['manrope', ...defaultTheme.fontFamily.sans],
+                heading: ['playfair-display', ...defaultTheme.fontFamily.serif],
                 sans: ['manrope', ...defaultTheme.fontFamily.sans],
                 code: ['fira-code', ...defaultTheme.fontFamily.mono],
             },

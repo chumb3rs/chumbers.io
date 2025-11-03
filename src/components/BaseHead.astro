@@ -95,6 +95,18 @@ import { AstroFont } from 'astro-font';
         {
             src: [],
             preload: true,
+            display: 'swap',
+            name: 'playfair-display',
+            fallback: 'serif',
+            fetch: true,
+            verbose: true,
+            cacheDir: '.cache',
+            googleFontsURL:
+                'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..900&display=swap'
+        },
+        {
+            src: [],
+            preload: true,
             display: 'block',
             name: 'fira-code',
             fallback: 'monospace',
