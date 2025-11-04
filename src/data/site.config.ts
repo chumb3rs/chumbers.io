@@ -2,6 +2,7 @@ interface SiteConfig {
     site: string;
     author: string;
     title: string;
+    displayTitle: string;
     description: string;
     lang: string;
     ogLocale: string;
@@ -13,6 +14,7 @@ export const siteConfig: SiteConfig = {
     site: 'https://chumbers.io', // Write here your website url
     author: 'Nick Marks', // Site author
     title: 'chumbers.io', // Site title.
+    displayTitle: 'chumbers',
     description: 'A knowledge sharing site, by chumbers', // Description to display in the meta tags
     lang: 'en-AU',
     ogLocale: 'en_AU',

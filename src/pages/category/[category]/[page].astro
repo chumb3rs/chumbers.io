@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout';
 import ListPosts from '@/components/ListPosts';
 import ListCategories from '@/components/ListCategories';
-import TitlePage from '@/components/TitlePage';
+import Title from '@/components/Title';
 import { sluglify, unsluglify, getCategories, getPosts } from '@/utils';
 import { siteConfig } from '@/data/site.config';
 import Pagination from '@/components/Pagination';
@@ -37,7 +37,7 @@ const posts = page.data;
 ---
 
 <BaseLayout title={categoryName}>
-    <TitlePage title={categoryName} />
+    <Title title={categoryName} />
     <ListCategories activeCategory={params.category} />
     <ListPosts posts={posts} />
     <Pagination page={page} />

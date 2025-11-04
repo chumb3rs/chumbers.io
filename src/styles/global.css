@@ -51,3 +51,12 @@
 .shadow {
     box-shadow: -5px 3px 8px 1px rgba(0, 0, 0, 0.12);
 }
+
+.hoverLink {
+    color: var(--color-white, white);
+    transition: color 0.3s ease;
+}
+
+.hoverLink:hover {
+    color: var(--color-primary);
+}
