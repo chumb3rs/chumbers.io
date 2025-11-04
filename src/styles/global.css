@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --color-white: #f8f9fa;
+    --color-black: #1b1b1b;
+    --color-primary: #4ef6c7;
+}
+
 @layer base {
     /* body {
 		transition: background-color 0.5s ease;
