@@ -1,10 +1,44 @@
 ---
+import NewsletterForm from '@/components/NewsletterForm';
 import { siteConfig } from '@/site-config';
+import { footerLinks } from '@/data/links';
 
 const today = new Date();
 ---
 
-<footer class='flex justify-center items-center w-full px-16 h-28 border-t-2'>
-    &copy; {today.getFullYear()}
-    {siteConfig.author}. All rights reserved.
+<footer
+    class='w-full px-16 h-56 flex flex-col items-center justify-center gap-6'
+>
+    <div
+        class='border-t-2 flex justify-center items-center gap-8 w-full pt-6 pb-4'
+    >
+        <div class='flex-[4] flex flex-col items-center gap-2'>
+            <p>Okay, it's not that interesting. Go do something.</p>
+            <NewsletterForm />
+        </div>
+        <div class='flex-[2] flex'>
+            {
+                footerLinks.map((link, index) => (
+                    <div class='flex gap-2 ml-2'>
+                        <a href={link.url}>{link.text}</a>
+                        {index != footerLinks.length - 1 && <p>&#10022;</p>}
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+
+    <div class='border-t-2 w-full text-center pt-4'>
+        Built with ❤️ using <a
+            href='https://astro.build/'
+            class='underline'
+            target='_blank'
+            rel='noopener noreferrer'>Astro</a
+        > &#10022; Inspired by <a
+            href='https://github.com/danielcgilibert/blog-template'
+            class='underline'
+            target='_blank'
+            rel='noopener noreferrer'>danielcgilibert</a
+        >
+    </div>
 </footer>

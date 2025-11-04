@@ -1,0 +1,38 @@
+---
+//TODO: Change to actually submit the form data
+//Refer to https://docs.astro.build/en/recipes/build-forms/
+const handleSubmit = (e: Event) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const email = (
+        form.querySelector("input[name='email']") as HTMLInputElement
+    ).value;
+
+    // Boilerplate submission logic
+    console.log('Newsletter signup:', email);
+    alert(`Thanks for subscribing, ${email}!`);
+
+    form.reset();
+};
+---
+
+<form id='newsletter-form' class='relative w-full max-w-md mx-auto'>
+    <div
+        class='flex items-center rounded-2xl border-2 border-gray-300 transition-colors duration-300 hover:border-teal focus-within:border-primary overflow-hidden hover:border-primary'
+    >
+        <input
+            type='email'
+            name='email'
+            required
+            placeholder='Enter your email'
+            class='flex-grow bg-transparent px-4 py-3 text-sm focus:outline-none'
+        />
+
+        <button
+            type='submit'
+            class='absolute right-0 h-full px-5 rounded-r-2xl bg-teal font-medium transition-colors duration-300 hover:bg-teal/90 focus:outline-none'
+        >
+            Subscribe
+        </button>
+    </div>
+</form>
