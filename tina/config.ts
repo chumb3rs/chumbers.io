@@ -34,14 +34,23 @@ export default defineConfig({
                         name: 'heroImage',
                         description: 'The image used for the cover of the post',
                     },
-
                     {
-                        type: 'string',
-                        required: true,
-                        name: 'category',
+                        type: 'reference',
                         label: 'Category',
-                        description: 'Select an category for this post',
-                        options: [...CATEGORIES],
+                        name: 'category',
+                        collections: ['category'],
+                    },
+                    {
+                        type: 'reference',
+                        label: 'Project',
+                        name: 'project',
+                        collections: ['project'],
+                    },
+                    {
+                        type: 'reference',
+                        label: 'Series',
+                        name: 'series',
+                        collections: ['series'],
                     },
                     {
                         type: 'string',
@@ -101,6 +110,98 @@ export default defineConfig({
                                 ],
                             },
                         ],
+                    },
+                ],
+            },
+            {
+                name: 'category',
+                label: 'Category',
+                path: 'src/content/category',
+                fields: [
+                    {
+                        type: 'string',
+                        label: 'Title',
+                        name: 'title',
+                        isTitle: true,
+                        required: true,
+                    },
+                    {
+                        type: 'string',
+                        label: 'Description',
+                        name: 'description',
+                    },
+                ],
+            },
+            {
+                name: 'project',
+                label: 'Project',
+                path: 'src/content/project',
+                format: 'mdx',
+                fields: [
+                    {
+                        type: 'string',
+                        label: 'Title',
+                        name: 'title',
+                        isTitle: true,
+                        required: true,
+                    },
+                    {
+                        type: 'string',
+                        label: 'Description',
+                        name: 'description',
+                    },
+                    {
+                        type: 'string',
+                        name: 'tags',
+                        required: true,
+                        label: 'Tags',
+                        description: 'Tags for this post',
+                        list: true,
+                        ui: {
+                            component: 'tags',
+                        },
+                    },
+                    {
+                        type: 'datetime',
+                        label: 'Publication Date',
+                        name: 'pubDate',
+                    },
+                    {
+                        type: 'datetime',
+                        label: 'Last Updated Date',
+                        name: 'lastUpdatedDate',
+                    },
+                    {
+                        type: 'rich-text',
+                        label: 'Body',
+                        name: 'body',
+                        isBody: true,
+                    },
+                ],
+            },
+            {
+                name: 'series',
+                label: 'Series',
+                path: 'src/content/series',
+                format: 'mdx',
+                fields: [
+                    {
+                        type: 'string',
+                        label: 'Title',
+                        name: 'title',
+                        isTitle: true,
+                        required: true,
+                    },
+                    {
+                        type: 'string',
+                        label: 'Description',
+                        name: 'description',
+                    },
+                    {
+                        type: 'rich-text',
+                        label: 'Body',
+                        name: 'body',
+                        isBody: true,
                     },
                 ],
             },
