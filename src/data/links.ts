@@ -1,7 +1,12 @@
 import type { SocialNetwork } from 'src/types/socials';
 import GithubIcon from '@/components/icons/GithubIcon';
 import InstagramIcon from '@/components/icons/InstagramIcon';
+import TagIcon from '@/components/icons/TagIcon';
+import SeriesIcon from '@/components/icons/SeriesIcon';
+import ProjectIcon from '@/components/icons/ProjectIcon';
+import CategoryIcon from '@/components/icons/CategoryIcon';
 import type { PageLink } from '@/types/pageLinks';
+import type { IContentType } from '@/types/contentType';
 
 export const SOCIALNETWORKS: SocialNetwork[] = [
     {
@@ -28,5 +33,24 @@ export const footerLinks: PageLink[] = [
     {
         text: 'Resume',
         url: '/resume',
+    },
+] as const;
+
+export const contentTypes: IContentType[] = [
+    {
+        name: 'Categories',
+        icon: CategoryIcon,
+    },
+    {
+        name: 'Projects',
+        icon: ProjectIcon,
+    },
+    {
+        name: 'Series',
+        icon: SeriesIcon,
+    },
+    {
+        name: 'Tags',
+        icon: TagIcon,
     },
 ] as const;
