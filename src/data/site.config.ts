@@ -21,3 +21,11 @@ export const siteConfig: SiteConfig = {
     shareMessage: 'Share this post', // Message to share a post on social media
     paginationSize: 6, // Number of posts per page
 };
+
+export const sitePaths = {
+    posts: '/posts',
+    categories: '/categories',
+    tags: '/tags',
+    series: '/series',
+    projects: '/projects',
+};

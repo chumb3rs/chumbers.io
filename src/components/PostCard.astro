@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import FormattedDate from '@/components/FormattedDate';
 import ArrowUp from '@/components/icons/ArrowUp';
+import { sitePaths } from '@/data/site.config';
 
 const {
     id,
@@ -14,7 +15,7 @@ const {
 <article
     class='grid grid-rows-[300px_auto] md:grid-rows-[300px_220px] min-h-full group'
 >
-    <a class='relative overflow-hidden' href={`/post/${slug}/`}>
+    <a class='relative overflow-hidden' href={`${sitePaths.posts}/${slug}/`}>
         <Image
             src={heroImage}
             width={600}
@@ -44,7 +45,7 @@ const {
             <div class='flex flex-col gap-2'>
                 <a
                     class='text-2xl font-semibold -tracking-wider'
-                    href={`/post/${slug}/`}
+                    href={`${sitePaths.posts}/${slug}/`}
                 >
                     {title}
                 </a>
@@ -59,7 +60,7 @@ const {
 
         <footer class='flex justify-between items-center'>
             <a
-                href={`/post/${slug}/`}
+                href={`${sitePaths.posts}/${slug}/`}
                 class='flex justify-center items-center dark:text-white rounded-full hover:translate-x-1 transition-transform duration-150 ease-in-out font-semibold gap-1 group'
                 aria-label={`go to ${title}`}
             >

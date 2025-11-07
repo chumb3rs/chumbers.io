@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content';
 import { CATEGORIES } from '@/data/categories';
 
 export const getCategories = async () => {
-    const posts = await getCollection('blog');
+    const posts = await getCollection('posts');
     const categories = new Set(
         posts
             .filter((post) => !post.data.draft)
@@ -14,14 +14,14 @@ export const getCategories = async () => {
 };
 
 export const getPosts = async (max?: number) => {
-    return (await getCollection('blog'))
+    return (await getCollection('posts'))
         .filter((post) => !post.data.draft)
         .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
         .slice(0, max);
 };
 
 export const getTags = async () => {
-    const posts = await getCollection('blog');
+    const posts = await getCollection('posts');
     const tags = new Set();
     posts
         .filter((post) => !post.data.draft)

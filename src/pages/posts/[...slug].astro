@@ -1,6 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '@/layouts/BlogPost';
+import Post from '@/layouts/Post';
 import Code from '@/components/mdx/Code';
 import ListRelatedPosts from '@/components/ListRelatedPosts';
 import Share from '@/components/Share';
@@ -10,7 +10,7 @@ import SButton from '@/components/mdx/SButton';
 import Disqus from '@/components/Disqus';
 import { disqusConfig } from '@/data/disqus.config';
 
-const posts = await getCollection('blog');
+const posts = await getCollection('posts');
 export async function getStaticPaths() {
     const posts = await getPosts();
 
@@ -19,7 +19,7 @@ export async function getStaticPaths() {
         props: post
     }));
 }
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<'posts'>;
 
 const post = Astro.props;
 const MAX_POSTS = 3;
@@ -40,7 +40,7 @@ const { Content, headings, remarkPluginFrontmatter } = await post.render();
 const disqusEnabled = disqusConfig.enabled;
 ---
 
-<BlogPost
+<Post
     id={post.id}
     data={post.data}
     headings={headings}
@@ -80,4 +80,4 @@ const disqusEnabled = disqusConfig.enabled;
     </div>
 
     {disqusEnabled && <Disqus />}
-</BlogPost>
+</Post>

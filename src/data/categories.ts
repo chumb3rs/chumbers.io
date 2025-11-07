@@ -1,4 +1,4 @@
-// List of categories for blog posts
+// List of categories for posts
 export const CATEGORIES = [
     'Blog',
     'Newsletter',

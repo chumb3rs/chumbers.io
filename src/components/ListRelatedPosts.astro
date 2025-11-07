@@ -2,10 +2,11 @@
 import type { CollectionEntry } from 'astro:content';
 
 import { cn } from '@/utils';
+import { sitePaths } from '@/data/site.config';
 import { Image } from 'astro:assets';
 
 type Props = {
-    posts: CollectionEntry<'blog'>[];
+    posts: CollectionEntry<'posts'>[];
 };
 
 const { posts } = Astro.props;
@@ -30,7 +31,7 @@ const { posts } = Astro.props;
                         <header class='flex justify-center items-center'>
                             <a
                                 class='font-medium  hover:underline'
-                                href={`/post/${post.slug}/`}
+                                href={`${sitePaths.posts}/${post.slug}/`}
                             >
                                 {post.data.title}
                             </a>
