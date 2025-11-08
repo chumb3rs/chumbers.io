@@ -11,6 +11,6 @@ const posts = await filterPostsByCategory({ max: MAXPOSTS });
 ---
 
 <BaseLayout title='Categories'>
-    <ListCategories categories={categories} />
+    <ListCategories categories={categories} activeCategory='' />
     <ListPosts posts={posts} />
 </BaseLayout>

@@ -12,7 +12,6 @@ const { activeCategory } = Astro.props;
         contentTypes.map((contentType: IContentType) => (
             <ContentType
                 name={contentType.name}
-                url={contentType.url}
                 icon={contentType.icon}
                 activeCategory={activeCategory}
             />

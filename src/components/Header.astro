@@ -5,54 +5,65 @@ import Search from '@/components/Search';
 import Title from './Title.astro';
 import ToggleTheme from './ToggleTheme.astro';
 import { SOCIALNETWORKS } from '@/data/links';
+import ListContentTypes from './ListContentTypes.astro';
 import { siteConfig } from '@/data/site.config';
 ---
 
-<header class='relative flex items-center h-12 font-semibold mt-4 mb-10'>
-    <Title title={siteConfig.displayTitle} />
+<header
+    class='relative flex flex-col justify-between items-center font-semibold mt-4 mb-10'
+>
     <div
-        id='astro-header-drawer'
-        class='shadow rounded-l-lg md:bg-transparent dark:md:bg-transparent bg-white dark:bg-[#0a0910] md:shadow-none md:rounded-none md:border-none md:h-auto md:static absolute transition-transform duration-300 ease-in translate-x-96 md:translate-x-0 top-12 -right-5 pl-4 pt-6 pb-4 md:p-0 h-[200px] w-[200px] z-50'
+        class='relative flex items-center h-12 font-semibold mt-4 mb-10 w-full'
     >
-        <nav
-            class='flex h-full flex-col justify-between gap-12 text-left md:flex-row md:w-full md:gap-5'
+        <Title title={siteConfig.displayTitle} />
+        <div
+            id='astro-header-drawer'
+            class='shadow rounded-l-lg md:bg-transparent dark:md:bg-transparent bg-white dark:bg-[#0a0910] md:shadow-none md:rounded-none md:border-none md:h-auto md:static absolute transition-transform duration-300 ease-in translate-x-96 md:translate-x-0 top-12 -right-5 pl-4 pt-6 pb-4 md:p-0 h-[200px] w-[200px] z-50'
         >
-            <div
-                class='flex flex-col gap-4 md:flex-row md:border-r-2 border-black pr-6 dark:border-white'
+            <nav
+                class='flex h-full flex-col justify-between gap-12 text-left md:flex-row md:w-full md:gap-5'
             >
-                <Search />
-            </div>
+                <div
+                    class='flex flex-col gap-4 md:flex-row md:border-r-2 border-black pr-6 dark:border-white'
+                >
+                    <Search />
+                </div>
 
-            <div
-                class='flex justify-around items-center md:justify-end gap-4 md:p-0'
-            >
-                {
-                    SOCIALNETWORKS.map((network) => (
-                        <HeaderLink
-                            class=''
-                            href={network.url}
-                            target='_blank'
-                            aria-label={network.name}
-                        >
-                            <span>{<network.icon />} </span>
-                        </HeaderLink>
-                    ))
-                }
-            </div>
-        </nav>
-    </div>
+                <div
+                    class='flex justify-around items-center md:justify-end gap-4 md:p-0'
+                >
+                    {
+                        SOCIALNETWORKS.map((network) => (
+                            <HeaderLink
+                                class=''
+                                href={network.url}
+                                target='_blank'
+                                aria-label={network.name}
+                            >
+                                <span>{<network.icon />} </span>
+                            </HeaderLink>
+                        ))
+                    }
+                </div>
+            </nav>
+        </div>
 
-    <div class='flex items-center gap-4 md:pl-5' transition:persist='navbar'>
-        <ToggleTheme />
-        <button
-            id='astro-header-drawer-button'
-            type='button'
-            class='md:ml-6 md:hidden'
+        <div
+            class='flex items-center gap-4 md:pl-5'
+            transition:persist='navbar'
         >
-            <MenuIcon />
-            <span class='sr-only'>Show Menu</span>
-        </button>
+            <ToggleTheme />
+            <button
+                id='astro-header-drawer-button'
+                type='button'
+                class='md:ml-6 md:hidden'
+            >
+                <MenuIcon />
+                <span class='sr-only'>Show Menu</span>
+            </button>
+        </div>
     </div>
+    <ListContentTypes />
 </header>
 <script>
     document.addEventListener('click', (event) => {

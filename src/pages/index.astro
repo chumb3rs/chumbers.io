@@ -1,5 +1,4 @@
 ---
-import ListContentTypes from '@/components/ListContentTypes';
 import ListPosts from '@/components/ListPosts';
 import BaseLayout from '@/layouts/BaseLayout';
 import { getPosts } from '@/utils';
@@ -9,8 +8,6 @@ const posts = await getPosts(MAX_POSTS);
 ---
 
 <BaseLayout title='Home'>
-    <ListContentTypes />
-
     <div>
         <h2 class='text-lg font-medium tracking-wide text-end'>Latest Posts</h2>
         <ListPosts FirstBig={true} posts={posts} />
