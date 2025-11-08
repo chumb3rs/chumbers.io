@@ -38,14 +38,14 @@
         "prepare": "husky install"
     },
     "dependencies": {
-        "@astrojs/rss": "4.0.1",
-        "astro": "4.0.8",
+        "@astrojs/rss": "^4.0.13",
+        "astro": "^5.15.4",
         "astro-font": "1.1.0"
     },
     "devDependencies": {
-        "@astrojs/mdx": "2.0.3",
-        "@astrojs/sitemap": "3.0.4",
-        "@astrojs/tailwind": "5.1.0",
+        "@astrojs/mdx": "^4.3.10",
+        "@astrojs/sitemap": "^3.6.0",
+        "@astrojs/tailwind": "^6.0.2",
         "@biomejs/biome": "2.3.2",
         "@pagefind/default-ui": "^1.0.4",
         "@tailwindcss/typography": "0.5.10",
