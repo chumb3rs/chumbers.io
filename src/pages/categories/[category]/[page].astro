@@ -2,7 +2,13 @@
 import ContentTypeLayout from '@/layouts/ContentTypeLayout';
 import ListPosts from '@/components/ListPosts';
 import ListCategories from '@/components/ListCategories';
-import { sluglify, unsluglify, getCategories, getPosts } from '@/utils';
+import {
+    sluglify,
+    unsluglify,
+    getCategories,
+    getPosts,
+    capitalizeWord
+} from '@/utils';
 import { siteConfig } from '@/data/site.config';
 import Pagination from '@/components/Pagination';
 import type { CollectionEntry } from 'astro:content';
@@ -38,7 +44,10 @@ const categoryTitle = unsluglify(params.category!.toLowerCase());
 const posts = page.data;
 ---
 
-<ContentTypeLayout contentType='categories' title={categoryTitle}>
+<ContentTypeLayout
+    contentType='categories'
+    title={capitalizeWord(categoryTitle)}
+>
     <ListCategories categories={categories} activeCategory={categoryTitle} />
     <ListPosts posts={posts} />
     <Pagination page={page} />
