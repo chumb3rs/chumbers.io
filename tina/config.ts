@@ -1,4 +1,4 @@
-import { CATEGORIES } from '../src/data/categories.ts';
+import { CATEGORIES, PROJECT_STATUSES } from '../src/data/utils.ts';
 import { defineConfig } from 'tinacms';
 
 // Your hosting provider likely exposes this as an environment variable
@@ -127,14 +127,6 @@ export default defineConfig({
                         options: [...CATEGORIES],
                     },
                     {
-                        type: 'image',
-                        label: 'Cover Image',
-                        required: true,
-                        name: 'heroImage',
-                        description:
-                            'The image used for the cover of the category',
-                    },
-                    {
                         type: 'string',
                         label: 'Description',
                         name: 'description',
@@ -162,9 +154,9 @@ export default defineConfig({
                     },
                     {
                         type: 'string',
+                        label: 'Tags',
                         name: 'tags',
                         required: true,
-                        label: 'Tags',
                         description: 'Tags for this post',
                         list: true,
                         ui: {
@@ -172,14 +164,25 @@ export default defineConfig({
                         },
                     },
                     {
+                        type: 'string',
+                        label: 'Status',
+                        name: 'status',
+                        options: [...PROJECT_STATUSES],
+                    },
+                    {
                         type: 'datetime',
-                        label: 'Publication Date',
-                        name: 'pubDate',
+                        label: 'Start Date',
+                        name: 'dateStart',
                     },
                     {
                         type: 'datetime',
                         label: 'Last Updated Date',
                         name: 'lastUpdatedDate',
+                    },
+                    {
+                        type: 'datetime',
+                        label: 'End Date',
+                        name: 'dateEnd',
                     },
                     {
                         type: 'rich-text',
