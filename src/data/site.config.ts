@@ -1,3 +1,5 @@
+import { ContentTypeEnum } from './utils';
+
 interface SiteConfig {
     site: string;
     author: string;
@@ -22,10 +24,10 @@ export const siteConfig: SiteConfig = {
     paginationSize: 6,
 };
 
-export const sitePaths = {
-    posts: '/posts',
-    categories: '/categories',
-    tags: '/tags',
-    series: '/series',
-    projects: '/projects',
+export const sitePaths: Record<ContentTypeEnum, string> = {
+    [ContentTypeEnum.Posts]: '/posts',
+    [ContentTypeEnum.Categories]: '/categories',
+    [ContentTypeEnum.Tags]: '/tags',
+    [ContentTypeEnum.Series]: '/series',
+    [ContentTypeEnum.Projects]: '/projects',
 };

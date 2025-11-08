@@ -20,7 +20,7 @@ export const getTags = async () => {
             });
         });
 
-    return Array.from(tags);
+    return Array.from(tags).sort();
 };
 
 export const getPostByTag = async (tag: string) => {

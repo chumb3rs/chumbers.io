@@ -1,7 +1,7 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout';
+import ContentTypeLayout from '@/layouts/ContentTypeLayout';
 import ListPosts from '@/components/ListPosts';
-import Title from '@/components/Title';
+import ListTags from '@/components/ListTags.astro';
 import { getTags, getPostByTag } from '@/utils';
 
 export async function getStaticPaths() {
@@ -15,10 +15,11 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.props;
 
+const tags = await getTags();
 const posts = await getPostByTag(tag);
 ---
 
-<BaseLayout title={tag}>
-    <Title title={tag} />
+<ContentTypeLayout contentType='tags' title={tag}>
+    <ListTags tags={tags} activeTag={tag} />
     <ListPosts posts={posts} />
-</BaseLayout>
+</ContentTypeLayout>

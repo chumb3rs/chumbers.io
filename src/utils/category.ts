@@ -1,6 +1,6 @@
 import { getCollection, getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import { CATEGORIES } from '@/data/categories';
+import { CATEGORIES } from '@/data/utils';
 
 export const getCategories = async () => {
     return (await getCollection('categories')).sort((a, b) =>

@@ -6,7 +6,7 @@ const { contentType, title } = Astro.props;
 <BaseLayout title={title}>
     <section class='mt-4 text-center'>
         <a
-            href='/categories'
+            href={`/${contentType}`}
             class='text-xl font-bold text-center underline--magical inline-block mx-auto font-mono'
             >{`./${contentType.toUpperCase()}`}</a
         >

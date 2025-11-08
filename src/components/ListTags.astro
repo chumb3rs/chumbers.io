@@ -1,0 +1,26 @@
+---
+import ContentTypeSelection from '@/components/ContentTypeSelection';
+import { ContentTypeEnum } from '@/data/utils';
+
+type Props = {
+    tags: String[];
+    activeTag: String;
+};
+
+const { tags, activeTag = '' } = Astro.props;
+---
+
+<div class='mt-5 mb-8 flex flex-wrap justify-center w-full md:w-2/3 mx-auto'>
+    {
+        tags.map((tag) => {
+            return (
+                <ContentTypeSelection
+                    text={tag}
+                    slug={tag}
+                    activeOption={activeTag}
+                    type={ContentTypeEnum.Tags}
+                />
+            );
+        })
+    }
+</div>

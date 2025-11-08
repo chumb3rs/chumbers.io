@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import Category from '@/components/Category';
+import ContentTypeSelection from '@/components/ContentTypeSelection';
+import { ContentTypeEnum } from '@/data/utils';
 
 type Props = {
     categories: CollectionEntry<'categories'>[];
@@ -16,10 +17,11 @@ const { categories, activeCategory = '' } = Astro.props;
     {
         categories.map((category) => {
             return (
-                <Category
-                    data={category.data}
+                <ContentTypeSelection
+                    text={category.data.title}
                     slug={category.slug}
-                    activeCategory={activeCategory}
+                    activeOption={activeCategory}
+                    type={ContentTypeEnum.Categories}
                 />
             );
         })
