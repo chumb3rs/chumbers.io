@@ -2,6 +2,7 @@
     "extends": "astro/tsconfigs/strict",
     "compilerOptions": {
         "strictNullChecks": true,
+        "allowJs": true, // see https://docs.astro.build/en/guides/content-collections/
         "baseUrl": ".",
         "verbatimModuleSyntax": true,
         "paths": {

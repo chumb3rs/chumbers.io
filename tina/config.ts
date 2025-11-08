@@ -23,7 +23,7 @@ export default defineConfig({
         collections: [
             {
                 name: 'post',
-                label: 'Blog Post',
+                label: 'Post',
                 path: 'src/content/posts',
                 format: 'mdx',
                 fields: [
@@ -116,7 +116,7 @@ export default defineConfig({
             {
                 name: 'category',
                 label: 'Category',
-                path: 'src/content/category',
+                path: 'src/content/categories',
                 fields: [
                     {
                         type: 'string',
@@ -124,18 +124,28 @@ export default defineConfig({
                         name: 'title',
                         isTitle: true,
                         required: true,
+                        options: [...CATEGORIES],
+                    },
+                    {
+                        type: 'image',
+                        label: 'Cover Image',
+                        required: true,
+                        name: 'heroImage',
+                        description:
+                            'The image used for the cover of the category',
                     },
                     {
                         type: 'string',
                         label: 'Description',
                         name: 'description',
+                        required: true,
                     },
                 ],
             },
             {
                 name: 'project',
                 label: 'Project',
-                path: 'src/content/project',
+                path: 'src/content/projects',
                 format: 'mdx',
                 fields: [
                     {

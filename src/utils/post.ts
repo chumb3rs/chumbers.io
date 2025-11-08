@@ -2,6 +2,12 @@ import { getCollection } from 'astro:content';
 import { CATEGORIES } from '@/data/categories';
 
 export const getCategories = async () => {
+    return (await getCollection('categories')).sort((a, b) =>
+        a.data.title < b.data.title ? 1 : -1,
+    );
+};
+
+export const getNonEmptyCategories = async () => {
     const posts = await getCollection('posts');
     const categories = new Set(
         posts
