@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout';
+import ContentTypeLayout from '@/layouts/ContentTypeLayout';
 import ListPosts from '@/components/ListPosts';
 import ListCategories from '@/components/ListCategories';
 import { sluglify, unsluglify, getCategories, getPosts } from '@/utils';
@@ -38,8 +38,8 @@ const categoryTitle = unsluglify(params.category!.toLowerCase());
 const posts = page.data;
 ---
 
-<BaseLayout title={categoryTitle}>
+<ContentTypeLayout contentType='categories' title={categoryTitle}>
     <ListCategories categories={categories} activeCategory={categoryTitle} />
     <ListPosts posts={posts} />
     <Pagination page={page} />
-</BaseLayout>
+</ContentTypeLayout>

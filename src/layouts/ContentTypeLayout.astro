@@ -1,0 +1,16 @@
+---
+import BaseLayout from '@/layouts/BaseLayout';
+const { contentType, title } = Astro.props;
+---
+
+<BaseLayout title={title}>
+    <section class='mt-4 text-center'>
+        <a
+            href='/categories'
+            class='text-xl font-bold text-center underline--magical inline-block mx-auto font-mono'
+            >{`./${contentType.toUpperCase()}`}</a
+        >
+
+        <slot />
+    </section>
+</BaseLayout>

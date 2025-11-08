@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout';
+import ContentTypeLayout from '@/layouts/ContentTypeLayout';
 import { getCategories, filterPostsByCategory } from '@/utils';
 import ListCategories from '@/components/ListCategories';
 import ListPosts from '@/components/ListPosts';
@@ -10,7 +10,7 @@ const categories = await getCategories();
 const posts = await filterPostsByCategory({ max: MAXPOSTS });
 ---
 
-<BaseLayout title='Categories'>
+<ContentTypeLayout contentType='categories' title='Categories'>
     <ListCategories categories={categories} activeCategory='' />
     <ListPosts posts={posts} />
-</BaseLayout>
+</ContentTypeLayout>
