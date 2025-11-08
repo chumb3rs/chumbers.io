@@ -1,0 +1,52 @@
+---
+import { sitePaths } from '@/data/site.config';
+import { cn, sluglify } from '@/utils';
+
+const {
+    data: { title },
+    slug,
+    activeCategory
+} = Astro.props;
+
+const unsluglifyNameCategory = sluglify(title.toLowerCase());
+const isActive = activeCategory?.toLocaleLowerCase() === unsluglifyNameCategory;
+const href = isActive
+    ? sitePaths.categories
+    : `${sitePaths.categories}/${slug}/1`;
+---
+
+<a
+    href={href}
+    class={cn(
+        'group relative flex items-center justify-center gap-2 px-4 md:px-10 py-2 mx-2 my-2 text-lg md:text-xl font-medium border-2 rounded-tl-3xl rounded-br-3xl rounded-bl-md rounded-tr-md transition-all duration-300',
+        'border-border text-foreground',
+        !isActive &&
+            'hover:border-primary hover:bg-primary/20 hover:text-primary',
+        isActive && 'border-primary bg-primary/20 text-primary'
+    )}
+>
+    <span class='transition-all duration-300'>{title.toLowerCase()}</span>
+
+    <span
+        class={cn(
+            'absolute right-4 flex items-center justify-center w-4 h-4 transition-opacity duration-300',
+            isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        )}
+        aria-hidden={!isActive}
+    >
+        <!-- simple inline cross -->
+        <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='none'
+            viewBox='0 0 24 24'
+            stroke-width='2'
+            stroke='currentColor'
+            class='w-4 h-4'
+        >
+            <path
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                d='M6 18L18 6M6 6l12 12'></path>
+        </svg>
+    </span>
+</a>

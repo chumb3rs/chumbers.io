@@ -1,17 +1,21 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout';
 import ListPosts from '@/components/ListPosts';
-import Title from '@/components/Title';
+import ListCategories from '@/components/ListCategories';
 import { sluglify, unsluglify, getCategories, getPosts } from '@/utils';
 import { siteConfig } from '@/data/site.config';
 import Pagination from '@/components/Pagination';
+import type { CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths({ paginate }: any) {
     const categories = await getCategories();
     const allPosts = await getPosts();
 
-    return categories.flatMap((category: string) => {
-        const unsluglifyNameCategory = unsluglify(category!.toLowerCase());
+    return categories.flatMap((category: CollectionEntry<'categories'>) => {
+        const {
+            data: { title }
+        } = category;
+        const unsluglifyNameCategory = unsluglify(title!.toLowerCase());
         const filteredPosts = allPosts.filter(
             (post) =>
                 post.data.category.toLowerCase() === unsluglifyNameCategory
@@ -19,7 +23,7 @@ export async function getStaticPaths({ paginate }: any) {
 
         return paginate(filteredPosts, {
             params: {
-                category: sluglify(category.toLowerCase())
+                category: sluglify(title.toLowerCase())
             },
             pageSize: siteConfig.paginationSize
         });
@@ -28,16 +32,14 @@ export async function getStaticPaths({ paginate }: any) {
 const params = Astro.params;
 const { page } = Astro.props;
 
-const unsluglifyNameCategory = unsluglify(params.category!.toLowerCase());
-const categoryName =
-    (await getCategories()).find(
-        (category) => category.toLowerCase() === unsluglifyNameCategory
-    ) || '';
+const categories = await getCategories();
+
+const categoryTitle = unsluglify(params.category!.toLowerCase());
 const posts = page.data;
 ---
 
-<BaseLayout title={categoryName}>
-    <Title title={categoryName} />
+<BaseLayout title={categoryTitle}>
+    <ListCategories categories={categories} activeCategory={categoryTitle} />
     <ListPosts posts={posts} />
     <Pagination page={page} />
 </BaseLayout>

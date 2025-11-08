@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Category from '@/components/Category';
+
+type Props = {
+    categories: CollectionEntry<'categories'>[];
+    activeCategory: String;
+};
+
+const { categories, activeCategory = '' } = Astro.props;
+---
+
+<section class='mt-12 text-center'>
+    <a
+        href='/categories'
+        class='text-xl font-bold text-center underline--magical inline-block mx-auto font-mono'
+        >./CATEGORIES</a
+    >
+    <div
+        class='mt-5 flex items-center flex-wrap justify-center w-full md:w-2/3 mx-auto'
+    >
+        {
+            categories.map((category) => {
+                return (
+                    <Category
+                        data={category.data}
+                        slug={category.slug}
+                        activeCategory={activeCategory}
+                    />
+                );
+            })
+        }
+    </div>
+</section>
