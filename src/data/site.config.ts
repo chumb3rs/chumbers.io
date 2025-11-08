@@ -11,15 +11,15 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-    site: 'https://chumbers.io', // Write here your website url
-    author: 'Nick Marks', // Site author
-    title: 'chumbers.io', // Site title.
+    site: 'https://chumbers.io',
+    author: 'Nick Marks',
+    title: 'chumbers.io',
     displayTitle: 'chumbers',
-    description: 'A knowledge sharing site, by chumbers', // Description to display in the meta tags
+    description: 'A knowledge sharing site, by chumbers',
     lang: 'en-AU',
     ogLocale: 'en_AU',
-    shareMessage: 'Share this post', // Message to share a post on social media
-    paginationSize: 6, // Number of posts per page
+    shareMessage: 'Share this post',
+    paginationSize: 6,
 };
 
 export const sitePaths = {
