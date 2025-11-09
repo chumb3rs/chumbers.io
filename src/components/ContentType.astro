@@ -5,16 +5,16 @@ import HomeIcon from '@/components/icons/HomeIcon';
 const { name = 'Posts', icon: Icon = HomeIcon } = Astro.props;
 const currentPath = Astro.url.pathname;
 const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
-const currentCategory = (pathSegments.length === 1 && pathSegments[0]) ?? '';
-const unsluglifyNameCategory = sluglify(name.toLowerCase());
+const currentContentType = pathSegments.length ? pathSegments[0] : null;
+const unslugifyContentTypeName = sluglify(name.toLowerCase());
 
 const isActive =
-    currentCategory === unsluglifyNameCategory ||
+    currentContentType === unslugifyContentTypeName ||
     (currentPath === '/' && name === 'Posts');
 ---
 
 <a
-    href={name === 'Posts' ? '/' : sluglify(`/${unsluglifyNameCategory}`)}
+    href={name === 'Posts' ? '/' : sluglify(`/${unslugifyContentTypeName}`)}
     class={cn(
         `text-gray-600 dark:text-gray-300  pb-2.5 first-letter:uppercase font-medium hover:text-gray-800 border-b-2 border-opacity-0 dark:border-opacity-0 border-black dark:border-white dark:hover:border-white hover:border-opacity-100 transition-colors duration-150 ease-linear`,
         isActive &&
