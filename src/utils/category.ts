@@ -4,7 +4,7 @@ import { CATEGORIES } from '@/data/utils';
 
 export const getCategories = async () => {
     return (await getCollection('categories')).sort((a, b) =>
-        a.data.title < b.data.title ? 1 : -1,
+        a.data.title < b.data.title ? -1 : 1,
     );
 };
 

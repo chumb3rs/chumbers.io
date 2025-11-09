@@ -1,12 +1,12 @@
 ---
-import { cn, sluglify } from '@/utils';
+import { cn, slugify } from '@/utils';
 import HomeIcon from '@/components/icons/HomeIcon';
 
 const { name = 'Posts', icon: Icon = HomeIcon } = Astro.props;
 const currentPath = Astro.url.pathname;
 const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
 const currentContentType = pathSegments.length ? pathSegments[0] : null;
-const unslugifyContentTypeName = sluglify(name.toLowerCase());
+const unslugifyContentTypeName = slugify(name.toLowerCase());
 
 const isActive =
     currentContentType === unslugifyContentTypeName ||
@@ -14,11 +14,11 @@ const isActive =
 ---
 
 <a
-    href={name === 'Posts' ? '/' : sluglify(`/${unslugifyContentTypeName}`)}
+    href={name === 'Posts' ? '/' : slugify(`/${unslugifyContentTypeName}`)}
     class={cn(
-        `text-gray-600 dark:text-gray-300  pb-2.5 first-letter:uppercase font-medium hover:text-gray-800 border-b-2 border-opacity-0 dark:border-opacity-0 border-black dark:border-white dark:hover:border-white hover:border-opacity-100 transition-colors duration-150 ease-linear`,
+        `text-gray-600 dark:text-gray-300 pb-2.5 first-letter:uppercase font-medium hover:text-gray-800 border-b-2 border-opacity-0 dark:border-opacity-0 border-black dark:border-white dark:hover:border-white hover:border-opacity-100 transition-colors duration-150 ease-linear`,
         isActive &&
-            `border-primary border-b-2 text-primary z-10  dark:border-white dark:text-white dark:border-opacity-100 border-opacity-100 hover:border-primary hover:text-primary`
+            `border-primary dark:border-primary border-b-2 text-primary dark:text-primary z-10 dark:border-opacity-100 border-opacity-100 hover:border-primary hover:text-primary dark:hover:border-primary dark:hover:text-primary`
     )}
 >
     <span class='flex gap-2 justify-between'>

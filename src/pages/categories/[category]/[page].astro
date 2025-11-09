@@ -3,8 +3,8 @@ import ContentTypeLayout from '@/layouts/ContentTypeLayout';
 import ListPosts from '@/components/ListPosts';
 import ListCategories from '@/components/ListCategories';
 import {
-    sluglify,
-    unsluglify,
+    slugify,
+    unslugify,
     getCategories,
     getPosts,
     capitalizeWord
@@ -21,7 +21,7 @@ export async function getStaticPaths({ paginate }: any) {
         const {
             data: { title }
         } = category;
-        const unsluglifyNameCategory = unsluglify(title!.toLowerCase());
+        const unsluglifyNameCategory = unslugify(title!.toLowerCase());
         const filteredPosts = allPosts.filter(
             (post) =>
                 post.data.category.toLowerCase() === unsluglifyNameCategory
@@ -29,7 +29,7 @@ export async function getStaticPaths({ paginate }: any) {
 
         return paginate(filteredPosts, {
             params: {
-                category: sluglify(title.toLowerCase())
+                category: slugify(title.toLowerCase())
             },
             pageSize: siteConfig.paginationSize
         });
@@ -40,7 +40,7 @@ const { page } = Astro.props;
 
 const categories = await getCategories();
 
-const categoryTitle = unsluglify(params.category!.toLowerCase());
+const categoryTitle = unslugify(params.category!.toLowerCase());
 const posts = page.data;
 ---
 

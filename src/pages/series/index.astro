@@ -1,0 +1,17 @@
+---
+import ContentTypeListView from '@/components/ContentTypeListView';
+import ContentTypeLayout from '@/layouts/ContentTypeLayout';
+import { ContentTypeEnum } from '@/data/utils';
+import { getAllSeries } from '@/utils';
+
+const allSeries = await getAllSeries();
+---
+
+<ContentTypeLayout title='Series' contentType='series'>
+    <div class='mt-5 mb-8 flex flex-wrap justify-center w-full'>
+        <ContentTypeListView
+            entities={allSeries}
+            contentType={ContentTypeEnum.Series}
+        />
+    </div>
+</ContentTypeLayout>

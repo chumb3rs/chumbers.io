@@ -1,5 +1,4 @@
 import { defineCollection, z } from 'astro:content';
-import { CATEGORIES } from '@/data/utils';
 
 const posts = defineCollection({
     schema: ({ image }) =>
@@ -12,7 +11,7 @@ const posts = defineCollection({
                 .or(z.date())
                 .transform((val) => new Date(val)),
             heroImage: image(),
-            category: z.enum(CATEGORIES),
+            category: z.string(),
             series: z.string().optional(),
             tags: z.array(z.string()),
             draft: z.boolean().default(false),
@@ -28,4 +27,13 @@ const categories = defineCollection({
         }),
 });
 
-export const collections = { posts, categories };
+const series = defineCollection({
+    schema: ({ image }) =>
+        z.object({
+            title: z.string().max(80),
+            description: z.string(),
+            heroImage: image(),
+        }),
+});
+
+export const collections = { posts, categories, series };

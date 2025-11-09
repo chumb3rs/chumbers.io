@@ -1,6 +1,6 @@
 ---
 import { sitePaths } from '@/data/site.config';
-import { cn, sluglify } from '@/utils';
+import { cn, slugify } from '@/utils';
 import { ContentTypeEnum } from '@/data/utils';
 
 type Props = {
@@ -12,8 +12,8 @@ type Props = {
 
 const { text, slug, activeOption, type } = Astro.props;
 
-const unslugifyName = sluglify(text.toLowerCase());
-const isActive = activeOption?.toLocaleLowerCase() === unslugifyName;
+const slugifyName = slugify(text.toLowerCase());
+const isActive = slugify(activeOption?.toLocaleLowerCase()) === slugifyName;
 const href = isActive
     ? sitePaths[type]
     : type === ContentTypeEnum.Categories
@@ -24,11 +24,11 @@ const href = isActive
 <a
     href={href}
     class={cn(
-        'group relative flex items-center justify-center gap-2 px-4 md:px-10 py-2 mx-2 my-2 text-lg md:text-xl font-medium border-2 rounded-tl-3xl rounded-br-3xl rounded-bl-md rounded-tr-md transition-all duration-300',
+        'group relative flex items-center justify-center gap-2 px-4 md:px-10 py-2 mx-2 my-2 text-md md:text-lg font-medium border-2 rounded-tl-3xl rounded-br-3xl rounded-bl-md rounded-tr-md transition-all duration-300',
         'border-border text-foreground',
         !isActive &&
-            'hover:border-primary hover:bg-primary/20 hover:text-primary',
-        isActive && 'border-primary bg-primary/20 text-primary'
+            'hover:border-primary hover:bg-primary/30 hover:text-primary',
+        isActive && 'border-primary bg-primary/30 text-primary'
     )}
 >
     <span class='transition-all duration-300'

@@ -1,4 +1,4 @@
-export { sluglify, unsluglify } from './sluglify';
+export { slugify, unslugify } from './slugify';
 export { cn } from './cn';
 export {
     getPosts,
@@ -11,6 +11,10 @@ export {
     getCategory,
     getNonEmptyCategories,
 } from './category';
+export {
+    getAllSeries,
+    getSeries,
+} from './series';
 export { remarkReadingTime } from './readTime';
 
 const capitalizeWord = (word: string) => {

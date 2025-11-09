@@ -11,9 +11,7 @@ type Props = {
 const { categories, activeCategory = '' } = Astro.props;
 ---
 
-<div
-    class='mt-5 mb-8 flex flex-row-reverse flex-wrap-reverse justify-center w-full md:w-2/3 mx-auto'
->
+<div class='mt-5 mb-8 flex flex-wrap justify-center w-full md:w-9/12 mx-auto'>
     {
         categories.map((category) => {
             return (
