@@ -32,7 +32,8 @@ export const footerLinks: PageLink[] = [
     },
     {
         text: 'Resume',
-        url: '/resume',
+        url: '/public/NicholasMarks_Resume.pdf',
+        openInNewTab: true,
     },
 ] as const;
 

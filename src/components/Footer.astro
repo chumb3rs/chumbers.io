@@ -17,7 +17,16 @@ import { footerLinks } from '@/data/links';
             {
                 footerLinks.map((link, index) => (
                     <div class='flex gap-2 ml-2'>
-                        <a class='hoverLink' href={link.url}>
+                        <a
+                            class='hoverLink'
+                            href={link.url}
+                            target={link.openInNewTab ? '_blank' : undefined}
+                            rel={
+                                link.openInNewTab
+                                    ? 'noopener noreferrer'
+                                    : undefined
+                            }
+                        >
                             {link.text}
                         </a>
                         {index != footerLinks.length - 1 && <p>&#10022;</p>}
