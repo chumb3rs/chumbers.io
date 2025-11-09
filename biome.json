@@ -43,6 +43,6 @@
         "enabled": true
     },
     "files": {
-        "includes": ["**", "!node_modules", "!**/*.astro"]
+        "includes": ["**", "!node_modules", "!**/*.astro", "!**/*.mdx"]
     }
 }
