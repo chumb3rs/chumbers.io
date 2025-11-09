@@ -17,7 +17,9 @@ import { footerLinks } from '@/data/links';
             {
                 footerLinks.map((link, index) => (
                     <div class='flex gap-2 ml-2'>
-                        <a href={link.url}>{link.text}</a>
+                        <a class='hoverLink' href={link.url}>
+                            {link.text}
+                        </a>
                         {index != footerLinks.length - 1 && <p>&#10022;</p>}
                     </div>
                 ))
@@ -28,12 +30,12 @@ import { footerLinks } from '@/data/links';
     <div class='border-t-2 w-full text-center pt-4'>
         Built with 💜 using <a
             href='https://astro.build/'
-            class='underline'
+            class='underline hoverLink'
             target='_blank'
             rel='noopener noreferrer'>Astro</a
         > &#10022; Inspired by <a
             href='https://github.com/danielcgilibert/blog-template'
-            class='underline'
+            class='underline hoverLink'
             target='_blank'
             rel='noopener noreferrer'>danielcgilibert</a
         >
