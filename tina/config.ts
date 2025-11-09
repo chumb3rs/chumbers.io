@@ -28,6 +28,13 @@ export default defineConfig({
                 format: 'mdx',
                 fields: [
                     {
+                        type: 'string',
+                        name: 'title',
+                        label: 'Title',
+                        isTitle: true,
+                        required: true,
+                    },
+                    {
                         type: 'image',
                         label: 'Cover Image',
                         required: true,
@@ -39,6 +46,14 @@ export default defineConfig({
                         label: 'Category',
                         name: 'category',
                         collections: ['category'],
+                        ui: {
+                            parse: (value) =>
+                                value
+                                    ?.replace(/^src\/content\/categories\//, '')
+                                    .replace(/\.mdx$/, ''),
+                            format: (value) =>
+                                `src/content/categories/${value}.mdx`,
+                        },
                     },
                     {
                         type: 'reference',
@@ -51,10 +66,18 @@ export default defineConfig({
                         label: 'Series',
                         name: 'series',
                         collections: ['series'],
+                        ui: {
+                            parse: (value) =>
+                                value
+                                    ?.replace(/^src\/content\/series\//, '')
+                                    .replace(/\.mdx$/, ''),
+                            format: (value) =>
+                                `src/content/series/${value}.mdx`,
+                        },
                     },
                     {
                         type: 'string',
-                        label: 'description',
+                        label: 'Description',
                         required: true,
                         name: 'description',
                         description: 'A short description of the post',
@@ -84,13 +107,6 @@ export default defineConfig({
                         },
                     },
                     {
-                        type: 'string',
-                        name: 'title',
-                        label: 'Title',
-                        isTitle: true,
-                        required: true,
-                    },
-                    {
                         type: 'rich-text',
                         label: 'Body',
                         name: 'SButton',
@@ -117,6 +133,7 @@ export default defineConfig({
                 name: 'category',
                 label: 'Category',
                 path: 'src/content/categories',
+                format: 'mdx',
                 fields: [
                     {
                         type: 'string',
@@ -215,6 +232,14 @@ export default defineConfig({
                         label: 'Body',
                         name: 'body',
                         isBody: true,
+                    },
+                    {
+                        type: 'image',
+                        label: 'Cover Image',
+                        required: true,
+                        name: 'heroImage',
+                        description:
+                            'The image used for the cover of the series',
                     },
                 ],
             },
