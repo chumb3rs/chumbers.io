@@ -3,6 +3,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './src/utils/readTime.ts';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import { siteConfig } from './src/data/site.config';
 import { astroFont } from 'astro-font/integration';
 
@@ -10,7 +12,8 @@ import { astroFont } from 'astro-font/integration';
 export default defineConfig({
     site: siteConfig.site,
     markdown: {
-        remarkPlugins: [remarkReadingTime],
+        remarkPlugins: [remarkReadingTime, remarkMath],
+        rehypePlugins: [rehypeKatex],
         drafts: true,
         shikiConfig: {
             theme: 'material-theme-palenight',
