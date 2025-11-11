@@ -109,17 +109,29 @@ export default defineConfig({
                     {
                         type: 'rich-text',
                         label: 'Body',
-                        name: 'SButton',
+                        name: 'body',
                         isBody: true,
                         templates: [
                             // Custom Components
                             {
-                                label: 'SButton',
-                                name: 'SButton',
+                                label: 'Highlight',
+                                name: 'Highlight',
                                 fields: [
                                     {
                                         type: 'rich-text',
-                                        label: 'SButton',
+                                        label: 'Highlight',
+                                        name: 'children',
+                                        isBody: true,
+                                    },
+                                ],
+                            },
+                            {
+                                label: 'VideoEmbed',
+                                name: 'VideoEmbed',
+                                fields: [
+                                    {
+                                        type: 'rich-text',
+                                        label: 'VideoEmbed',
                                         name: 'children',
                                         isBody: true,
                                     },

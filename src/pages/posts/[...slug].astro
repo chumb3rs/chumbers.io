@@ -6,8 +6,8 @@ import ListRelatedPosts from '@/components/ListRelatedPosts';
 import Share from '@/components/Share';
 import TableOfContents from '@/components/TableOfContents';
 import { getPosts } from '@/utils';
-import SButton from '@/components/mdx/SButton';
 import Highlight from '@/components/mdx/Highlight';
+import VideoEmbed from '@/components/mdx/VideoEmbed';
 import Disqus from '@/components/Disqus';
 import { disqusConfig } from '@/data/disqus.config';
 
@@ -67,7 +67,7 @@ const disqusEnabled = disqusConfig.enabled;
             <div
                 class='prose prose-lg md:prose-xl dark:prose-invert mb-12 min-w-full'
             >
-                <Content components={{ pre: Code, SButton, Highlight }} />
+                <Content components={{ pre: Code, Highlight, VideoEmbed }} />
             </div>
 
             <!-- related posts -->

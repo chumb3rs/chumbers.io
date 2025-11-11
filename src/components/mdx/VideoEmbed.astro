@@ -1,0 +1,15 @@
+---
+type Props = {
+    url: string;
+    caption: string;
+};
+
+const { url, caption, ...props } = Astro.props;
+---
+
+<figure {...props} class='mt-2 mb-1'>
+    <video class='max-h-[500px] mx-auto' src={url} controls></video>
+    <figcaption class='italic text-xs text-gray-500 dark:text-gray-400'>
+        {caption}
+    </figcaption>
+</figure>
