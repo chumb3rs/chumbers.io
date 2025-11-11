@@ -35,7 +35,7 @@
         "lint": "biome lint --write",
         "lint:fix": "biome check --write",
         "pre-commit": "lint-staged",
-        "prepare": "husky install"
+        "prepare": "husky"
     },
     "dependencies": {
         "@astrojs/rss": "^4.0.13",
@@ -53,7 +53,7 @@
         "@tailwindcss/typography": "0.5.10",
         "@tinacms/cli": "^1.5.30",
         "clsx": "2.0.0",
-        "husky": "^8.0.3",
+        "husky": "^9.1.7",
         "lint-staged": "^15.2.0",
         "mdast-util-to-string": "^4.0.0",
         "motion": "^10.16.4",
