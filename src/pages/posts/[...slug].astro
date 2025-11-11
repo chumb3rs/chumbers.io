@@ -8,6 +8,7 @@ import TableOfContents from '@/components/TableOfContents';
 import { getPosts } from '@/utils';
 import Highlight from '@/components/mdx/Highlight';
 import VideoEmbed from '@/components/mdx/VideoEmbed';
+import MyImage from '@/components/mdx/MyImage';
 import Disqus from '@/components/Disqus';
 import { disqusConfig } from '@/data/disqus.config';
 
@@ -67,7 +68,14 @@ const disqusEnabled = disqusConfig.enabled;
             <div
                 class='prose prose-lg md:prose-xl dark:prose-invert mb-12 min-w-full'
             >
-                <Content components={{ pre: Code, Highlight, VideoEmbed }} />
+                <Content
+                    components={{
+                        pre: Code,
+                        Highlight,
+                        VideoEmbed,
+                        img: MyImage
+                    }}
+                />
             </div>
 
             <!-- related posts -->
