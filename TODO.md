@@ -4,13 +4,14 @@
 - Switch media to cloudinary (see ref [here](https://tina.io/docs/reference/config#cloudinary-media-store))
 - Add page analytics as on my previous site
 - [x] Add LaTeX support in post content
-- Add back to top button
+- [x] Add back to top button
 - Add reading progress bar
 - Look at setting up disqus
 - Ability to pin a post to the large spot on the landing page
 - Explore [awesome remark](https://github.com/remarkjs/awesome-remark) and [awesome rehype](https://github.com/rehypejs/awesome-rehype) plugins
 - Better related posts layout
 - Support putting LaTeX in the image/video caption
+- Level things up with motion.dev
 
 ## Bugs
 - [x] Footer doesn't push to bottom of page (see /category/category-1) for example
@@ -28,9 +29,13 @@
 - [x] There are two "Footnotes" heading links that appear in the toc
   - The fix was just to replace the manual header I had with a horizontal rule
 - LaTeX export pngs have a clear background so look trash on dark mode
+- Have a ToC heading remain highlighted until the next one comes into view. Currently if there is a large vertical space between headings none will be highlighted sometimes
 
 ## Jobs
 - Run backfill using specter to convert <Highlight /> tags. Check also for ^^
+- Update internal page links since they still point to /content/<post-name>
+- Try viewing on multiple browsers...Firefox seems to be weird
 
 ## Future...
 - Do I want to stick with TinaCMS? I think that maybe if I am writing in Obsidian there is no point...
+- Explore a move off of Mailchimp to something better, e.g. "Mailerlite". The thing is that I don't think that the number of people I have subscribed at the moment really warrants this...
