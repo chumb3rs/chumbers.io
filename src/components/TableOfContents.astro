@@ -1,5 +1,6 @@
 ---
 import TableOfContentsHeading from '@/components/TabletOfContentsHeading';
+import BackToTopButton from '@/components/BackToTopButton';
 
 const { headings } = Astro.props;
 
@@ -33,4 +34,5 @@ function buildToc(headings: TableOfContent[]) {
     <ul class='[text-wrap:balance] flex flex-col gap-1'>
         {toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
     </ul>
+    <BackToTopButton />
 </nav>
