@@ -11,6 +11,7 @@ import VideoEmbed from '@/components/mdx/VideoEmbed';
 import MyImage from '@/components/mdx/MyImage';
 import Disqus from '@/components/Disqus';
 import { disqusConfig } from '@/data/disqus.config';
+import AnchorLink from '@/components/mdx/AnchorLink';
 
 const posts = await getCollection('posts');
 export async function getStaticPaths() {
@@ -73,7 +74,8 @@ const disqusEnabled = disqusConfig.enabled;
                         pre: Code,
                         Highlight,
                         VideoEmbed,
-                        img: MyImage
+                        img: MyImage,
+                        a: AnchorLink
                     }}
                 />
             </div>
