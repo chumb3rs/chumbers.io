@@ -5,11 +5,6 @@ type Props = {
 const { url, ...props } = Astro.props;
 ---
 
-<a
-    href={url}
-    class='underline--magical no-underline'
-    style='color:#374151;'
-    {...props}
->
+<a href={url} class='underline--magical no-underline' {...props}>
     <slot />
 </a>
