@@ -2,77 +2,95 @@
 import BaseLayout from '@/layouts/BaseLayout';
 ---
 
-<BaseLayout title='Contact'>
-    <h2 class='text-2xl font-heading font-bold'>Get in touch.</h2>
+<BaseLayout title='Subscribe'>
+    <h2 class='text-2xl font-heading font-bold'>
+        Sign-up for a weekly newsletter.
+    </h2>
+    <header class='my-3'>
+        <p class='mb-4'>
+            Each week I&apos;m collating the different blogs and essays
+            I&apos;ve written during that week and shipping it out along with
+            some other miscellaneous thoughts and ideas.
+        </p>
+        <p>
+            It is a useful way for me to capture what each week was like in the
+            moment, along with serving as a very direct and public way of
+            enforcing the routinely practice of sitting down to write. It is
+            really nothing special. Just stuff I&apos;m passionate about.
+        </p>
+        <p class='mt-6 font-display font-bold'>
+            View previous editions on{' '}
+            <a
+                href='https://chumbers.io/categories/newsletter'
+                class='underline--magical'
+                target='_blank'
+                rel='noreferrer'
+            >
+                here on my website
+            </a>{' '}
+            or on the{' '}
+            <a
+                class='underline--magical'
+                target='_blank'
+                rel='noreferrer'
+                href='https://us12.campaign-archive.com/home/?u=ae8043f0d332135e9a03c7190&id=1fa8b7342c'
+            >
+                email archive
+            </a>
+            .
+        </p>
+    </header>
+
     <section class='flex-col w-full mt-8'>
         <form id='contactForm' class='space-y-6'>
             <div class='flex flex-col md:flex-row gap-4'>
-                <!-- Name -->
+                <!-- First Name -->
                 <div class='relative w-full'>
                     <input
-                        id='name'
-                        name='name'
+                        id='firstName'
+                        name='firstName'
                         type='text'
                         required
                         class='peer w-full border-2 border-gray-300 rounded-md px-3 pt-5 pb-2 hover:border-primary focus:outline-none focus:border-primary transition text-black'
                     />
                     <label
-                        for='name'
+                        for='firstName'
                         class='absolute left-3 top-2.5 text-gray-500 text-sm transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-blue-500 peer-focus:top-2.5 peer-focus:text-xs peer-focus:font-bold peer-focus:text-primary'
                     >
-                        Name
-                    </label>
-                </div>
-
-                <!-- Email -->
-                <div class='relative w-full'>
-                    <input
-                        id='email'
-                        name='email'
-                        type='email'
-                        required
-                        class='peer w-full border-2 border-gray-300 rounded-md px-3 pt-5 pb-2 hover:border-primary focus:outline-none focus:border-primary transition text-black'
-                    />
-                    <label
-                        for='email'
-                        class='absolute left-3 top-2.5 text-gray-500 text-sm transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-blue-500 peer-focus:top-2.5 peer-focus:text-xs peer-focus:font-bold peer-focus:text-primary'
-                    >
-                        Email
+                        First name*
                     </label>
                 </div>
             </div>
-
-            <!-- Subject -->
-            <div class='relative'>
+            <!-- First Name -->
+            <div class='relative w-full'>
                 <input
-                    id='subject'
-                    name='subject'
+                    id='lastNaame'
+                    name='lastName'
                     type='text'
+                    class='peer w-full border-2 border-gray-300 rounded-md px-3 pt-5 pb-2 hover:border-primary focus:outline-none focus:border-primary transition text-black'
+                />
+                <label
+                    for='lastName'
+                    class='absolute left-3 top-2.5 text-gray-500 text-sm transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-blue-500 peer-focus:top-2.5 peer-focus:text-xs peer-focus:font-bold peer-focus:text-primary'
+                >
+                    Last name
+                </label>
+            </div>
+
+            <!-- Email -->
+            <div class='relative w-full'>
+                <input
+                    id='email'
+                    name='email'
+                    type='email'
                     required
                     class='peer w-full border-2 border-gray-300 rounded-md px-3 pt-5 pb-2 hover:border-primary focus:outline-none focus:border-primary transition text-black'
                 />
                 <label
-                    for='subject'
+                    for='email'
                     class='absolute left-3 top-2.5 text-gray-500 text-sm transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-blue-500 peer-focus:top-2.5 peer-focus:text-xs peer-focus:font-bold peer-focus:text-primary'
                 >
-                    Subject
-                </label>
-            </div>
-
-            <!-- Message -->
-            <div class='relative'>
-                <textarea
-                    id='message'
-                    name='message'
-                    rows='6'
-                    required
-                    class='peer w-full border-2 border-gray-300 rounded-md px-3 pt-5 pb-2 hover:border-primary focus:outline-none focus:border-primary transition text-black resize-none'
-                ></textarea>
-                <label
-                    for='message'
-                    class='absolute left-3 top-2.5 text-gray-500 text-sm transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-blue-500 peer-focus:top-2.5 peer-focus:text-xs peer-focus:font-bold peer-focus:text-primary'
-                >
-                    Message
+                    Email*
                 </label>
             </div>
 
@@ -81,7 +99,7 @@ import BaseLayout from '@/layouts/BaseLayout';
                 type='submit'
                 class='w-fit border-2 border-primary font-semibold px-6 py-2 rounded-md hover:bg-primary/30 disabled:bg-gray-400 transition duration-500'
             >
-                Contact me
+                Subscribe
             </button>
         </form>
 
@@ -90,10 +108,10 @@ import BaseLayout from '@/layouts/BaseLayout';
             id='toast'
             class='hidden fixed bottom-6 right-6 bg-green-600 text-white px-4 py-2 rounded-md shadow-lg transition opacity-0'
         >
-            📩 Email successfully sent!
+            📩 Sign-up successful!
         </div>
-    </section>
-</BaseLayout>
+    </section></BaseLayout
+>
 
 <script>
     const form = document.getElementById('contactForm');

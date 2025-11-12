@@ -31,6 +31,10 @@ export const footerLinks: PageLink[] = [
         url: '/contact',
     },
     {
+        text: 'Subscribe',
+        url: '/subscribe',
+    },
+    {
         text: 'Resume',
         url: '/public/NicholasMarks_Resume.pdf',
         openInNewTab: true,
