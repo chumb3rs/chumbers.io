@@ -21,6 +21,7 @@
     },
     "scripts": {
         "dev": "npx astro dev",
+        "clean": "rm -rf .astro && rm -rf node_modules/.astro && rm -rf node_modules/.vite",
         "start": "astro dev",
         "build": "astro build",
         "sync": "astro sync",
@@ -40,6 +41,7 @@
     "dependencies": {
         "@astrojs/rss": "^4.0.13",
         "astro": "^5.15.4",
+        "astro-cloudinary": "^1.3.5",
         "astro-font": "1.1.0",
         "rehype-katex": "^7.0.1",
         "remark-math": "^6.0.0"

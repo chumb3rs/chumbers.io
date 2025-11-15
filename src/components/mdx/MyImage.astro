@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { CldImage } from 'astro-cloudinary';
 
 type Props = {
     src: string;
@@ -8,17 +8,15 @@ type Props = {
 const { src, alt = '', ...props } = Astro.props;
 ---
 
-<figure {...props}>
-    <Image
+<figure class='flex flex-col justify-center' {...props}>
+    <CldImage
         src={src}
-        width={600}
-        height={200}
-        quality={60}
-        format='webp'
-        class='max-h-[500px] w-auto dark:bg-white mx-auto'
         alt={alt}
+        crop='fit'
+        quality='auto'
+        class='max-h-[600px] w-auto rounded-lg'
     />
-    <figcaption class='italic text-sm md:text-xs'>
+    <figcaption class='italic text-sm text-center'>
         {alt}
     </figcaption>
 </figure>

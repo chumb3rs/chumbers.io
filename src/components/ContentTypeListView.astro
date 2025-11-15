@@ -1,6 +1,6 @@
 ---
 import { type CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
+import { CldImage } from 'astro-cloudinary';
 import ArrowUp from '@/components/icons/ArrowUp';
 import { ContentTypeEnum } from '@/data/utils';
 import { capitalizeWord } from '@/utils';
@@ -29,14 +29,16 @@ const { entities, contentType } = Astro.props;
                 >
                     {heroImage && (
                         <div class='hidden md:block w-[400px] h-[200px] overflow-hidden flex-shrink-0 rounded-md'>
-                            <Image
+                            <CldImage
                                 src={heroImage}
                                 width={400}
                                 height={200}
-                                format='webp'
-                                loading='eager'
+                                crop='fill'
+                                gravity='auto'
+                                quality='auto'
+                                loading='lazy'
                                 alt={`image of ${title}`}
-                                class='w-full h-full object-cover brightness-75 saturate-75'
+                                class='w-full h-full saturate-75'
                             />
                         </div>
                     )}
