@@ -9,8 +9,6 @@ public/__astro_font_generated__/
 # dependencies
 node_modules/
 
-tina-lock.json
-
 # logs
 npm-debug.log*
 yarn-debug.log*

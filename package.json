@@ -20,7 +20,7 @@
         "url": "https://github.com/chumb3rs/chumbers.io/issues"
     },
     "scripts": {
-        "dev": "npx tinacms dev -c \"astro dev\"",
+        "dev": "npx astro dev",
         "start": "astro dev",
         "build": "astro build",
         "sync": "astro sync",
@@ -51,7 +51,6 @@
         "@biomejs/biome": "2.3.2",
         "@pagefind/default-ui": "^1.0.4",
         "@tailwindcss/typography": "0.5.10",
-        "@tinacms/cli": "^1.5.30",
         "clsx": "2.0.0",
         "husky": "^9.1.7",
         "lint-staged": "^15.2.0",
@@ -64,7 +63,6 @@
         "slugify": "^1.6.6",
         "tailwind-merge": "2.0.0",
         "tailwindcss": "3.3.5",
-        "tinacms": "^1.5.21",
         "typescript": "^5.2.2"
     }
 }

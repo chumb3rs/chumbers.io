@@ -1,7 +1,7 @@
 ## Features
 - Add link to archives/set up post archive. See mathematical crap for what this might look like
 - [x] Better theme color: I think the teal is too bright and doesn't look good on light mode. Maybe periwinkle
-- Switch media to cloudinary (see ref [here](https://tina.io/docs/reference/config#cloudinary-media-store))
+- Switch media to cloudinary (consider local/Cloudinary)
 - Add page analytics as on my previous site
 - [x] Add LaTeX support in post content
 - [x] Add back to top button
@@ -15,7 +15,6 @@
 
 ## Bugs
 - [x] Footer doesn't push to bottom of page (see /category/category-1) for example
-- Apprently the tina-lock.json needs to be checked into source control?? From [here](https://tina.io/docs/tina-folder/overview)
 - [x] Migrate post collection to /content or /posts or something (currently /blog)
 - Read Post on the series cards should flip when the entire row is hovered not just that text
 - [x] Add <Highlight> and <VideoEmbed> component to mdx
@@ -37,5 +36,5 @@
 - Try viewing on multiple browsers...Firefox seems to be weird
 
 ## Future...
-- Do I want to stick with TinaCMS? I think that maybe if I am writing in Obsidian there is no point...
+- [x] Do I want to stick with TinaCMS? I think that maybe if I am writing in Obsidian there is no point...
 - Explore a move off of Mailchimp to something better, e.g. "Mailerlite". The thing is that I don't think that the number of people I have subscribed at the moment really warrants this...
