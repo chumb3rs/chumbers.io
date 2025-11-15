@@ -22,7 +22,7 @@ export async function getStaticPaths({ paginate }: any) {
         const {
             data: { title }
         } = series;
-        const slugifySeriesName = slugify(title);
+        const slugifySeriesName = slugify(title.toLowerCase());
         const filteredPosts = allPosts.filter((post) => {
             // skip posts without a series
             if (!post.data?.series) return false;
