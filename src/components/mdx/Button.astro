@@ -1,0 +1,19 @@
+---
+type Props = {
+    text: string;
+    link: string;
+    blankTarget: boolean;
+};
+
+const { text, link, blankTarget = false, ...props } = Astro.props;
+---
+
+<div class='mt-3 mb-12 text-left' {...props}>
+    <a
+        href={link}
+        class='w-fit border-2 border-primary font-semibold px-6 py-2 rounded-md hover:bg-primary/30 disabled:bg-gray-400 transition duration-500'
+        target={`${blankTarget} ? _blank : undefined`}
+    >
+        {text}
+    </a>
+</div>
