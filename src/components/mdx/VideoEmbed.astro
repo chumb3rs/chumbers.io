@@ -1,4 +1,5 @@
 ---
+import { CldVideoPlayer } from 'astro-cloudinary';
 type Props = {
     url: string;
     caption: string;
@@ -7,8 +8,8 @@ type Props = {
 const { url, caption, ...props } = Astro.props;
 ---
 
-<figure {...props} class='mt-2 mb-1'>
-    <video class='max-h-[500px] mx-auto' src={url} controls></video>
+<figure {...Astro.props} class='mt-2 mb-1' {...props}>
+    <CldVideoPlayer src={url} class='max-h-[500px] mx-auto' controls />
     <figcaption
         class='italic text-sm md:text-xs text-gray-500 dark:text-gray-400'
     >
