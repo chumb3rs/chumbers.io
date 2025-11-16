@@ -12,6 +12,7 @@
 - Better related posts layout
 - Support putting LaTeX in the image/video caption
 - Level things up with motion.dev
+- Add validators to Zed so that categories/projects/series etc. have to come from existing list
 
 ## Bugs
 - [x] Footer doesn't push to bottom of page (see /category/category-1) for example
@@ -29,12 +30,16 @@
   - The fix was just to replace the manual header I had with a horizontal rule
 - LaTeX export pngs have a clear background so look trash on dark mode
 - Have a ToC heading remain highlighted until the next one comes into view. Currently if there is a large vertical space between headings none will be highlighted sometimes
+- Quote blocks have double quotations...
 
 ## Jobs
 - Run backfill using specter to convert <Highlight /> tags. Check also for ^^
+  - Use <Highlight text=['"](.*)['"] /> and <Highlight>\1</Highlight>
 - Update internal page links since they still point to /content/<post-name>
 - Try viewing on multiple browsers...Firefox seems to be weird
+- Can I set up permanent redirects for all the Instagram story blog links??
 
 ## Future...
 - [x] Do I want to stick with TinaCMS? I think that maybe if I am writing in Obsidian there is no point...
+
 - Explore a move off of Mailchimp to something better, e.g. "Mailerlite". The thing is that I don't think that the number of people I have subscribed at the moment really warrants this...
