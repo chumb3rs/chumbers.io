@@ -1,0 +1,39 @@
+---
+import { CldImage } from 'astro-cloudinary';
+
+type Props = {
+    img: string;
+    header: string;
+    body: string;
+    link: string;
+};
+
+const { img, header, body, link, ...props } = Astro.props;
+---
+
+<a
+    class='flex justify-between items-center my-3 rounded-lg shadow-lg transform duration-200 ease-out bg-white hover:shadow-xl hover:bg-gray-200 hover:font-bold hover:text-teal cursor-pointer overflow-hidden mb-1 no-underline'
+    style={{ minHeight: '8rem' }}
+    href={link}
+    target='_blank'
+    {...props}
+>
+    <div class='hidden sm:inline w-60'>
+        <CldImage
+            src={img}
+            alt={header}
+            crop='fit'
+            class='object-cover h-full my-0'
+            width={900}
+            height={900}
+        />
+    </div>
+    <div class='mx-4 py-5 flex-grow'>
+        <p class='text-md pl-2 whitespace-pre-wrap'>
+            {header}
+        </p>
+        <p class='text-sm pl-2 whitespace-pre-wrap text-gray-500'>
+            {body}
+        </p>
+    </div>
+</a>
