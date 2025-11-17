@@ -23,7 +23,7 @@ I'm going to assume from here on that you are familiar with the basics of graph 
 1. A vertex set $$V(G)$$ which you may like to think of as **nodes** of the graph
 2. An edge set $$E(G)$$, which connects two vertices together. An edge $$e\in E(G)$$ is generally written as $$e=uv$$ for two vertices $$u,v \in V(G)$$.
 
-![An example graph. Note that the edge connecting vertices $$a$$ and $$d$$ would be labelled $$ad$$ for convenience.](https://res.cloudinary.com/df6vf0noc/image/upload/v1670223733/ql_af433a35935ae1397cb34d2584e51b96_l3_yrj1yh.png)
+![An example graph. Note that the edge connecting vertices $$a$$ and $$d$$ would be labelled $$ad$$ for convenience.](https://res.cloudinary.com/df6vf0noc/image/upload/v1670223733/graph%20theory%20x%20genome/ql_af433a35935ae1397cb34d2584e51b96_l3_yrj1yh.png)
 
 In the above graph $$G$$, the vertex set is $$V(G)=\{a, b, c, d, e, f\}$$ and the edge set is $$E(G)=\{ab, ad, ac, bc, bd, cd, de, df, ef\}$$
 
@@ -60,7 +60,7 @@ The last primer is that we can have what is called a directed graph, in which th
 
 What we will turn to next are ways (if any) of determining in a non-exhaustive fashion whether a graph is Hamiltonian and/or Eulerian. Obviously, you could throw a brute-force trial of all possible cycles and circuits at the problem, but the number of such possibilities grows exponentially on the number of vertices/edges in the graph. And for the graphs we will be considering by the end, concerning human genomes with millions of base pairs, this is clearly not ideal. So, before proceeding, can you conjure such a characterisation for whether a graph is/isn't Hamiltonian/Eulerian? Take the below graphs as examples.
 
-![Two graphs - which is Hamiltonian or Eulerian? Neither? Both?](https://res.cloudinary.com/df6vf0noc/image/upload/v1670223793/ql_799dbdf8ff9b36995001699e13cbaa81_l3_sn2lsm.png)
+![Two graphs - which is Hamiltonian or Eulerian? Neither? Both?](https://res.cloudinary.com/df6vf0noc/image/upload/v1670223793/graph%20theory%20x%20genome/ql_799dbdf8ff9b36995001699e13cbaa81_l3_sn2lsm.png)
 
 It turns out that there aren't any strong characterisations of graphs that have Hamiltonian cycles. By a **characterisation**, we mean a statement of the form **"A graph is Hamiltonian if and only if \<insert some graph theoretic property\>"**. Additionally, and more pertinently for this excursion, there is no (currently known) polynomial-time algorithm for determining whether a graph is Hamiltonian. For an $$n-$$vertex graph you could just as well check all $$n!$$ permutations of the vertices and see if any reveal a Hamiltonian cycle, but this gets outrageously expensive for large $$n$$. The accurate statement here is to say that the problem of Hamiltonian finding is [NP-complete](https://www.mathsisfun.com/sets/np-complete.html).
 
@@ -68,9 +68,9 @@ It turns out that there aren't any strong characterisations of graphs that have 
 
 Without getting lost in the weeds, in Computer Science there are classes that we can assign a problem to which give us some measure of the "difficulty" of the problem. The more inner the circle, the "easier" it is to solve. At the outer bounds of this map are problems that are not even solvable in any sort of conventional, computerised/algorithmic fashion. What interests us here are the circles of P and NP (**p**olynomial and **n**on-**p**olynomial). A P type problem is one for which there exists a polynomial-complexity (denoted commonly as $$\mathcal{O}(n^c)$$ for some constant $$c$$ where $$n$$ is the size of the problem input) that <Highlight>solves</Highlight> the problem. An example is finding the largest element in a list of $$n$$ numbers, since you need only walk over the list one time to find it (precisely, this is a linear time, or $$\mathcal{O}(1)$$ algorithm).
 
-![An overview of problem classifications in Computer Science (Source: GATE CSE)](https://i0.wp.com/gatecse.in/wp-content/uploads/2015/06/Complexity-classes-diagram.jpg)
+![An overview of problem classifications in Computer Science (Source: GATE CSE)](https://res.cloudinary.com/df6vf0noc/image/upload/v1763330067/graph%20theory%20x%20genome/Complexity-classes-diagram_kadrij.jpg)
 
-An NP type problem is one for which **no** such polynomial-time solver exists, but for which there exists a polynomial-time <Highlight>validator' /> for solutions to the problem. That is, I might not be able to **find** a Hamiltonian cycle in a graph $$G$$ efficiently, but if you **give** me an ordering of the vertices, I can <Highlight text='efficiently check whether or not the ordering is a Hamiltonian cycle or not</Highlight>. Last remark here: the "complete" part of NP-complete means that any other NP problem can, in some efficient (read: polynomial time) fashion be translated into this problem of Hamiltonian cycles. This is of interest to computer scientists because there is an open problem $$P=NP$$ which investigates whether in fact the green and red circles above are in fact one and the same. One approach to solving this is to find some NP-complete problem like Hamiltonian cycles, show that it is in fact a P-type problem, and via the NP-completeness of it conclude that all other NP problems are in fact P.
+An NP type problem is one for which **no** such polynomial-time solver exists, but for which there exists a polynomial-time <Highlight>validator</Highlight> for solutions to the problem. That is, I might not be able to **find** a Hamiltonian cycle in a graph $$G$$ efficiently, but if you **give** me an ordering of the vertices, I can <Highlight>efficiently check whether or not the ordering is a Hamiltonian cycle or not</Highlight>. Last remark here: the "complete" part of NP-complete means that any other NP problem can, in some efficient (read: polynomial time) fashion be translated into this problem of Hamiltonian cycles. This is of interest to computer scientists because there is an open problem $$P=NP$$ which investigates whether in fact the green and red circles above are in fact one and the same. One approach to solving this is to find some NP-complete problem like Hamiltonian cycles, show that it is in fact a P-type problem, and via the NP-completeness of it conclude that all other NP problems are in fact P.
 
 The final comment for this section is that because finding a Hamiltonian cycle is NP-complete, so too is the problem of finding a Hamiltonian path. This is because a Hamiltonian path is just a Hamiltonian cycle with one edge removed (between the start and end vertices of the path).
 
@@ -80,7 +80,7 @@ Okay, so the key takeaway here is that the nature of Hamiltonian cycles is compl
 
 The $$n\times n$$ grid graph is Hamiltonian if and only if $$n$$ is even. An example of the grid graph with $$n=4$$ is shown below. It should be fairly trivial to come up with the Hamiltonian cycle.
 
-![The $$4\times 4$$ grid graph. Find the Hamiltonian cycle](https://res.cloudinary.com/df6vf0noc/image/upload/v1670223852/ql_f840dba93718160b05a821e5d2b5ceec_l3_ww3up0.png)
+![The $$4\times 4$$ grid graph. Find the Hamiltonian cycle](https://res.cloudinary.com/df6vf0noc/image/upload/v1670223852/graph%20theory%20x%20genome/ql_f840dba93718160b05a821e5d2b5ceec_l3_ww3up0.png)
 
 There are a few more examples of graphs that we can say are definitely Hamiltonian, but more revealing is the following:
 
@@ -98,7 +98,7 @@ The punchline: **it is not**. And it stems from a discovery by arguably the grea
 
 In the early 18th century, the Prussian city of Königsberg, now Kaliningrad (Russia)[^3], was home to some lovely bridges, and the story goes that its citizens wondered if you could, from a particular starting point, walk a circuit that crossed each bridge exactly once. This should hopefully remind us of Eulerian circuits discussed earlier, and the problem can easily be translated to a graph with each region of the city a vertex, and each bridge an edge (Source: [MathsCareers](https://www.mathscareers.org.uk/bridges-of-konigsberg-and-graph-theory/)).
 
-![Modelling the Königsberg bridges as a graph](https://res.cloudinary.com/df6vf0noc/image/upload/v1670042920/Koenigsberg_bridges_i5votg.jpg)
+![Modelling the Königsberg bridges as a graph](https://res.cloudinary.com/df6vf0noc/image/upload/v1670042920/graph%20theory%20x%20genome/Koenigsberg_bridges_i5votg.jpg)
 
 In 1735, Euler proved that there exits no Eulerian circuit for the above graph. This is because unlike Hamiltonian graphs, there is a strong and very simple characterisation of Eulerian graphs.
 
@@ -112,11 +112,11 @@ Unlike the theorem linking minimum degree to Hamiltonian graphs, the above theor
 
 For the forward direction, consider an Eulerian multigraph $$G$$ and one of its vertices, $$v$$. Every time the circuit visits $$v$$, it arrives on some edge and then leaves **on a different edge**. Hence there are always two edges involved with each interaction of $$v$$, and since each edge is visited precisely once, $$\deg(v)$$ is even. The only vertex for which this is perhaps not immediately obvious is the start (and hence final) vertex. However, we can pair up the very first and very last edge together and treat the remaining edges in the same way as any another vertex. Since the circuit visits every edge once, it clearly must also visit every vertex at least once. Hence for two vertices $$v$$ and $$w$$ we can find a walk between them that is some subsection of the entire circuit. And from this, we can produce a path (remember, no repeated vertices) - think about cutting out all of the loop-bits of the walk. So the graph $$G$$ is connected and we have proven the forward direction.
 
-![Left: The incoming and outgoing edges of any vertex $$v$$ can be paired up. Right: A path (green) can be constructed from a walk by deleting any loops (red).](https://res.cloudinary.com/df6vf0noc/image/upload/v1670046395/ql_0e5fdd83965aa01548786951fb278a20_l3_i4jcuv.png)
+![Left: The incoming and outgoing edges of any vertex $$v$$ can be paired up. Right: A path (green) can be constructed from a walk by deleting any loops (red).](https://res.cloudinary.com/df6vf0noc/image/upload/v1670046395/graph%20theory%20x%20genome/ql_0e5fdd83965aa01548786951fb278a20_l3_i4jcuv.png)
 
 For the backward direction, we can simply provide an algorithm that generates an Eulerian circuit from a connected graph with every vertex of even degree. This algorithm is due to Hierholzer:
 
-![Sketch of Hierholzer algorithm](https://res.cloudinary.com/df6vf0noc/image/upload/v1670210076/Screenshot_1_ao6wcp.png)
+![Sketch of Hierholzer algorithm](https://res.cloudinary.com/df6vf0noc/image/upload/v1670210076/graph%20theory%20x%20genome/Screenshot_1_ao6wcp.png)
 
 As stated right at the start of this article, walks, paths, circuits, etc. are generally constructed as an ordering of some (or all) of the vertices of a graph. The way to think about this algorithm is that it grows the circuit bit by bit. So to start, **Line 1** instructs us to select a particular vertex as our starting point (here, $$v$$). The condition in the `while` loop of **Line 2** is translated as being **"there are still edges in the original graph not included in our current circuit $$C$$** - of course a requirement, given that an Eulerian circuit has to include <Highlight>all</Highlight> of the graph edges. **Line 3** says to find a vertex $$u$$ in the current circuit whose degree **in the graph constructed by taking $$G$$ and removing all of the edges currently contained in the circuit** is at least one. Such a vertex must always exist as $$G$$ is connected. If not, then we would have some vertex that is unreachable from the growing circuit, i.e. $$G$$ is in fact not connected. Next we construct the largest possible trail (a walk in which there are no repeated edges (but which may contain repeated vertices)) $$M$$ judged by the number of edges it contains which starts at $$u$$. The kicker here is that this trail **must** also finish at $$u$$ because every vertex has even degree, for reasons highlighted in the proof of the forward direction. We now grow the circuit $$C$$ by inserting this partial circuit $$M$$ into it at $$u$$[^4].
 
@@ -144,7 +144,7 @@ $$\mathcal{F}$$ contains all possible fragments of length $$\ell$$ from the orig
 
 Like the Königsberg problem, we first wish to translate this problem into a graph. The most immediate choice is to make each fragment in $$\mathcal{F}$$ a vertex. For the edges, the **"natural"** selection is to have an edge between two vertices (read fragments) whenever they are identical up to the first and last bases. That is, given two fragments $$u=u_1,u_2,\ldots,u_\ell$$ and $$v=v_1,v_2,\ldots,v_\ell$$, we have an edge between $$u$$ and $$v$$ if $$u_1,u_2,\ldots u_{\ell-1}=v_2,v_3,\ldots,v_\ell$$. So if $$\ell=5$$ and we have fragments $$f_1=A\underline{AGTC}, f_2=\underline{AGTC}C, f_3=GCATT$$, we would have an edge between $$f_1$$ and $$f_2$$ but no edge from $$f_3$$ to either $$f_1$$ or $$f_2$$.
 
-So, due to the second assumption above, given a particular fragment $$f_i$$, the very next base in the original sequence $$\mathcal{S}$$ ^^has to come from a fragment $$f_{j}$$ that is adjacent to $$f_i$$^^. Using the above example, since $$f_2, f_1$$ are adjacent, we would extend $$f_1$$ to a length of 6 by using the final $$C$$ of $$f_2$$, yielding $$AAGTCC$$.
+So, due to the second assumption above, given a particular fragment $$f_i$$, the very next base in the original sequence $$\mathcal{S}$$ <Highlight>has to come from a fragment $$f_{j}$$ that is adjacent to $$f_i$$</Highlight>. Using the above example, since $$f_2, f_1$$ are adjacent, we would extend $$f_1$$ to a length of 6 by using the final $$C$$ of $$f_2$$, yielding $$AAGTCC$$.
 
 Convince yourself then that $$\mathcal{S}$$ must be reconstructed by a Hamiltonian path of the fragment graph. But remember, from earlier discussion, that there is no efficient algorithm for producing a Hamiltonian path in a graph, even if we knew (somehow) that it had one. Because generating a Hamiltonian path is non-polynomial, at the scale of billions of base pairs, this process of sequence reconstruction would take huge amounts of time and compute. So we need an alternative.
 
@@ -158,11 +158,11 @@ The beauty is that **now**, the reconstruction of $$\mathcal{S}$$ corresponds to
 
 Let's consider an example comparing both approaches. In both, we will consider the set of reads $$\mathcal{F}=ATG, TGG, TGC, GTG, CGT, GCG, GGC, GCA$$. With the Hamiltonian approach, our graph would look as follows:
 
-![Construction of fragment graph for Hamiltonian paths](https://res.cloudinary.com/df6vf0noc/image/upload/v1670216111/ql_7d9e889982d94720d299416a5c2a3dd6_l3_nv6tga.png)
+![Construction of fragment graph for Hamiltonian paths](https://res.cloudinary.com/df6vf0noc/image/upload/v1670216111/graph%20theory%20x%20genome/ql_7d9e889982d94720d299416a5c2a3dd6_l3_nv6tga.png)
 
 But with the Eulerian approach detailed by Pevzner et. al:
 
-![Construction of fragment graph for Eulerian trails](https://res.cloudinary.com/df6vf0noc/image/upload/v1670217551/ql_c5c7b5bfcd1a1e73eb3bd49a525e3b36_l3_n4zw2v.png)
+![Construction of fragment graph for Eulerian trails](https://res.cloudinary.com/df6vf0noc/image/upload/v1670217551/graph%20theory%20x%20genome/ql_c5c7b5bfcd1a1e73eb3bd49a525e3b36_l3_n4zw2v.png)
 
 The above graph does indeed have an Eulerian trail as it satisfies the characterisation theorem outlined earlier (only $$AT, CA$$ have odd degree). An Eulerian trail is given by:
 

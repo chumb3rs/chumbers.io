@@ -1,0 +1,94 @@
+---
+import { CldImage } from 'astro-cloudinary';
+
+interface Props {
+    images: string[];
+    captions?: string[];
+}
+
+const { images, captions } = Astro.props;
+
+const captionArr = captions ?? Array.from({ length: images.length }, () => '');
+---
+
+<div class='carousel-wrapper'>
+    <div class='slideshow-container w-full h-full relative m-auto post-image'>
+        {
+            images.map((image, i) => (
+                <div
+                    class={`mySlides fade ${i === 0 ? 'relative' : 'hidden'}`}
+                    data-slide={i}
+                >
+                    <CldImage
+                        src={image}
+                        alt={`${captionArr[i]} (${i + 1} / ${images.length})`}
+                        width={800}
+                        height={600}
+                    />
+                </div>
+            ))
+        }
+        <a class='prev cursor-pointer select-none'> &#10094; </a>
+        <a class='next cursor-pointer select-none'> &#10095; </a>
+    </div>
+
+    <div class='text-center'>
+        {
+            images.map((_, i) => (
+                <span
+                    class={`dot inline-block w-3 h-3 mx-1 rounded-full cursor-pointer transition-colors ${
+                        i === 0 ? 'bg-teal-500' : 'bg-gray-200'
+                    } hover:bg-gray-400`}
+                    data-dot={i}
+                />
+            ))
+        }
+    </div>
+    <hr class='my-4' />
+</div>
+
+<script>
+    document.querySelectorAll('.carousel-wrapper').forEach((carousel) => {
+        let currImage = 0;
+        const slides = carousel.querySelectorAll('.mySlides');
+        const dots = carousel.querySelectorAll('.dot');
+        const prevBtn = carousel.querySelector('.prev');
+        const nextBtn = carousel.querySelector('.next');
+
+        function showSlide(index: number) {
+            const totalSlides = slides.length;
+
+            // Handle wrapping
+            currImage = ((index % totalSlides) + totalSlides) % totalSlides;
+
+            // Update slides
+            slides.forEach((slide, i) => {
+                if (i === currImage) {
+                    slide.classList.remove('hidden');
+                    slide.classList.add('relative');
+                } else {
+                    slide.classList.add('hidden');
+                    slide.classList.remove('relative');
+                }
+            });
+
+            // Update dots
+            dots.forEach((dot, i) => {
+                if (i === currImage) {
+                    dot.classList.remove('bg-gray-200');
+                    dot.classList.add('bg-teal-500');
+                } else {
+                    dot.classList.add('bg-gray-200');
+                    dot.classList.remove('bg-teal-500');
+                }
+            });
+        }
+
+        prevBtn?.addEventListener('click', () => showSlide(currImage - 1));
+        nextBtn?.addEventListener('click', () => showSlide(currImage + 1));
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => showSlide(i));
+        });
+    });
+</script>
