@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
@@ -8,7 +8,6 @@ import rehypeKatex from 'rehype-katex';
 import { siteConfig } from './src/data/site.config';
 import { astroFont } from 'astro-font/integration';
 
-// https://astro.build/config
 export default defineConfig({
     site: siteConfig.site,
     markdown: {
@@ -36,4 +35,32 @@ export default defineConfig({
         sitemap(),
         tailwind(),
     ],
+    env: {
+        schema: {
+            PUBLIC_CLOUDINARY_CLOUD_NAME: envField.string({
+                context: 'client',
+                access: 'public',
+            }),
+            AWS_ACCESS_KEY_ID: envField.string({
+                context: 'server',
+                access: 'public',
+            }),
+            AWS_SECRET_ACCESS_KEY: envField.string({
+                context: 'server',
+                access: 'secret',
+            }),
+            FROM_EMAIL: envField.string({
+                context: 'server',
+                access: 'secret',
+            }),
+            TO_EMAIL: envField.string({
+                context: 'server',
+                access: 'secret',
+            }),
+            MAILCHIMP_EMBED_URL: envField.string({
+                context: 'server',
+                access: 'secret',
+            }),
+        },
+    },
 });

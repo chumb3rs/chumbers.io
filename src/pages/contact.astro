@@ -1,11 +1,18 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout';
+
+export const prerender = false;
 ---
 
 <BaseLayout title='Contact'>
     <h2 class='text-2xl font-heading font-bold'>Get in touch.</h2>
     <section class='flex-col w-full mt-8'>
-        <form id='contactForm' class='space-y-6'>
+        <form
+            id='contactForm'
+            class='space-y-6'
+            action='/api/contact'
+            method='POST'
+        >
             <div class='flex flex-col md:flex-row gap-4'>
                 <!-- Name -->
                 <div class='relative w-full'>
@@ -88,33 +95,55 @@ import BaseLayout from '@/layouts/BaseLayout';
         <!-- Toast -->
         <div
             id='toast'
-            class='hidden fixed bottom-6 right-6 bg-green-600 text-white px-4 py-2 rounded-md shadow-lg transition opacity-0'
+            class='hidden fixed bottom-6 right-6 text-white px-4 py-2 rounded-md shadow-lg transition opacity-0'
         >
-            📩 Email successfully sent!
         </div>
     </section>
 </BaseLayout>
 
 <script>
-    const form = document.getElementById('contactForm');
-    const button = document.getElementById('submitBtn');
-    const toast = document.getElementById('toast');
+    const form = document.getElementById(
+        'contactForm'
+    ) as HTMLFormElement | null;
+    const button = document.getElementById(
+        'submitBtn'
+    ) as HTMLButtonElement | null;
+    const toast = document.getElementById('toast') as HTMLDivElement | null;
 
-    form.addEventListener('submit', async (e) => {
+    if (!form || !button || !toast) {
+        console.error('Missing required form elements');
+        throw new Error('contact form elements missing in DOM');
+    }
+
+    form.addEventListener('submit', async (e: SubmitEvent) => {
         e.preventDefault();
+
         button.disabled = true;
         button.textContent = 'Sending...';
 
-        // Mock network delay
-        await new Promise((r) => setTimeout(r, 1200));
+        const formData = new FormData(form);
+
+        const res = await fetch('/api/contact', {
+            method: 'POST',
+            body: formData
+        });
 
         form.reset();
         button.disabled = false;
         button.textContent = 'Contact me';
 
         // Show toast
+        if (res.ok) {
+            toast.textContent = '📩 Email successfully sent!';
+            toast.classList.add('bg-green-600');
+        } else {
+            toast.textContent = '😔 Error sending message';
+            toast.classList.add('bg-red-600');
+        }
+
         toast.classList.remove('hidden');
         toast.classList.add('opacity-100');
+
         setTimeout(() => {
             toast.classList.add('opacity-0');
             setTimeout(() => toast.classList.add('hidden'), 300);
