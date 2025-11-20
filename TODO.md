@@ -1,7 +1,7 @@
 ## Features
 - Add link to archives/set up post archive. See mathematical crap for what this might look like
 - [x] Better theme color: I think the teal is too bright and doesn't look good on light mode. Maybe periwinkle
-- Switch media to cloudinary (consider local/Cloudinary)
+- [x] Switch media to cloudinary (consider local/Cloudinary)
 - Add page analytics as on my previous site
 - [x] Add LaTeX support in post content
 - [x] Add back to top button
@@ -15,6 +15,10 @@
 - Add validators to Zed so that categories/projects/series etc. have to come from existing list
 - Have proper numbered pagination not just left and right arrows
 - Do something better with tags now that I have so many. Also what is the format for tags in the frontmatter? e.g. is is "First second" or "First Second"...can I have it so it doesn't matter
+- Add "load more" button to landing page
+- Add project/series overview tab
+- Add more metadata to series/categories e.g. the number of posts
+- Add next/previous post links as in previous site
 
 ## Bugs
 - [x] Footer doesn't push to bottom of page (see /category/category-1) for example
@@ -36,16 +40,26 @@
 - Card mdx component is garbage
 - Consistency on video and image captions
 - Fix image and video height and width setup
+- When selected on phone to the tag selector button text covers the cross
 
 ## Jobs
-- Run backfill using specter to convert <Highlight /> tags. Check also for ^^
+- [x] Run backfill using specter to convert <Highlight /> tags. Check also for ^^
   - Use <Highlight text=['"](.*)['"] /> and <Highlight>\1</Highlight>
 - Update internal page links since they still point to /content/<post-name>
 - Try viewing on multiple browsers...Firefox seems to be weird
 - Can I set up permanent redirects for all the Instagram story blog links??
-- Fix roam-style italics?? _dfj_
+- [x] Fix roam-style italics?? _dfj_
+  - Nothing required
+- Update introductory email
+- Actually wire up Mailchimp
+- Actually wire up contact form
+- Make contact/subscribe forms DRY
+- Make sure images load lazy when they should
+- Form field validations with zod and protecting against spam
+- Add server render for cloudflare
 
 ## Future...
 - [x] Do I want to stick with TinaCMS? I think that maybe if I am writing in Obsidian there is no point...
-
+- Have ses emails not go to Spam folder!!
 - Explore a move off of Mailchimp to something better, e.g. "Mailerlite". The thing is that I don't think that the number of people I have subscribed at the moment really warrants this...
+- Make the email template I use for /contact a little nicer
