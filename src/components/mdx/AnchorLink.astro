@@ -1,10 +1,17 @@
 ---
 type Props = {
-    url: string;
+    href: string;
 };
-const { url, ...props } = Astro.props;
+const { href = '', ...props } = Astro.props;
+const isLocalLink = href.startsWith('#user-content') || href.startsWith('/');
 ---
 
-<a href={url} class='underline--magical no-underline' {...props}>
+<a
+    href={href}
+    class='underline--magical no-underline'
+    target={isLocalLink ? undefined : '_blank'}
+    rel={isLocalLink ? undefined : 'noopener noreferrer'}
+    {...props}
+>
     <slot />
 </a>
