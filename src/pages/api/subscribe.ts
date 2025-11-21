@@ -104,7 +104,7 @@ export const subscribeToMailchimp = async ({
         if (response.ok) {
             return {
                 result: 'success',
-                msg: 'Successfully subscribed to our newsletter!',
+                msg: 'Successfully subscribed - welcome aboard! 👋',
             };
         } else {
             // Handle specific Mailchimp errors

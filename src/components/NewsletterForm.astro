@@ -1,5 +1,5 @@
 ---
-import 'notyf/notyf.min.css';
+import Loader from '@/components/Loader';
 ---
 
 <form
@@ -25,137 +25,51 @@ import 'notyf/notyf.min.css';
             id='submit-button'
             class='absolute right-0 h-full px-5 rounded-r-2xl bg-teal font-medium transition-colors duration-300 hover:bg-teal/90 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed'
         >
-            <span id='button-text'>Subscribe</span>
-            <span id='button-loading' class='hidden'>
-                <svg
-                    class='animate-spin h-5 w-5 inline'
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                >
-                    <circle
-                        class='opacity-25'
-                        cx='12'
-                        cy='12'
-                        r='10'
-                        stroke='currentColor'
-                        stroke-width='4'></circle>
-                    <path
-                        class='opacity-75'
-                        fill='currentColor'
-                        d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'
-                    ></path>
-                </svg>
+            <span id='button-text-footer'>Subscribe</span>
+            <span id='button-loading-footer' class='hidden'>
+                <Loader />
             </span>
         </button>
     </div>
 
     <div
-        id='form-message'
-        class='hidden text-sm p-3 rounded-lg transition-all'
+        id='form-message-footer'
+        class='absolute left-0 right-0 text-center mx-auto hidden text-sm p-3 rounded-lg transition-all'
         role='alert'
     >
     </div>
 </form>
 
 <script>
-    import { Notyf } from 'notyf';
-
-    const notyf = new Notyf({
-        duration: 4000,
-        position: { x: 'center', y: 'top' },
-        dismissible: true
-    });
+    import { handleNewsletterSubmit } from '@/utils/newsletter';
 
     const form = document.getElementById('newsletter-form') as HTMLFormElement;
     const submitButton = document.getElementById(
         'submit-button'
     ) as HTMLButtonElement;
     const buttonText = document.getElementById(
-        'button-text'
+        'button-text-footer'
     ) as HTMLSpanElement;
     const buttonLoading = document.getElementById(
-        'button-loading'
+        'button-loading-footer'
     ) as HTMLSpanElement;
     const emailInput = document.getElementById(
         'email-input'
     ) as HTMLInputElement;
     const messageContainer = document.getElementById(
-        'form-message'
+        'form-message-footer'
     ) as HTMLDivElement;
 
-    function setLoading(isLoading: boolean) {
-        submitButton.disabled = isLoading;
-        emailInput.disabled = isLoading;
-
-        if (isLoading) {
-            buttonText.classList.add('hidden');
-            buttonLoading.classList.remove('hidden');
-        } else {
-            buttonText.classList.remove('hidden');
-            buttonLoading.classList.add('hidden');
-        }
-    }
-
-    function showMessage(message: string, type: 'success' | 'error') {
-        messageContainer.textContent = message;
-        messageContainer.classList.remove(
-            'hidden',
-            'bg-green-50',
-            'text-green-800',
-            'bg-red-50',
-            'text-red-800'
-        );
-
-        if (type === 'success') {
-            messageContainer.classList.add('bg-green-50', 'text-green-800');
-        } else {
-            messageContainer.classList.add('bg-red-50', 'text-red-800');
-        }
-
-        setTimeout(() => {
-            messageContainer.classList.add('hidden');
-        }, 5000);
-    }
+    const elements = {
+        submitButton,
+        buttonText,
+        buttonLoading,
+        inputs: [emailInput],
+        messageContainer
+    };
 
     form?.addEventListener('submit', async (e: SubmitEvent) => {
         e.preventDefault();
-
-        const formData = new FormData(form);
-
-        setLoading(true);
-        messageContainer.classList.add('hidden');
-
-        try {
-            const res = await fetch('/api/subscribe', {
-                method: 'POST',
-                body: formData
-            });
-
-            const data = await res.json();
-
-            if (res.ok) {
-                showMessage(data.msg || 'Successfully subscribed!', 'success');
-                notyf.success({
-                    message:
-                        "Welcome aboard! 🎉 You've been subscribed to our newsletter.",
-                    duration: 5000
-                });
-                form.reset();
-            } else {
-                showMessage(data.msg || 'Subscription failed.', 'error');
-                notyf.error(
-                    data.msg || 'Subscription failed. Please try again.'
-                );
-            }
-        } catch (error) {
-            console.error('Subscription error:', error);
-            showMessage('Something went wrong. Please try again.', 'error');
-            notyf.error(
-                'Connection error. Please check your connection and try again.'
-            );
-        } finally {
-            setLoading(false);
-        }
+        await handleNewsletterSubmit(form, elements);
     });
 </script>
