@@ -57,10 +57,19 @@ export default defineConfig({
                 context: 'server',
                 access: 'secret',
             }),
-            MAILCHIMP_EMBED_URL: envField.string({
+            MAILCHIMP_API_KEY: envField.string({
                 context: 'server',
                 access: 'secret',
+            }),
+            MAILCHIMP_AUDIENCE_ID: envField.string({
+                context: 'server',
+                access: 'secret',
+            }),
+            MAILCHIMP_SERVER_PREFIX: envField.string({
+                context: 'server',
+                access: 'public',
             }),
         },
     },
 });
+

@@ -29,7 +29,7 @@ export const POST: APIRoute = async ({ request }) => {
         await sesSend(TO_EMAIL, email, message, name, subject);
         return new Response('Success', { status: 200 });
     } catch (err) {
-        return new Response('/error' + err, { status: 400 });
+        return new Response(`/error:${err}`, { status: 400 });
     }
 };
 
