@@ -1,0 +1,120 @@
+---
+import BaseLayout from '@/layouts/BaseLayout';
+import ListPosts from '@/components/ListPosts';
+import Pagination from '@/components/Pagination';
+import ArchiveMonthCard from '@/components/ArchiveMonthCard';
+import { getPosts, getPostsByYear, groupPostsByMonth } from '@/utils';
+import { siteConfig } from '@/data/site.config';
+
+export async function getStaticPaths({ paginate }: any) {
+    const allPosts = await getPosts();
+
+    // Group posts by year
+    const yearMap = new Map<number, any[]>();
+    allPosts.forEach((post) => {
+        const year = post.data.pubDate.getFullYear();
+        if (!yearMap.has(year)) {
+            yearMap.set(year, []);
+        }
+        yearMap.get(year)!.push(post);
+    });
+
+    // Create paginated routes for each year
+    return Array.from(yearMap.entries()).flatMap(([year, yearPosts]) => {
+        return paginate(yearPosts, {
+            params: { year: year.toString() },
+            pageSize: siteConfig.paginationSize
+        });
+    });
+}
+
+const { year } = Astro.params;
+const { page } = Astro.props;
+
+const allPosts = await getPosts();
+const yearNumber = parseInt(year!);
+const yearPosts = getPostsByYear(allPosts, yearNumber);
+const monthsData = groupPostsByMonth(allPosts, yearNumber);
+const posts = page.data;
+---
+
+<BaseLayout title={`Archive - ${year}`}>
+    <section class='flex flex-col items-center'>
+        <div class='w-full max-w-4xl'>
+            <!-- Header -->
+            <div class='text-center mb-8'>
+                <h1
+                    class='text-4xl font-bold text-center underline--magical inline-block mx-auto font-mono mb-4'
+                >
+                    ./ARCHIVE/{year}
+                </h1>
+                <p class='text-gray-600 dark:text-gray-300 text-lg'>
+                    {yearPosts.length} posts from {year}
+                </p>
+                <div class='mt-4 flex justify-center gap-4'>
+                    <a
+                        href='/archive'
+                        class='text-sm text-primary hover:text-primary/80 underline transition-colors'
+                    >
+                        ← Back to Archive
+                    </a>
+                    <a
+                        href='/archive/tree'
+                        class='text-sm text-primary hover:text-primary/80 underline transition-colors'
+                    >
+                        Switch to Tree View
+                    </a>
+                </div>
+            </div>
+
+            <!-- Months Navigation -->
+            {
+                monthsData.length > 1 && (
+                    <div class='mb-8'>
+                        <h2 class='text-xl font-semibold mb-4 text-gray-900 dark:text-white'>
+                            Browse by Month
+                        </h2>
+                        <div class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3'>
+                            {monthsData.map((monthData) => (
+                                <a
+                                    href={`/archive/${year}/${monthData.monthName.toLowerCase()}/1`}
+                                >
+                                    <ArchiveMonthCard
+                                        year={monthData.year}
+                                        month={monthData.month}
+                                        monthName={monthData.monthName}
+                                        count={monthData.count}
+                                    />
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+
+            <!-- Posts Section -->
+            <div class='mb-8'>
+                <div class='flex justify-between items-center mb-6'>
+                    <h2
+                        class='text-2xl font-semibold text-gray-900 dark:text-white'
+                    >
+                        Posts from {year}
+                    </h2>
+                    <div class='text-sm text-gray-600 dark:text-gray-400'>
+                        Page {page.currentPage} of {page.lastPage}
+                    </div>
+                </div>
+
+                <ListPosts posts={posts} />
+
+                {
+                    page.lastPage > 1 && (
+                        <div class='mt-8'>
+                            <Pagination page={page} />
+                        </div>
+                    )
+                }
+            </div>
+        </div>
+    </section>
+</BaseLayout>

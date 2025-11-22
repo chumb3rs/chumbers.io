@@ -1,0 +1,362 @@
+---
+import { cn } from '@/utils';
+import type { PostsByYear } from '@/utils/archive';
+
+interface Props {
+    archiveData: {
+        years: PostsByYear[];
+        totalPosts: number;
+    };
+}
+
+const { archiveData } = Astro.props;
+---
+
+<div class='archive-tree-view'>
+    <div class='space-y-2'>
+        {
+            archiveData.years.map((yearData) => (
+                <div class='year-node'>
+                    <button
+                        class={cn(
+                            'w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200',
+                            'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700',
+                            'border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500',
+                            'shadow-sm hover:shadow-md'
+                        )}
+                        data-year={yearData.year}
+                    >
+                        <div class='flex items-center gap-3'>
+                            <svg
+                                class='w-4 h-4 transition-transform duration-200 year-chevron'
+                                fill='none'
+                                stroke='currentColor'
+                                viewBox='0 0 24 24'
+                            >
+                                <path
+                                    stroke-linecap='round'
+                                    stroke-linejoin='round'
+                                    stroke-width='2'
+                                    d='M9 5l7 7-7 7'
+                                />
+                            </svg>
+                            <span class='text-lg font-semibold text-gray-900 dark:text-white'>
+                                {yearData.year}
+                            </span>
+                        </div>
+                        <span class='text-sm text-gray-600 dark:text-gray-400 font-medium'>
+                            {yearData.count}{' '}
+                            {yearData.count === 1 ? 'post' : 'posts'}
+                        </span>
+                    </button>
+
+                    <div
+                        class='months-container hidden ml-6 mt-2 space-y-1'
+                        data-year={yearData.year}
+                    ></div>
+                </div>
+            ))
+        }
+    </div>
+
+    <div class='mt-8'>
+        <div class='flex justify-between items-center mb-4'>
+            <h3
+                class='text-xl font-semibold text-gray-900 dark:text-white'
+                id='tree-posts-title'
+            >
+                All Posts
+            </h3>
+            <div
+                class='text-sm text-gray-600 dark:text-gray-400'
+                id='tree-posts-count'
+            >
+                {archiveData.totalPosts} posts
+            </div>
+        </div>
+
+        <div class='space-y-3' id='tree-posts-list'></div>
+
+        <div class='mt-6 text-center hidden' id='tree-load-more-container'>
+            <button
+                onclick='loadMoreTreePosts()'
+                class='px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors'
+                id='tree-load-more-btn'
+            >
+                Load More Posts
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .year-node.expanded .year-chevron {
+        transform: rotate(90deg);
+    }
+
+    .month-node {
+        @apply pl-4 border-l-2 border-gray-200 dark:border-gray-600;
+    }
+
+    .post-item {
+        @apply p-3 rounded-lg border border-gray-200 dark:border-gray-600 
+               bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700
+               transition-colors duration-200;
+    }
+
+    .post-item:hover {
+        @apply border-gray-300 dark:border-gray-500 shadow-sm;
+    }
+</style>
+
+<script define:vars={{ archiveData }}>
+    let treeCurrentYear = null;
+    let treeCurrentMonth = null;
+    let treeDisplayedPosts = 10;
+    let treeFilteredPosts = [];
+    let allTreePosts = [];
+
+    // Initialize with all posts
+    document.addEventListener('DOMContentLoaded', function () {
+        // Flatten all posts from archive data
+        allTreePosts = archiveData.years.flatMap((year) => year.posts);
+        treeFilteredPosts = [...allTreePosts];
+        renderTreePosts();
+
+        // Add click listeners to year buttons
+        document.querySelectorAll('[data-year]').forEach((button) => {
+            button.addEventListener('click', function () {
+                const year = parseInt(this.dataset.year);
+                toggleYear(year);
+            });
+        });
+
+        // Add click listener to load more button
+        const loadMoreBtn = document.getElementById('tree-load-more-btn');
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', loadMoreTreePosts);
+        }
+    });
+
+    function toggleYear(year) {
+        const yearButton = document.querySelector(`[data-year="${year}"]`);
+        const monthsContainer = document.querySelector(
+            `.months-container[data-year="${year}"]`
+        );
+        const yearNode = yearButton.closest('.year-node');
+
+        if (yearNode.classList.contains('expanded')) {
+            // Collapse year
+            yearNode.classList.remove('expanded');
+            monthsContainer.classList.add('hidden');
+
+            // Reset to all posts if this year was selected
+            if (treeCurrentYear === year) {
+                treeCurrentYear = null;
+                treeCurrentMonth = null;
+                treeFilteredPosts = [...allTreePosts];
+                updateTreePostsDisplay('All Posts', allTreePosts.length);
+                treeDisplayedPosts = 10;
+                renderTreePosts();
+            }
+        } else {
+            // Collapse all other years first
+            document.querySelectorAll('.year-node').forEach((node) => {
+                node.classList.remove('expanded');
+            });
+            document
+                .querySelectorAll('.months-container')
+                .forEach((container) => {
+                    container.classList.add('hidden');
+                });
+
+            // Expand this year
+            yearNode.classList.add('expanded');
+            monthsContainer.classList.remove('hidden');
+
+            // Set current year and filter posts
+            treeCurrentYear = year;
+            treeCurrentMonth = null;
+            treeFilteredPosts = allTreePosts.filter(
+                (post) => new Date(post.data.pubDate).getFullYear() === year
+            );
+            updateTreePostsDisplay(
+                `Posts from ${year}`,
+                treeFilteredPosts.length
+            );
+            treeDisplayedPosts = 10;
+
+            // Populate months for this year
+            populateMonths(year, monthsContainer);
+            renderTreePosts();
+        }
+    }
+
+    function populateMonths(year, container) {
+        const yearPosts = allTreePosts.filter(
+            (post) => new Date(post.data.pubDate).getFullYear() === year
+        );
+        const monthsData = groupPostsByMonthTree(yearPosts, year);
+
+        container.innerHTML = '';
+
+        monthsData.forEach((monthData) => {
+            const monthDiv = document.createElement('div');
+            monthDiv.className = 'month-node';
+
+            const monthButton = document.createElement('button');
+            monthButton.className = `w-full flex items-center justify-between p-2 rounded-lg transition-all duration-200
+                bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600
+                border border-gray-100 dark:border-gray-600 hover:border-gray-200 dark:hover:border-gray-500`;
+
+            monthButton.onclick = () =>
+                selectTreeMonth(year, monthData.month, monthData.monthName);
+            monthButton.dataset.year = year;
+            monthButton.dataset.month = monthData.month;
+
+            monthButton.innerHTML = `
+                <span class="text-sm font-medium text-gray-800 dark:text-gray-200">
+                    ${monthData.monthName}
+                </span>
+                <span class="text-xs text-gray-600 dark:text-gray-400">
+                    ${monthData.count} ${monthData.count === 1 ? 'post' : 'posts'}
+                </span>
+            `;
+
+            monthDiv.appendChild(monthButton);
+            container.appendChild(monthDiv);
+        });
+    }
+
+    function selectTreeMonth(year, month, monthName) {
+        treeCurrentMonth = month;
+
+        // Update month button states
+        document.querySelectorAll('[data-month]').forEach((btn) => {
+            btn.classList.remove('bg-primary/10', 'border-primary/30');
+        });
+
+        const selectedButton = document.querySelector(
+            `[data-year="${year}"][data-month="${month}"]`
+        );
+        selectedButton.classList.add('bg-primary/10', 'border-primary/30');
+
+        // Filter posts
+        treeFilteredPosts = allTreePosts.filter((post) => {
+            const postDate = new Date(post.data.pubDate);
+            return (
+                postDate.getFullYear() === year && postDate.getMonth() === month
+            );
+        });
+
+        updateTreePostsDisplay(
+            `Posts from ${monthName} ${year}`,
+            treeFilteredPosts.length
+        );
+        treeDisplayedPosts = 10;
+        renderTreePosts();
+    }
+
+    function updateTreePostsDisplay(title, count) {
+        document.getElementById('tree-posts-title').textContent = title;
+        document.getElementById('tree-posts-count').textContent =
+            `${count} ${count === 1 ? 'post' : 'posts'}`;
+    }
+
+    function renderTreePosts() {
+        const postsToShow = treeFilteredPosts.slice(0, treeDisplayedPosts);
+        const postsList = document.getElementById('tree-posts-list');
+        const loadMoreContainer = document.getElementById(
+            'tree-load-more-container'
+        );
+
+        postsList.innerHTML = '';
+
+        postsToShow.forEach((post) => {
+            const postDiv = document.createElement('div');
+            postDiv.className = 'post-item';
+
+            const postDate = new Date(post.data.pubDate);
+            const formattedDate = postDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+
+            postDiv.innerHTML = `
+                <div class="flex justify-between items-start gap-4">
+                    <div class="flex-1">
+                        <a href="/posts/${post.slug}/" class="block group">
+                            <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-primary transition-colors line-clamp-2">
+                                ${post.data.title}
+                            </h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                                ${post.data.description}
+                            </p>
+                        </a>
+                    </div>
+                    <div class="flex flex-col items-end gap-1 text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
+                        <span>${formattedDate}</span>
+                        <span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">${post.data.category}</span>
+                    </div>
+                </div>
+            `;
+
+            postsList.appendChild(postDiv);
+        });
+
+        // Show/hide load more button
+        if (treeDisplayedPosts >= treeFilteredPosts.length) {
+            loadMoreContainer.classList.add('hidden');
+        } else {
+            loadMoreContainer.classList.remove('hidden');
+        }
+    }
+
+    function loadMoreTreePosts() {
+        treeDisplayedPosts += 10;
+        renderTreePosts();
+    }
+
+    // Helper function to group posts by month (client-side version)
+    function groupPostsByMonthTree(posts, year) {
+        const monthNames = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ];
+
+        const monthMap = new Map();
+
+        posts.forEach((post) => {
+            const month = new Date(post.data.pubDate).getMonth();
+            if (!monthMap.has(month)) {
+                monthMap.set(month, []);
+            }
+            monthMap.get(month).push(post);
+        });
+
+        return Array.from(monthMap.entries())
+            .map(([month, monthPosts]) => ({
+                year,
+                month,
+                monthName: monthNames[month],
+                count: monthPosts.length,
+                posts: monthPosts.sort(
+                    (a, b) =>
+                        new Date(b.data.pubDate).getTime() -
+                        new Date(a.data.pubDate).getTime()
+                )
+            }))
+            .sort((a, b) => b.month - a.month);
+    }
+</script>

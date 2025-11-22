@@ -5,6 +5,7 @@ import TagIcon from '@/components/icons/TagIcon';
 import SeriesIcon from '@/components/icons/SeriesIcon';
 import ProjectIcon from '@/components/icons/ProjectIcon';
 import CategoryIcon from '@/components/icons/CategoryIcon';
+import ArchiveIcon from '@/components/icons/ArchiveIcon';
 import type { PageLink } from '@/types/pageLinks';
 import type { IContentType } from '@/types/contentType';
 
@@ -33,6 +34,10 @@ export const footerLinks: PageLink[] = [
     {
         text: 'Subscribe',
         url: '/subscribe',
+    },
+    {
+        text: 'Archive',
+        url: '/archive',
     },
     {
         text: 'Resume',

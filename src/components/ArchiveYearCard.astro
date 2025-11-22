@@ -1,0 +1,54 @@
+---
+import { cn } from '@/utils';
+
+interface Props {
+    year: number;
+    count: number;
+    isSelected?: boolean;
+}
+
+const { year, count, isSelected = false } = Astro.props;
+---
+
+<button
+    class={cn(
+        'group relative overflow-hidden rounded-lg border-2 transition-all duration-200 ease-in-out',
+        'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700',
+        'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500',
+        'shadow-sm hover:shadow-md',
+        'p-6 min-h-[120px] flex flex-col justify-center items-center gap-2',
+        isSelected && 'border-primary bg-primary/5 dark:bg-primary/10'
+    )}
+    data-year={year}
+>
+    <div class='text-center'>
+        <h3
+            class={cn(
+                'text-2xl font-bold transition-colors duration-200',
+                'text-gray-900 dark:text-white group-hover:text-primary',
+                isSelected && 'text-primary'
+            )}
+        >
+            {year}
+        </h3>
+        <p
+            class={cn(
+                'text-sm font-medium transition-colors duration-200',
+                'text-gray-600 dark:text-gray-300 group-hover:text-gray-700 dark:group-hover:text-gray-200',
+                isSelected && 'text-primary/80'
+            )}
+        >
+            {count}
+            {count === 1 ? 'post' : 'posts'}
+        </p>
+    </div>
+
+    <!-- Hover effect -->
+    <div
+        class={cn(
+            'absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200',
+            'bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20'
+        )}
+    >
+    </div>
+</button>

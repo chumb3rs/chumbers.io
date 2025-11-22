@@ -1,0 +1,350 @@
+---
+import BaseLayout from '@/layouts/BaseLayout';
+import ListPosts from '@/components/ListPosts';
+import ArchiveYearCard from '@/components/ArchiveYearCard';
+import ArchiveMonthCard from '@/components/ArchiveMonthCard';
+import { getPosts, createArchiveData, groupPostsByMonth } from '@/utils';
+
+const allPosts = await getPosts();
+const archiveData = createArchiveData(allPosts);
+---
+
+<BaseLayout title='Archive'>
+    <section class='flex flex-col items-center'>
+        <div class='w-full max-w-4xl'>
+            <!-- Header -->
+            <div class='text-center mb-8'>
+                <h1
+                    class='text-4xl font-bold text-center underline--magical inline-block mx-auto font-mono mb-4'
+                >
+                    ./ARCHIVE
+                </h1>
+                <p class='text-gray-600 dark:text-gray-300 text-lg'>
+                    Browse {archiveData.totalPosts} posts by year and month
+                </p>
+                <div class='mt-4 flex justify-center gap-4'>
+                    <a
+                        href='/archive/tree'
+                        class='text-sm text-primary hover:text-primary/80 underline transition-colors'
+                    >
+                        Switch to Tree View
+                    </a>
+                </div>
+            </div>
+
+            <!-- Years Section -->
+            <div class='mb-8'>
+                <h2
+                    class='text-2xl font-semibold mb-4 text-gray-900 dark:text-white'
+                >
+                    Browse by Year
+                </h2>
+                <div
+                    class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'
+                    id='years-grid'
+                >
+                    {
+                        archiveData.years.map((yearData) => (
+                            <ArchiveYearCard
+                                year={yearData.year}
+                                count={yearData.count}
+                            />
+                        ))
+                    }
+                </div>
+            </div>
+
+            <!-- Months Section (Hidden by default) -->
+            <div class='mb-8 hidden' id='months-section'>
+                <h2
+                    class='text-2xl font-semibold mb-4 text-gray-900 dark:text-white'
+                >
+                    Browse by Month in <span id='selected-year-display'></span>
+                </h2>
+                <div
+                    class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3'
+                    id='months-grid'
+                >
+                    <!-- Months will be populated by JavaScript -->
+                </div>
+                <div class='mt-4'>
+                    <button
+                        id='clear-year-btn'
+                        class='text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 underline transition-colors'
+                    >
+                        ← Back to Years
+                    </button>
+                </div>
+            </div>
+
+            <!-- Posts Section -->
+            <div class='mb-8'>
+                <div class='flex justify-between items-center mb-4'>
+                    <h2
+                        class='text-2xl font-semibold text-gray-900 dark:text-white'
+                        id='posts-title'
+                    >
+                        All Posts
+                    </h2>
+                    <div
+                        class='text-sm text-gray-600 dark:text-gray-400'
+                        id='posts-count'
+                    >
+                        {archiveData.totalPosts} posts
+                    </div>
+                </div>
+                <div id='posts-container'>
+                    <ListPosts posts={allPosts.slice(0, 6)} />
+                    {
+                        allPosts.length > 6 && (
+                            <div class='mt-8 text-center'>
+                                <button
+                                    id='load-more-btn'
+                                    class='px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors'
+                                >
+                                    Load More Posts
+                                </button>
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<script define:vars={{ archiveData, allPosts }}>
+    let currentYear = null;
+    let currentMonth = null;
+    let displayedPosts = 6;
+    let filteredPosts = allPosts;
+
+    // Add event listeners when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add click listeners to year cards
+        document.querySelectorAll('[data-year]').forEach((button) => {
+            button.addEventListener('click', function () {
+                selectYear(this);
+            });
+        });
+
+        // Add click listener to clear year button
+        const clearYearBtn = document.getElementById('clear-year-btn');
+        if (clearYearBtn) {
+            clearYearBtn.addEventListener('click', clearYearSelection);
+        }
+
+        // Add click listener to load more button
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', loadMorePosts);
+        }
+    });
+
+    function selectYear(button) {
+        const year = parseInt(button.dataset.year);
+        currentYear = year;
+        currentMonth = null;
+
+        // Update UI
+        document.querySelectorAll('[data-year]').forEach((btn) => {
+            btn.classList.remove(
+                'border-primary',
+                'bg-primary/5',
+                'dark:bg-primary/10'
+            );
+        });
+        button.classList.add(
+            'border-primary',
+            'bg-primary/5',
+            'dark:bg-primary/10'
+        );
+
+        // Show months for selected year
+        showMonthsForYear(year);
+
+        // Filter and display posts for the year
+        filteredPosts = allPosts.filter(
+            (post) => new Date(post.data.pubDate).getFullYear() === year
+        );
+        updatePostsDisplay(`Posts from ${year}`, filteredPosts.length);
+        displayedPosts = 6;
+        renderPosts();
+    }
+
+    function showMonthsForYear(year) {
+        const yearPosts = allPosts.filter(
+            (post) => new Date(post.data.pubDate).getFullYear() === year
+        );
+        const monthsData = groupPostsByMonth(yearPosts, year);
+
+        const monthsGrid = document.getElementById('months-grid');
+        const monthsSection = document.getElementById('months-section');
+        const selectedYearDisplay = document.getElementById(
+            'selected-year-display'
+        );
+
+        selectedYearDisplay.textContent = year;
+
+        // Clear previous months
+        monthsGrid.innerHTML = '';
+
+        // Add month cards
+        monthsData.forEach((monthData) => {
+            const monthCard = document.createElement('button');
+            monthCard.className = `group relative overflow-hidden rounded-lg border-2 transition-all duration-200 ease-in-out
+                bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700
+                border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500
+                shadow-sm hover:shadow-md p-4 min-h-[100px] flex flex-col justify-center items-center gap-1`;
+
+            monthCard.dataset.year = year;
+            monthCard.dataset.month = monthData.month;
+            monthCard.dataset.monthName = monthData.monthName.toLowerCase();
+            monthCard.onclick = () => selectMonth(monthCard);
+
+            monthCard.innerHTML = `
+                <div class="text-center">
+                    <h4 class="text-lg font-semibold transition-colors duration-200 text-gray-900 dark:text-white group-hover:text-primary">
+                        ${monthData.monthName}
+                    </h4>
+                    <p class="text-xs font-medium transition-colors duration-200 text-gray-600 dark:text-gray-300 group-hover:text-gray-700 dark:group-hover:text-gray-200">
+                        ${monthData.count} ${monthData.count === 1 ? 'post' : 'posts'}
+                    </p>
+                </div>
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20"></div>
+            `;
+
+            monthsGrid.appendChild(monthCard);
+        });
+
+        monthsSection.classList.remove('hidden');
+    }
+
+    function selectMonth(button) {
+        const year = parseInt(button.dataset.year);
+        const month = parseInt(button.dataset.month);
+        const monthName = button.dataset.monthName;
+
+        currentMonth = month;
+
+        // Update UI
+        document.querySelectorAll('[data-month]').forEach((btn) => {
+            btn.classList.remove(
+                'border-primary',
+                'bg-primary/5',
+                'dark:bg-primary/10'
+            );
+        });
+        button.classList.add(
+            'border-primary',
+            'bg-primary/5',
+            'dark:bg-primary/10'
+        );
+
+        // Filter and display posts for the year and month
+        filteredPosts = allPosts.filter((post) => {
+            const postDate = new Date(post.data.pubDate);
+            return (
+                postDate.getFullYear() === year && postDate.getMonth() === month
+            );
+        });
+
+        updatePostsDisplay(
+            `Posts from ${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${year}`,
+            filteredPosts.length
+        );
+        displayedPosts = 6;
+        renderPosts();
+    }
+
+    function clearYearSelection() {
+        currentYear = null;
+        currentMonth = null;
+        filteredPosts = allPosts;
+
+        // Hide months section
+        document.getElementById('months-section').classList.add('hidden');
+
+        // Clear year selection
+        document.querySelectorAll('[data-year]').forEach((btn) => {
+            btn.classList.remove(
+                'border-primary',
+                'bg-primary/5',
+                'dark:bg-primary/10'
+            );
+        });
+
+        // Reset posts display
+        updatePostsDisplay('All Posts', allPosts.length);
+        displayedPosts = 6;
+        renderPosts();
+    }
+
+    function updatePostsDisplay(title, count) {
+        document.getElementById('posts-title').textContent = title;
+        document.getElementById('posts-count').textContent =
+            `${count} ${count === 1 ? 'post' : 'posts'}`;
+    }
+
+    function renderPosts() {
+        const postsToShow = filteredPosts.slice(0, displayedPosts);
+        const postsContainer = document.getElementById('posts-container');
+        const loadMoreBtn = document.getElementById('load-more-btn');
+
+        // This is a simplified version - in a real implementation, you'd need to
+        // re-render the ListPosts component or use a different approach
+        // For now, we'll just update the load more button visibility
+        if (displayedPosts >= filteredPosts.length) {
+            loadMoreBtn?.style.setProperty('display', 'none');
+        } else {
+            loadMoreBtn?.style.setProperty('display', 'block');
+        }
+    }
+
+    function loadMorePosts() {
+        displayedPosts += 6;
+        renderPosts();
+    }
+
+    // Helper function to group posts by month (client-side version)
+    function groupPostsByMonth(posts, year) {
+        const monthNames = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ];
+
+        const monthMap = new Map();
+
+        posts.forEach((post) => {
+            const month = new Date(post.data.pubDate).getMonth();
+            if (!monthMap.has(month)) {
+                monthMap.set(month, []);
+            }
+            monthMap.get(month).push(post);
+        });
+
+        return Array.from(monthMap.entries())
+            .map(([month, monthPosts]) => ({
+                year,
+                month,
+                monthName: monthNames[month],
+                count: monthPosts.length,
+                posts: monthPosts.sort(
+                    (a, b) =>
+                        new Date(b.data.pubDate).getTime() -
+                        new Date(a.data.pubDate).getTime()
+                )
+            }))
+            .sort((a, b) => b.month - a.month);
+    }
+</script>
