@@ -1,6 +1,7 @@
 ---
 import ArchiveLayout from '@/layouts/ArchiveLayout';
-import { getPosts, getPostsByYear, groupPostsByMonth } from '@/utils';
+import Pagination from '@/components/Pagination';
+import { getPosts, groupPostsByMonth } from '@/utils';
 import { siteConfig } from '@/data/site.config';
 
 export async function getStaticPaths({ paginate }: any) {
@@ -30,13 +31,10 @@ const { page } = Astro.props;
 
 const allPosts = await getPosts();
 const yearNumber = parseInt(year!);
-const yearPosts = getPostsByYear(allPosts, yearNumber);
 const monthsData = groupPostsByMonth(allPosts, yearNumber);
 const posts = page.data;
 ---
 
-<ArchiveLayout
-    currentYear={yearNumber}
-    monthsData={monthsData}
-    posts={yearPosts}
-/>
+<ArchiveLayout currentYear={yearNumber} monthsData={monthsData} posts={posts}>
+    <Pagination page={page} />
+</ArchiveLayout>

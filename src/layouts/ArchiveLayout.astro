@@ -76,21 +76,12 @@ const archiveData = createArchiveData(allPosts);
                     <hr />
                 </div>
                 <div id='posts-container'>
-                    <ListPosts posts={selectedPosts.slice(0, 6)} />
-                    {
-                        selectedPosts.length > 6 && (
-                            <div class='mt-8 text-center'>
-                                <button
-                                    id='load-more-btn'
-                                    class='px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors'
-                                >
-                                    Load More Posts
-                                </button>
-                            </div>
-                        )
-                    }
+                    <ListPosts posts={selectedPosts} />
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Add slot for pagination -->
+    <slot />
 </ContentTypeLayout>
