@@ -35,6 +35,10 @@ export default defineConfig({
         sitemap(),
         tailwind(),
     ],
+    redirects: {
+        '/content/[...slug]': '/posts/[...slug]',
+        '/categories/[...slug]': '/categories/[...slug]/1'
+    },
     env: {
         schema: {
             PUBLIC_CLOUDINARY_CLOUD_NAME: envField.string({
@@ -72,4 +76,3 @@ export default defineConfig({
         },
     },
 });
-
