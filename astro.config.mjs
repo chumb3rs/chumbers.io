@@ -8,6 +8,8 @@ import rehypeKatex from 'rehype-katex';
 import { siteConfig } from './src/data/site.config';
 import { astroFont } from 'astro-font/integration';
 
+import partytown from '@astrojs/partytown';
+
 export default defineConfig({
     site: siteConfig.site,
     markdown: {
@@ -34,10 +36,15 @@ export default defineConfig({
         }),
         sitemap(),
         tailwind(),
+        partytown({
+            config: {
+                forward: ['dataLayer.push'],
+            },
+        }),
     ],
     redirects: {
         '/content/[...slug]': '/posts/[...slug]',
-        '/categories/[...slug]': '/categories/[...slug]/1'
+        '/categories/[...slug]': '/categories/[...slug]/1',
     },
     env: {
         schema: {

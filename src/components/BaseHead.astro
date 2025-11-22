@@ -24,9 +24,23 @@ const titleSeparator = '•';
 
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
 
-import { join } from 'path';
 import { AstroFont } from 'astro-font';
 ---
+
+<!-- Google tag (gtag.js) -->
+<script
+    type='text/partytown'
+    async
+    src='https://www.googletagmanager.com/gtag/js?id=G-B9LESY5HGM'></script>
+<script type='text/partytown'>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-B9LESY5HGM');
+</script>
 
 <!-- Global Metadata -->
 <meta charset='utf-8' />
