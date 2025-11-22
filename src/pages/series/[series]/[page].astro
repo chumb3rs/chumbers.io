@@ -7,7 +7,7 @@ import {
     unslugify,
     getAllSeries,
     getPosts,
-    capitalizeWord
+    capitalizePhrase
 } from '@/utils';
 import { siteConfig } from '@/data/site.config';
 import Pagination from '@/components/Pagination';
@@ -45,7 +45,7 @@ const seriesTitle = unslugify(params.series!.toLowerCase());
 const posts = page.data;
 ---
 
-<ContentTypeLayout contentType='series' title={capitalizeWord(seriesTitle)}>
+<ContentTypeLayout contentType='series' title={capitalizePhrase(seriesTitle)}>
     <div class='w-max mx-auto my-4'>
         <ContentTypeSelection
             text={seriesTitle}

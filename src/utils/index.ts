@@ -17,9 +17,4 @@ export {
     getSeries,
 } from './series';
 export { remarkReadingTime } from './readTime';
-
-const capitalizeWord = (word: string) => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-};
-
-export { capitalizeWord };
+export { capitalizeWord, capitalizePhrase } from './string';

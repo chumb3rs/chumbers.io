@@ -45,6 +45,9 @@ export default defineConfig({
     redirects: {
         '/content/[...slug]': '/posts/[...slug]',
         '/categories/[...slug]': '/categories/[...slug]/1',
+        '/projects/[...slug]': '/projects/[...slug]/1',
+        '/series/[...slug]': '/series/[...slug]/1',
+        '/tags/[...slug]': '/tags/[...slug]/1',
     },
     env: {
         schema: {
