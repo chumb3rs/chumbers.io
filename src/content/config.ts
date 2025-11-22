@@ -15,6 +15,8 @@ const posts = defineCollection({
             series: z.string().optional(),
             tags: z.array(z.string()),
             draft: z.boolean().default(false),
+            featured: z.boolean().default(false),
+            pinned: z.boolean().default(false),
         }),
 });
 

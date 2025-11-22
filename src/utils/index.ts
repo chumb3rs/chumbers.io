@@ -2,6 +2,7 @@ export { slugify, unslugify } from './slugify';
 export { cn } from './cn';
 export {
     getPosts,
+    getLandingPosts,
     getTags,
     getPostByTag,
     filterPostsByCategory,

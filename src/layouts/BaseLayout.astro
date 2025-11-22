@@ -23,19 +23,16 @@ const { title, description, image, articleDate } = Astro.props;
     <body
         class='bg-white text-stone-950 dark:bg-[#0a0910] dark:text-white min-h-screen flex flex-col'
     >
-        <!-- Container that constrains width on md+ screens -->
         <div
             class='w-full md:max-w-[1152px] md:mx-auto flex flex-col flex-grow px-5 sm:px-8 mt-4'
         >
-            <!-- Header matches main width -->
             <Header />
 
             <!-- Main content -->
-            <main class='flex flex-col flex-grow antialiased mt-4'>
+            <main class='flex flex-col flex-grow antialiased mt-4 mb-8'>
                 <slot />
             </main>
 
-            <!-- Footer matches width -->
             <Footer />
         </div>
 
