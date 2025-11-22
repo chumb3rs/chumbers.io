@@ -1,7 +1,8 @@
 ---
 import { sitePaths } from '@/data/site.config';
-import { cn, slugify } from '@/utils';
+import { slugify } from '@/utils';
 import { ContentTypeEnum } from '@/data/utils';
+import SelectionButton from '@/components/SelectionButton';
 
 type Props = {
     text: String;
@@ -19,44 +20,9 @@ const href = isActive
     : type === ContentTypeEnum.Categories
       ? `${sitePaths[type]}/${slug}/1`
       : `${sitePaths[type]}/${slug}`;
+const displayText = `${type === ContentTypeEnum.Tags ? '# ' : ''}${text.toLowerCase()}`;
 ---
 
-<a
-    href={href}
-    class={cn(
-        'group relative flex items-center justify-center gap-2 px-4 md:px-10 py-2 mx-2 my-2 text-md md:text-lg font-medium border-2 rounded-tl-3xl rounded-br-3xl rounded-bl-md rounded-tr-md transition-all duration-300',
-        'border-border text-foreground',
-        !isActive &&
-            'hover:border-primary hover:bg-primary/30 hover:text-primary',
-        isActive && 'border-primary bg-primary/30 text-primary'
-    )}
+<SelectionButton href={href} rootHref='/tags' isActive={isActive}
+    >{displayText}</SelectionButton
 >
-    <span class='transition-all duration-300'
-        >{
-            `${type === ContentTypeEnum.Tags ? '# ' : ''}${text.toLowerCase()}`
-        }</span
-    >
-
-    <span
-        class={cn(
-            'absolute right-4 flex items-center justify-center w-4 h-4 transition-opacity duration-300',
-            isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        )}
-        aria-hidden={!isActive}
-    >
-        <!-- simple inline cross -->
-        <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            stroke-width='2'
-            stroke='currentColor'
-            class='w-4 h-4'
-        >
-            <path
-                stroke-linecap='round'
-                stroke-linejoin='round'
-                d='M6 18L18 6M6 6l12 12'></path>
-        </svg>
-    </span>
-</a>

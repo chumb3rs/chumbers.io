@@ -1,45 +1,32 @@
 ---
 import { cn } from '@/utils';
+import SelectionButton from '@/components/SelectionButton';
 
 interface Props {
     year: number;
-    month: number;
     monthName: string;
     count: number;
-    isSelected?: boolean;
-    onClick?: string;
+    currentMonth: string;
 }
 
-const {
-    year,
-    month,
-    monthName,
-    count,
-    isSelected = false,
-    onClick
-} = Astro.props;
+const { year, monthName, count, currentMonth } = Astro.props;
+
+const isActive = currentMonth
+    ? currentMonth === monthName.toLowerCase()
+    : false;
 ---
 
-<button
-    class={cn(
-        'group relative overflow-hidden rounded-lg border-2 transition-all duration-200 ease-in-out',
-        'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700',
-        'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500',
-        'shadow-sm hover:shadow-md',
-        'p-4 min-h-[100px] flex flex-col justify-center items-center gap-1',
-        isSelected && 'border-primary bg-primary/5 dark:bg-primary/10'
-    )}
-    data-year={year}
-    data-month={month}
-    data-month-name={monthName.toLowerCase()}
-    onclick={onClick}
+<SelectionButton
+    href={`/archive/${year}/${monthName.toLowerCase()}/1`}
+    rootHref={`/archive/${year}/1`}
+    isActive={isActive}
 >
     <div class='text-center'>
         <h4
             class={cn(
                 'text-lg font-semibold transition-colors duration-200',
                 'text-gray-900 dark:text-white group-hover:text-primary',
-                isSelected && 'text-primary'
+                isActive && 'text-primary'
             )}
         >
             {monthName}
@@ -48,20 +35,11 @@ const {
             class={cn(
                 'text-xs font-medium transition-colors duration-200',
                 'text-gray-600 dark:text-gray-300 group-hover:text-gray-700 dark:group-hover:text-gray-200',
-                isSelected && 'text-primary/80'
+                isActive && 'text-primary/80'
             )}
         >
             {count}
             {count === 1 ? 'post' : 'posts'}
         </p>
     </div>
-
-    <!-- Hover effect -->
-    <div
-        class={cn(
-            'absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200',
-            'bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20'
-        )}
-    >
-    </div>
-</button>
+</SelectionButton>

@@ -17,6 +17,7 @@ export {
     createArchiveData,
     getMonthName,
     getMonthIndex,
+    type PostsByMonth,
 } from './archive';
 export { remarkReadingTime } from './readTime';
 export { capitalizeWord, capitalizePhrase } from './string';

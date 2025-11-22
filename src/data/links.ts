@@ -1,11 +1,11 @@
 import type { SocialNetwork } from 'src/types/socials';
+import ArchiveIcon from '@/components/icons/ArchiveIcon';
+import CategoryIcon from '@/components/icons/CategoryIcon';
 import GithubIcon from '@/components/icons/GithubIcon';
 import InstagramIcon from '@/components/icons/InstagramIcon';
-import TagIcon from '@/components/icons/TagIcon';
-import SeriesIcon from '@/components/icons/SeriesIcon';
 import ProjectIcon from '@/components/icons/ProjectIcon';
-import CategoryIcon from '@/components/icons/CategoryIcon';
-import ArchiveIcon from '@/components/icons/ArchiveIcon';
+import SeriesIcon from '@/components/icons/SeriesIcon';
+import TagIcon from '@/components/icons/TagIcon';
 import type { PageLink } from '@/types/pageLinks';
 import type { IContentType } from '@/types/contentType';
 
@@ -36,10 +36,6 @@ export const footerLinks: PageLink[] = [
         url: '/subscribe',
     },
     {
-        text: 'Archive',
-        url: '/archive',
-    },
-    {
         text: 'Resume',
         url: '/public/NicholasMarks_Resume.pdf',
         openInNewTab: true,
@@ -47,6 +43,10 @@ export const footerLinks: PageLink[] = [
 ] as const;
 
 export const contentTypes: IContentType[] = [
+    {
+        name: 'Archive',
+        icon: ArchiveIcon,
+    },
     {
         name: 'Categories',
         icon: CategoryIcon,

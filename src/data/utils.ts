@@ -23,4 +23,5 @@ export enum ContentTypeEnum {
     Tags = 'tags',
     Series = 'series',
     Projects = 'projects',
+    Archive = 'archive',
 }

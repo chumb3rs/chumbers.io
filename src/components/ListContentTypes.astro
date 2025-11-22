@@ -5,7 +5,6 @@ import type { IContentType } from '@/types/contentType';
 ---
 
 <div class='relative flex flex-wrap min-w-full gap-5'>
-    <ContentType />
     {
         contentTypes.map((contentType: IContentType) => (
             <ContentType name={contentType.name} icon={contentType.icon} />

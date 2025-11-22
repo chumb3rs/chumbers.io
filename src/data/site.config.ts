@@ -30,4 +30,5 @@ export const sitePaths: Record<ContentTypeEnum, string> = {
     [ContentTypeEnum.Tags]: '/tags',
     [ContentTypeEnum.Series]: '/series',
     [ContentTypeEnum.Projects]: '/projects',
+    [ContentTypeEnum.Archive]: '/archive',
 };

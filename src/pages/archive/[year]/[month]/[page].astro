@@ -1,12 +1,10 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout';
-import ListPosts from '@/components/ListPosts';
-import Pagination from '@/components/Pagination';
+import ArchiveLayout from '@/layouts/ArchiveLayout';
 import {
     getPosts,
     getPostsByYearMonth,
-    getMonthName,
-    getMonthIndex
+    groupPostsByMonth,
+    getMonthName
 } from '@/utils';
 import { siteConfig } from '@/data/site.config';
 
@@ -45,103 +43,14 @@ const { page } = Astro.props;
 
 const allPosts = await getPosts();
 const yearNumber = parseInt(year!);
-const monthName = month!.charAt(0).toUpperCase() + month!.slice(1);
 const monthPosts = getPostsByYearMonth(allPosts, yearNumber, month!);
+const monthsData = groupPostsByMonth(allPosts, yearNumber);
 const posts = page.data;
 ---
 
-<BaseLayout title={`Archive - ${monthName} ${year}`}>
-    <section class='flex flex-col items-center'>
-        <div class='w-full max-w-4xl'>
-            <!-- Header -->
-            <div class='text-center mb-8'>
-                <h1
-                    class='text-4xl font-bold text-center underline--magical inline-block mx-auto font-mono mb-4'
-                >
-                    ./ARCHIVE/{year}/{month.toUpperCase()}
-                </h1>
-                <p class='text-gray-600 dark:text-gray-300 text-lg'>
-                    {monthPosts.length} posts from {monthName}
-                    {year}
-                </p>
-                <div class='mt-4 flex justify-center gap-4'>
-                    <a
-                        href={`/archive/${year}/1`}
-                        class='text-sm text-primary hover:text-primary/80 underline transition-colors'
-                    >
-                        ← Back to {year}
-                    </a>
-                    <a
-                        href='/archive'
-                        class='text-sm text-primary hover:text-primary/80 underline transition-colors'
-                    >
-                        Back to Archive
-                    </a>
-                    <a
-                        href='/archive/tree'
-                        class='text-sm text-primary hover:text-primary/80 underline transition-colors'
-                    >
-                        Switch to Tree View
-                    </a>
-                </div>
-            </div>
-
-            <!-- Posts Section -->
-            <div class='mb-8'>
-                <div class='flex justify-between items-center mb-6'>
-                    <h2
-                        class='text-2xl font-semibold text-gray-900 dark:text-white'
-                    >
-                        Posts from {monthName}
-                        {year}
-                    </h2>
-                    <div class='text-sm text-gray-600 dark:text-gray-400'>
-                        {
-                            page.lastPage > 1
-                                ? `Page ${page.currentPage} of ${page.lastPage}`
-                                : `${monthPosts.length} ${monthPosts.length === 1 ? 'post' : 'posts'}`
-                        }
-                    </div>
-                </div>
-
-                <ListPosts posts={posts} />
-
-                {
-                    page.lastPage > 1 && (
-                        <div class='mt-8'>
-                            <Pagination page={page} />
-                        </div>
-                    )
-                }
-
-                {
-                    monthPosts.length === 0 && (
-                        <div class='text-center py-16'>
-                            <div class='text-gray-400 dark:text-gray-600 mb-4'>
-                                <svg
-                                    class='w-16 h-16 mx-auto mb-4'
-                                    fill='none'
-                                    stroke='currentColor'
-                                    viewBox='0 0 24 24'
-                                >
-                                    <path
-                                        stroke-linecap='round'
-                                        stroke-linejoin='round'
-                                        stroke-width='1.5'
-                                        d='M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h6l6 6v10a2 2 0 01-2 2z'
-                                    />
-                                </svg>
-                            </div>
-                            <p class='text-lg font-medium text-gray-500 dark:text-gray-400'>
-                                No posts found for {monthName} {year}
-                            </p>
-                            <p class='text-sm text-gray-400 dark:text-gray-600 mt-2'>
-                                Try browsing other months or years
-                            </p>
-                        </div>
-                    )
-                }
-            </div>
-        </div>
-    </section>
-</BaseLayout>
+<ArchiveLayout
+    currentYear={yearNumber}
+    currentMonth={month}
+    posts={monthPosts}
+    monthsData={monthsData}
+/>
