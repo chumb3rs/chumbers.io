@@ -17,7 +17,10 @@
 - Add "load more" button to landing page
 - Add more metadata to series/categories e.g. the number of posts
 - Add next/previous post links as in previous site
-- More metadata about post below title (e.g. category)
+- [x] More metadata about post below title (e.g. category)
+- Paginate /archive page
+- Paginate /series page
+- Paginate /projects page
 
 ## Bugs
 - [x] Footer doesn't push to bottom of page (see /category/category-1) for example
