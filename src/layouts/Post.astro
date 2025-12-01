@@ -5,6 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout';
 import Tag from '@/components/Tag';
 import type { MarkdownHeading } from 'astro';
 import { CldImage } from 'astro-cloudinary';
+import { slugify } from '@/utils';
 
 type Props = {
     id: CollectionEntry<'posts'>['id'];
@@ -14,7 +15,15 @@ type Props = {
 };
 
 const { data, readTime } = Astro.props;
-const { title, description, pubDate, heroImage, tags } = data;
+const {
+    title,
+    description,
+    pubDate,
+    heroImage,
+    tags,
+    category,
+    series = null
+} = data;
 
 const articleDate = pubDate.toISOString();
 ---
@@ -28,23 +37,44 @@ const articleDate = pubDate.toISOString();
     <article class='min-w-full md:py-4 sm:max-w-none md:max-w-none'>
         <header class='mb-3 flex flex-col justify-center items-center gap-6'>
             <div class='flex flex-col gap-2'>
-                <div class='flex items-center justify-center gap-x-1'>
-                    <p class='text-center text-sm text-opacity-50'>
-                        Published <FormattedDate date={pubDate} />
-                    </p>
-                    <p class='text-center text-sm text-opacity-50 font-bold'>
-                        - {readTime}
-                    </p>
+                <div class='text-center text-lg font-mono'>
+                    <a class='underline--magical' href='/'>Home</a><span
+                        >{' / '}</span
+                    ><a
+                        class='underline--magical'
+                        href={`/categories/${slugify(category.toLowerCase())}`}
+                        >{category}</a
+                    >
                 </div>
                 <h1
                     class='text-center text-4xl md:text-6xl md:pb-2.5 font-semibold'
                 >
                     {title}
                 </h1>
+                <div class='flex items-center justify-center gap-x-1'>
+                    <p class='text-center text-sm text-opacity-50'>
+                        Published <FormattedDate date={pubDate} />
+                    </p>
+                    <p class='text-center text-sm text-opacity-50 font-bold'>
+                        · {readTime}
+                    </p>
+                </div>
             </div>
-
+            {
+                series && (
+                    <a
+                        href={`/series/${encodeURIComponent(series.toLowerCase())}`}
+                        aria-label={series}
+                        class='mb-2'
+                    >
+                        <span class='border-2 border-green-600 dark:border-green-900 font-semibold text-sm w-fit px-2 py-1 md:px-5 md:py-2 rounded-lg hover:bg-green-600 hover:dark:bg-green-900 transition-all duration-700'>
+                            {series}
+                        </span>
+                    </a>
+                )
+            }
             <div
-                class='flex flex-wrap justify-center items-center gap-2 gap-y-4 md:gap-5'
+                class='flex flex-wrap justify-center items-center gap-2 gap-y-4 md:gap-3'
             >
                 {tags.map((tag) => <Tag tag={tag} />)}
             </div>
