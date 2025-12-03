@@ -6,9 +6,10 @@ import type { CollectionEntry } from 'astro:content';
 
 type Props = {
     post: CollectionEntry<'posts'>;
+    readTime: string;
 };
 
-const { post } = Astro.props;
+const { post, readTime } = Astro.props;
 ---
 
 <a
@@ -34,7 +35,7 @@ const { post } = Astro.props;
         <div class='flex items-center gap-2 text-gray-500 text-xs'>
             <FormattedDate date={post.data.pubDate} />
             <span>•</span>
-            <span>10 min. read</span>
+            <span>{readTime}</span>
         </div>
 
         <p class='text-md whitespace-pre-wrap'>
