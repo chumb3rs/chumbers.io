@@ -1,0 +1,48 @@
+---
+import { sitePaths } from '@/data/site.config';
+import { CldImage } from 'astro-cloudinary';
+import FormattedDate from '@/components/FormattedDate';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = {
+    post: CollectionEntry<'posts'>;
+};
+
+const { post } = Astro.props;
+---
+
+<a
+    href={`${sitePaths.posts}/${post.slug}`}
+    class='flex w-full items-start gap-4 border-2 border-transparent hover:border-primary transition-colors duration-500 rounded-lg'
+>
+    <div
+        class='hidden sm:block flex-shrink-0 w-40 md:w-48 lg:w-56 aspect-[3/2] relative'
+    >
+        <CldImage
+            src={post.data.heroImage}
+            alt={post.data.title}
+            width={600}
+            height={400}
+            crop='fill'
+            format='avif'
+            quality='auto'
+            class='absolute inset-0 h-full w-full object-cover rounded'
+        />
+    </div>
+
+    <div class='flex flex-col flex-grow py-4'>
+        <div class='flex items-center gap-2 text-gray-500 text-xs'>
+            <FormattedDate date={post.data.pubDate} />
+            <span>•</span>
+            <span>10 min. read</span>
+        </div>
+
+        <p class='text-md whitespace-pre-wrap'>
+            {post.data.title}
+        </p>
+
+        <p class='text-sm italic text-gray-200 py-4 whitespace-pre-wrap'>
+            {post.data.description}
+        </p>
+    </div>
+</a>
