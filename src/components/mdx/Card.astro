@@ -8,31 +8,37 @@ type Props = {
     link: string;
 };
 
-const { img, header, body, link, ...props } = Astro.props;
+const { img, header, body, link } = Astro.props;
+const isInternalLink = link.startsWith('/');
 ---
 
 <a
-    class='flex justify-between items-center my-3 rounded-lg shadow-lg transform duration-200 ease-out bg-white hover:shadow-xl hover:bg-gray-200 hover:font-bold hover:text-teal cursor-pointer overflow-hidden mb-1 no-underline'
-    style={{ minHeight: '8rem' }}
     href={link}
-    target='_blank'
-    {...props}
+    class='flex w-full items-start gap-4 border-2 border-transparent hover:border-primary transition-colors duration-500 rounded-lg no-underline'
+    target={isInternalLink ? undefined : '_blank'}
+    rel={isInternalLink ? undefined : 'noopener noreferrer'}
 >
-    <div class='hidden sm:inline w-60'>
+    <div
+        class='hidden sm:block flex-shrink-0 w-40 md:w-48 lg:w-56 aspect-[3/2] relative'
+    >
         <CldImage
             src={img}
             alt={header}
-            crop='fit'
-            class='object-cover h-full my-0'
-            width={900}
-            height={900}
+            width={600}
+            height={400}
+            crop='fill'
+            format='avif'
+            quality='auto'
+            class='absolute inset-0 h-full w-full object-cover rounded'
         />
     </div>
-    <div class='mx-4 py-5 flex-grow'>
-        <p class='text-md pl-2 whitespace-pre-wrap'>
+
+    <div class='flex flex-col flex-grow py-4 pr-4'>
+        <p class='text-md whitespace-pre-wrap'>
             {header}
         </p>
-        <p class='text-sm pl-2 whitespace-pre-wrap text-gray-500'>
+
+        <p class='text-sm italic text-gray-200 py-4 whitespace-pre-wrap'>
             {body}
         </p>
     </div>
