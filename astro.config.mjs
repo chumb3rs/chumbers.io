@@ -16,23 +16,16 @@ export default defineConfig({
         remarkPlugins: [remarkReadingTime, remarkMath],
         rehypePlugins: [rehypeKatex],
         drafts: true,
-        shikiConfig: {
-            theme: 'material-theme-palenight',
-            wrap: true,
-        },
     },
     integrations: [
         astroFont(),
         mdx({
-            syntaxHighlight: 'shiki',
             shikiConfig: {
-                experimentalThemes: {
-                    light: 'vitesse-light',
-                    dark: 'material-theme-palenight',
+                themes: {
+                    light: 'one-light',
+                    dark: 'tokyo-night',
                 },
-                wrap: true,
             },
-            drafts: true,
         }),
         sitemap(),
         tailwind(),
@@ -45,8 +38,9 @@ export default defineConfig({
     redirects: {
         '/content/[...slug]': '/posts/[...slug]',
         '/categories/[...slug]': '/categories/[...slug]/1',
-        '/projects/[...slug]': '/projects/[...slug]/1',
         '/series/[...slug]': '/series/[...slug]/1',
+        '/projects/[...slug]': '/projects/[...slug]/1',
+        '/tags/[...slug]': '/projects/[...slug]/1',
     },
     env: {
         schema: {
