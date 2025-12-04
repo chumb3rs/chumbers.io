@@ -65,6 +65,10 @@
 - Form field validations with zod and protecting against spam
 - [x] Add server render for cloudflare
 - Better understand possibilities/configuration of [@astrojs/cloudflare](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)
+- Make a 404 page
+- Configure pagefind
+    - Should not scrape non-post pages
+    - Should render the title of that page as the link
 
 ## Future...
 - Level things up with motion.dev
