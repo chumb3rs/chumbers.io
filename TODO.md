@@ -47,7 +47,8 @@
 - When selected on phone to the tag selector button text covers the cross
 - [x] Fix latex png images looking shite
 - Restrict number of series/projects loaded initially (use same format as posts?????)
-- Fix issue with tags/[tag] redirecting
+- [x] Fix issue with tags/[tag] redirecting
+- Have burger menu hidden not just pushed to the right off screen
 
 ## Jobs
 - [x] Run backfill using specter to convert <Highlight /> tags. Check also for ^^
@@ -61,7 +62,7 @@
 - [x] Actually wire up Mailchimp
 - [x] Actually wire up contact form
 - Make contact/subscribe forms DRY
-- Make sure images load lazy when they should
+- [x] Make sure images load lazy when they should
 - Form field validations with zod and protecting against spam
 - [x] Add server render for cloudflare
 - Better understand possibilities/configuration of [@astrojs/cloudflare](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)
