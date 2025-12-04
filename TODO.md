@@ -8,12 +8,12 @@
 - Add reading progress bar
 - Look at setting up disqus
 - [x] Ability to pin a post to the large spot on the landing page
-- Better related posts layout
+- [x] Better related posts layout
 - Support putting LaTeX in the image/video caption
 - Add overview tab for series/projects
 - Add validators to Zed so that categories/projects/series etc. have to come from existing list
 - Have proper numbered pagination not just left and right arrows
-- Do something better with tags now that I have so many. Also what is the format for tags in the frontmatter? e.g. is is "First second" or "First Second"...can I have it so it doesn't matter
+- [x] Do something better with tags now that I have so many. Also what is the format for tags in the frontmatter? e.g. is is "First second" or "First Second"...can I have it so it doesn't matter
 - Add "load more" button to landing page
 - Add more metadata to series/categories e.g. the number of posts
 - Add next/previous post links as in previous site
@@ -21,6 +21,8 @@
 - Paginate /archive page
 - Paginate /series page
 - Paginate /projects page
+- Use [this](https://ebacala.com/blog/create-a-code-block-with-a-copy-button-using-astro-markdown-and-shiki/) example to upgrade code blocks
+- content type bar should scroll on small width not wrap
 
 ## Bugs
 - [x] Footer doesn't push to bottom of page (see /category/category-1) for example
@@ -33,19 +35,19 @@
 - Fix share functionality not working - though it does work on Mac
 - On Mac there are some weird wrapping behaviours
 - Verify that phone layout and appearance is good...Brave devtools playing up
-- Verify code block syntax highlighting working
+- [x] Verify code block syntax highlighting working
 - [x] There are two "Footnotes" heading links that appear in the toc
   - The fix was just to replace the manual header I had with a horizontal rule
-- LaTeX export pngs have a clear background so look trash on dark mode
+- [x] LaTeX export pngs have a clear background so look trash on dark mode
 - Have a ToC heading remain highlighted until the next one comes into view. Currently if there is a large vertical space between headings none will be highlighted sometimes
-- Quote blocks have double quotations...
-- Card mdx component is garbage
-- Consistency on video and image captions
-- Fix image and video height and width setup
+- [x] Quote blocks have double quotations...
+- [x] Card mdx component is garbage
+- [x] Consistency on video and image captions
+- [x] Fix image and video height and width setup
 - When selected on phone to the tag selector button text covers the cross
-- content type bar should scroll on small width not wrap
-- Fix latex png images looking shite
+- [x] Fix latex png images looking shite
 - Restrict number of series/projects loaded initially (use same format as posts?????)
+- Fix issue with tags/[tag] redirecting
 
 ## Jobs
 - [x] Run backfill using specter to convert <Highlight /> tags. Check also for ^^
@@ -61,7 +63,8 @@
 - Make contact/subscribe forms DRY
 - Make sure images load lazy when they should
 - Form field validations with zod and protecting against spam
-- Add server render for cloudflare
+- [x] Add server render for cloudflare
+- Better understand possibilities/configuration of [@astrojs/cloudflare](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)
 
 ## Future...
 - Level things up with motion.dev
