@@ -25,7 +25,7 @@
         "start": "astro dev",
         "build": "astro build",
         "sync": "astro sync",
-        "preview": "astro preview",
+        "preview": "npx wrangler dev",
         "postbuild": "pagefind --site dist",
         "format:biome": "biome format --write",
         "format:astro": "prettier --write \"**/*.astro\"",
