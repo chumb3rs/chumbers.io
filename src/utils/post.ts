@@ -42,9 +42,9 @@ export const getLandingPosts = async (max?: number) => {
     return finalPosts.slice(0, max);
 };
 
-export const getTags = async () => {
+export const getTags = async (): Promise<string[]> => {
     const posts = await getCollection('posts');
-    const tags = new Set();
+    const tags = new Set<string>();
     posts
         .filter((post) => !post.data.draft)
         .forEach((post) => {
@@ -56,18 +56,6 @@ export const getTags = async () => {
         });
 
     return Array.from(tags).sort();
-};
-
-export const getPostByTag = async (tag: string) => {
-    const posts = await getPosts();
-    const lowercaseTag = tag.toLowerCase();
-    return posts
-        .filter((post) => !post.data.draft)
-        .filter((post) => {
-            return post.data.tags.some(
-                (postTag) => postTag.toLowerCase() === lowercaseTag,
-            );
-        });
 };
 
 export const filterPostsByCategory = async ({

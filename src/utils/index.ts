@@ -4,7 +4,6 @@ export {
     getPosts,
     getLandingPosts,
     getTags,
-    getPostByTag,
     filterPostsByCategory,
 } from './post';
 export { getCategories, getCategory, getNonEmptyCategories } from './category';

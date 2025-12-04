@@ -1,0 +1,46 @@
+---
+import ContentTypeLayout from '@/layouts/ContentTypeLayout';
+import ListPosts from '@/components/ListPosts';
+import ListTags from '@/components/ListTags.astro';
+import Pagination from '@/components/Pagination';
+import { getTags, getPosts, slugify, unslugify, capitalizeWord } from '@/utils';
+import { siteConfig } from '@/data/site.config';
+import { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths({ paginate }: any) {
+    const tags: String[] = await getTags();
+    const allPosts: CollectionEntry<'post'>[] = await getPosts();
+
+    return tags.flatMap((tag) => {
+        const filteredPosts = allPosts
+            .filter((post) => !post.data.draft)
+            .filter((post) => {
+                return post.data.tags.some(
+                    (postTag: String) =>
+                        postTag.toLowerCase() === tag.toLowerCase()
+                );
+            });
+
+        return paginate(filteredPosts, {
+            params: {
+                tag: slugify(tag.toLowerCase())
+            },
+            pageSize: siteConfig.paginationSize
+        });
+    });
+}
+
+const params = Astro.params;
+const { page } = Astro.props;
+
+const tags = await getTags();
+
+const tag = unslugify(params.tag!.toLowerCase());
+const posts = page.data;
+---
+
+<ContentTypeLayout contentType='tags' title={capitalizeWord(tag)}>
+    <ListTags tags={tags} activeTag={tag} />
+    <ListPosts posts={posts} />
+    <Pagination page={page} />
+</ContentTypeLayout>

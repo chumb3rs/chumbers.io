@@ -11,7 +11,7 @@ type Props = {
     type: ContentTypeEnum;
 };
 
-const { text, slug, activeOption, type } = Astro.props;
+const { text, slug, activeOption, type, ...props } = Astro.props;
 
 const slugifyName = slugify(text.toLowerCase());
 const isActive = slugify(activeOption?.toLocaleLowerCase()) === slugifyName;
@@ -19,6 +19,10 @@ const href = `${sitePaths[type]}/${slug}`;
 const displayText = `${type === ContentTypeEnum.Tags ? '# ' : ''}${text.toLowerCase()}`;
 ---
 
-<SelectionButton href={href} rootHref={`${sitePaths[type]}`} isActive={isActive}
-    >{displayText}</SelectionButton
+<SelectionButton
+    href={href}
+    rootHref={`${sitePaths[type]}`}
+    isActive={isActive}
+    data-slug={slugifyName}
+    {...props}>{displayText}</SelectionButton
 >
