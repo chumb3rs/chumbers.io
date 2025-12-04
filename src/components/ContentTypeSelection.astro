@@ -15,7 +15,7 @@ const { text, slug, activeOption, type, ...props } = Astro.props;
 
 const slugifyName = slugify(text.toLowerCase());
 const isActive = slugify(activeOption?.toLocaleLowerCase()) === slugifyName;
-const href = `${sitePaths[type]}/${slug}`;
+const href = `${sitePaths[type]}/${slug}/1`;
 const displayText = `${type === ContentTypeEnum.Tags ? '# ' : ''}${text.toLowerCase()}`;
 ---
 

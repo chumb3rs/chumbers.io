@@ -10,8 +10,11 @@ import { astroFont } from 'astro-font/integration';
 
 import partytown from '@astrojs/partytown';
 
+import cloudflare from '@astrojs/cloudflare';
+
 export default defineConfig({
     site: siteConfig.site,
+    adapter: cloudflare(),
     markdown: {
         remarkPlugins: [remarkReadingTime, remarkMath],
         rehypePlugins: [rehypeKatex],
@@ -37,10 +40,6 @@ export default defineConfig({
     ],
     redirects: {
         '/content/[...slug]': '/posts/[...slug]',
-        '/categories/[...slug]': '/categories/[...slug]/1',
-        '/series/[...slug]': '/series/[...slug]/1',
-        '/projects/[...slug]': '/projects/[...slug]/1',
-        '/tags/[...slug]': '/tags/[...slug]/1',
     },
     env: {
         schema: {
