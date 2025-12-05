@@ -23,6 +23,7 @@
 - Paginate /projects page
 - Use [this](https://ebacala.com/blog/create-a-code-block-with-a-copy-button-using-astro-markdown-and-shiki/) example to upgrade code blocks
 - content type bar should scroll on small width not wrap
+- [x] Verify search functinality
 
 ## Bugs
 - [x] Footer doesn't push to bottom of page (see /category/category-1) for example
@@ -49,6 +50,7 @@
 - Restrict number of series/projects loaded initially (use same format as posts?????)
 - [x] Fix issue with tags/[tag] redirecting
 - Have burger menu hidden not just pushed to the right off screen
+- PageFind UI does not seem to work after returning home or navigating to another link after using it once
 
 ## Jobs
 - [x] Run backfill using specter to convert <Highlight /> tags. Check also for ^^
@@ -66,8 +68,8 @@
 - Form field validations with zod and protecting against spam
 - [x] Add server render for cloudflare
 - Better understand possibilities/configuration of [@astrojs/cloudflare](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)
-- Make a 404 page
-- Configure pagefind
+- [x] Make a 404 page
+- [x] Configure pagefind
     - Should not scrape non-post pages
     - Should render the title of that page as the link
 
@@ -77,4 +79,5 @@
 - [x] Do I want to stick with TinaCMS? I think that maybe if I am writing in Obsidian there is no point...
 - Have ses emails not go to Spam folder!!
 - Explore a move off of Mailchimp to something better, e.g. "Mailerlite". The thing is that I don't think that the number of people I have subscribed at the moment really warrants this...
-- Make the email template I use for /contact a little nicer
+- Make the email template that I get sent from /contact a little nicer
+- Better searching...for example, can I get an individual entry for each post (title)/category/series/project/tag etc.
