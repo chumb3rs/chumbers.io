@@ -20,7 +20,7 @@ const { tags, activeTag = '' } = Astro.props;
     }
 </style>
 
-<div class='relative mt-5 mb-8 mx-auto h-72'>
+<div class='relative mt-5 mb-8 h-72 w-full'>
     <div
         id='tagScrollContainer'
         class='tag-scroll flex flex-col flex-wrap justify-center overflow-auto h-72'
@@ -41,21 +41,16 @@ const { tags, activeTag = '' } = Astro.props;
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    const scrollToActive = () => {
         const container = document.getElementById('tagScrollContainer');
+        if (!container) return;
 
-        if (!container) return; // nothing to do
-
-        // --- Now handle optional scroll-to-center for active tag ---
         const activeTag = container.dataset?.active;
-
-        // If activeTag exists, try to center it (but don't abort fades if it doesn't)
         if (activeTag && activeTag.trim() !== '') {
             const activeEl = container.querySelector(
                 `[data-slug="${activeTag}"]`
             );
             if (activeEl) {
-                // Compute center scrollLeft
                 const containerRect = container.getBoundingClientRect();
                 const elRect = activeEl.getBoundingClientRect();
 
@@ -66,15 +61,12 @@ const { tags, activeTag = '' } = Astro.props;
                     elRect.width / 2;
 
                 container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-            } else {
-                console.warn(
-                    'activeTag present but no element found for',
-                    activeTag
-                );
             }
         } else {
-            // No activeTag — ensure we start at left and fades are correct
             container.scrollTo({ left: 0 });
         }
-    });
+    };
+
+    scrollToActive();
+    document.addEventListener('astro:page-load', scrollToActive);
 </script>
