@@ -42,12 +42,14 @@ const articleDate = pubDate.toISOString();
                         >{' / '}</span
                     ><a
                         class='underline--magical'
-                        href={`/categories/${slugify(category.toLowerCase())}`}
+                        href={`/categories/${slugify(category.toLowerCase())}/1`}
                         >{category}</a
                     >
                 </div>
                 <h1
                     class='text-center text-4xl md:text-6xl md:pb-2.5 font-semibold font-heading'
+                    data-pagefind-meta='title'
+                    data-pagefind-body
                 >
                     {title}
                 </h1>
