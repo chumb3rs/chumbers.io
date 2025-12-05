@@ -38,9 +38,6 @@ export default defineConfig({
             },
         }),
     ],
-    redirects: {
-        '/content/[...slug]': '/posts/[...slug]',
-    },
     env: {
         schema: {
             PUBLIC_CLOUDINARY_CLOUD_NAME: envField.string({
