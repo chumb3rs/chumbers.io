@@ -21,6 +21,7 @@
     },
     "scripts": {
         "dev": "npx astro dev",
+        "deploy": "npx astro build && npx wrangler deploy",
         "clean": "rm -rf .astro && rm -rf node_modules/.astro && rm -rf node_modules/.vite",
         "start": "astro dev",
         "build": "astro build",
