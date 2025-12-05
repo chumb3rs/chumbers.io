@@ -21,12 +21,10 @@ const posts = defineCollection({
 });
 
 const categories = defineCollection({
-    schema: ({ image }) =>
-        z.object({
-            title: z.string().max(80),
-            description: z.string(),
-            heroImage: image(),
-        }),
+    schema: z.object({
+        title: z.string().max(80),
+        description: z.string(),
+    }),
 });
 
 const series = defineCollection({
