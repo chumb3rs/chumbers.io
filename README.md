@@ -27,4 +27,4 @@ It uses:
 
 ---
 
-Ths site is a fork of `danielcgilbert`'s [blog-template](https://github.com/danielcgilibert/blog-template). Please go and check it out.
+Ths site is a fork of `danielcgilbert`'s [blog-template](https://github.com/danielcgilibert/blog-template). Please go and check it out!
