@@ -1,0 +1,88 @@
+---
+import ContentTypeLayout from '@/layouts/ContentTypeLayout';
+import ListPosts from '@/components/ListPosts';
+import ArchiveYearCard from '@/components/ArchiveYearCard';
+import ArchiveMonthCard from '@/components/ArchiveMonthCard';
+import { type PostsByMonth } from '@/utils';
+import { getPosts, createArchiveData } from '@/utils';
+import { type CollectionEntry } from 'astro:content';
+
+interface Props {
+    currentYear?: number;
+    currentMonth?: string;
+    monthsData?: PostsByMonth[];
+    posts?: CollectionEntry<'posts'>[];
+}
+
+const { currentMonth = '', currentYear, monthsData, posts } = Astro.props;
+
+const displayPosts = await getPosts(6);
+const allPosts = await getPosts();
+const selectedPosts = posts ? posts : displayPosts;
+const archiveData = createArchiveData(allPosts);
+---
+
+<ContentTypeLayout title='Archive' contentType='archive'>
+    <section class='flex flex-col items-center'>
+        <div class='w-full'>
+            <!-- Years Section -->
+            <div class='mb-8 mt-4'>
+                <h2
+                    class='text-2xl font-semibold mb-4 text-gray-900 dark:text-white'
+                >
+                    Year
+                </h2>
+                <div
+                    class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4'
+                    id='years-grid'
+                >
+                    {
+                        archiveData.years.map((yearData) => (
+                            <ArchiveYearCard
+                                year={yearData.year}
+                                count={yearData.count}
+                                currentYear={currentYear}
+                            />
+                        ))
+                    }
+                </div>
+            </div>
+
+            {
+                monthsData && monthsData.length && (
+                    <div class='mb-8'>
+                        <h2 class='text-xl font-semibold mb-4 text-gray-900 dark:text-white'>
+                            Month
+                        </h2>
+                        <div class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3'>
+                            {monthsData
+                                .slice(0)
+                                .reverse()
+                                .map((monthsData) => (
+                                    <ArchiveMonthCard
+                                        year={monthsData.year}
+                                        monthName={monthsData.monthName}
+                                        count={monthsData.count}
+                                        currentMonth={currentMonth}
+                                    />
+                                ))}
+                        </div>
+                    </div>
+                )
+            }
+
+            <!-- Posts Section -->
+            <div class='mb-8'>
+                <div class='mb-8'>
+                    <hr />
+                </div>
+                <div id='posts-container'>
+                    <ListPosts posts={selectedPosts} />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add slot for pagination -->
+    <slot />
+</ContentTypeLayout>

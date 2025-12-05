@@ -1,0 +1,59 @@
+---
+import ContentTypeLayout from '@/layouts/ContentTypeLayout';
+import ListPosts from '@/components/ListPosts';
+import ContentTypeSelection from '@/components/ContentTypeSelection';
+import {
+    slugify,
+    unslugify,
+    getAllSeries,
+    getPosts,
+    capitalizePhrase
+} from '@/utils';
+import { siteConfig } from '@/data/site.config';
+import Pagination from '@/components/Pagination';
+import type { CollectionEntry } from 'astro:content';
+import { ContentTypeEnum } from '@/data/utils';
+
+export async function getStaticPaths({ paginate }: any) {
+    const allSeries = await getAllSeries();
+    const allPosts = await getPosts();
+
+    return allSeries.flatMap((series: CollectionEntry<'series'>) => {
+        const {
+            data: { title }
+        } = series;
+        const slugifySeriesName = slugify(title.toLowerCase());
+        const filteredPosts = allPosts.filter((post) => {
+            // skip posts without a series
+            if (!post.data?.series) return false;
+
+            return post.data.series === slugifySeriesName;
+        });
+
+        return paginate(filteredPosts, {
+            params: {
+                series: slugify(title.toLowerCase())
+            },
+            pageSize: siteConfig.paginationSize
+        });
+    });
+}
+const params = Astro.params;
+const { page } = Astro.props;
+
+const seriesTitle = unslugify(params.series!.toLowerCase());
+const posts = page.data;
+---
+
+<ContentTypeLayout contentType='series' title={capitalizePhrase(seriesTitle)}>
+    <div class='w-max mx-auto my-4'>
+        <ContentTypeSelection
+            text={seriesTitle}
+            activeOption={seriesTitle}
+            slug=''
+            type={ContentTypeEnum.Series}
+        />
+    </div>
+    <ListPosts posts={posts} />
+    <Pagination page={page} />
+</ContentTypeLayout>

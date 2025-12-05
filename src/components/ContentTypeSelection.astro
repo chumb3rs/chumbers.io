@@ -1,0 +1,28 @@
+---
+import { sitePaths } from '@/data/site.config';
+import { slugify } from '@/utils';
+import { ContentTypeEnum } from '@/data/utils';
+import SelectionButton from '@/components/SelectionButton';
+
+type Props = {
+    text: String;
+    slug: String;
+    activeOption: String;
+    type: ContentTypeEnum;
+};
+
+const { text, slug, activeOption, type, ...props } = Astro.props;
+
+const slugifyName = slugify(text.toLowerCase());
+const isActive = slugify(activeOption?.toLocaleLowerCase()) === slugifyName;
+const href = `${sitePaths[type]}/${slug}/1`;
+const displayText = `${type === ContentTypeEnum.Tags ? '# ' : ''}${text.toLowerCase()}`;
+---
+
+<SelectionButton
+    href={href}
+    rootHref={`${sitePaths[type]}`}
+    isActive={isActive}
+    data-slug={slugifyName}
+    {...props}>{displayText}</SelectionButton
+>

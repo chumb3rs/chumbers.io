@@ -1,0 +1,83 @@
+# Features
+- [x] Add link to archives/set up post archive. See mathematical crap for what this might look like
+- [x] Better theme color: I think the teal is too bright and doesn't look good on light mode. Maybe periwinkle
+- [x] Switch media to cloudinary (consider local/Cloudinary)
+- [x] Add page analytics as on my previous site
+- [x] Add LaTeX support in post content
+- [x] Add back to top button
+- Add reading progress bar
+- Look at setting up disqus
+- [x] Ability to pin a post to the large spot on the landing page
+- [x] Better related posts layout
+- Support putting LaTeX in the image/video caption
+- Add overview tab for series/projects
+- Add validators to Zed so that categories/projects/series etc. have to come from existing list
+- Have proper numbered pagination not just left and right arrows
+- [x] Do something better with tags now that I have so many. Also what is the format for tags in the frontmatter? e.g. is is "First second" or "First Second"...can I have it so it doesn't matter
+- Add "load more" button to landing page
+- Add more metadata to series/categories e.g. the number of posts
+- Add next/previous post links as in previous site
+- [x] More metadata about post below title (e.g. category)
+- Paginate /archive page
+- Paginate /series page
+- Paginate /projects page
+- Use [this](https://ebacala.com/blog/create-a-code-block-with-a-copy-button-using-astro-markdown-and-shiki/) example to upgrade code blocks
+- content type bar should scroll on small width not wrap
+- [x] Verify search functinality
+
+## Bugs
+- [x] Footer doesn't push to bottom of page (see /category/category-1) for example
+- [x] Migrate post collection to /content or /posts or something (currently /blog)
+- Read Post on the series cards should flip when the entire row is hovered not just that text
+- [x] Add <Highlight> and <VideoEmbed> component to mdx
+- [x] Make every word capitalized in baes layout title. Go Series > Purdue ... for example
+- [x] Fix image mdx component to show alt as caption
+- [x] Footnotes not working on mdx pages
+- Fix share functionality not working - though it does work on Mac
+- On Mac there are some weird wrapping behaviours
+- Verify that phone layout and appearance is good...Brave devtools playing up
+- [x] Verify code block syntax highlighting working
+- [x] There are two "Footnotes" heading links that appear in the toc
+  - The fix was just to replace the manual header I had with a horizontal rule
+- [x] LaTeX export pngs have a clear background so look trash on dark mode
+- Have a ToC heading remain highlighted until the next one comes into view. Currently if there is a large vertical space between headings none will be highlighted sometimes
+- [x] Quote blocks have double quotations...
+- [x] Card mdx component is garbage
+- [x] Consistency on video and image captions
+- [x] Fix image and video height and width setup
+- When selected on phone to the tag selector button text covers the cross
+- [x] Fix latex png images looking shite
+- Restrict number of series/projects loaded initially (use same format as posts?????)
+- [x] Fix issue with tags/[tag] redirecting
+- Have burger menu hidden not just pushed to the right off screen
+- PageFind UI does not seem to work after returning home or navigating to another link after using it once
+
+## Jobs
+- [x] Run backfill using specter to convert <Highlight /> tags. Check also for ^^
+  - Use <Highlight text=['"](.*)['"] /> and <Highlight>\1</Highlight>
+- [x] Update internal page links since they still point to /content/<post-name>
+- Try viewing on multiple browsers...Firefox seems to be weird
+- [x] Can I set up permanent redirects for all the Instagram story blog links??
+- [x] Fix roam-style italics?? _dfj_
+  - Nothing required
+- Update introductory email and [this](https://chumbers.us12.list-manage.com/subscribe?u=ae8043f0d332135e9a03c7190&id=1fa8b7342c)
+- [x] Actually wire up Mailchimp
+- [x] Actually wire up contact form
+- Make contact/subscribe forms DRY
+- [x] Make sure images load lazy when they should
+- Form field validations with zod and protecting against spam
+- [x] Add server render for cloudflare
+- Better understand possibilities/configuration of [@astrojs/cloudflare](https://docs.astro.build/en/guides/integrations-guide/cloudflare/)
+- [x] Make a 404 page
+- [x] Configure pagefind
+    - Should not scrape non-post pages
+    - Should render the title of that page as the link
+
+## Future...
+- Level things up with motion.dev
+- Explore [awesome remark](https://github.com/remarkjs/awesome-remark) and [awesome rehype](https://github.com/rehypejs/awesome-rehype) plugins
+- [x] Do I want to stick with TinaCMS? I think that maybe if I am writing in Obsidian there is no point...
+- Have ses emails not go to Spam folder!!
+- Explore a move off of Mailchimp to something better, e.g. "Mailerlite". The thing is that I don't think that the number of people I have subscribed at the moment really warrants this...
+- Make the email template that I get sent from /contact a little nicer
+- Better searching...for example, can I get an individual entry for each post (title)/category/series/project/tag etc.

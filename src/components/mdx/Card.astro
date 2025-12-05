@@ -1,0 +1,45 @@
+---
+import { CldImage } from 'astro-cloudinary';
+
+type Props = {
+    img: string;
+    header: string;
+    body: string;
+    link: string;
+};
+
+const { img, header, body, link } = Astro.props;
+const isInternalLink = link.startsWith('/');
+---
+
+<a
+    href={link}
+    class='flex w-full items-start gap-4 border-2 border-transparent hover:border-primary transition-colors duration-500 rounded-lg no-underline'
+    target={isInternalLink ? undefined : '_blank'}
+    rel={isInternalLink ? undefined : 'noopener noreferrer'}
+>
+    <div
+        class='hidden sm:block flex-shrink-0 w-40 md:w-48 lg:w-56 aspect-[3/2] relative'
+    >
+        <CldImage
+            src={img}
+            alt={header}
+            width={600}
+            height={400}
+            crop='fill'
+            format='avif'
+            quality='auto'
+            class='absolute inset-0 h-full w-full object-cover rounded'
+        />
+    </div>
+
+    <div class='flex flex-col flex-grow py-4 pr-4'>
+        <p class='text-md whitespace-pre-wrap'>
+            {header}
+        </p>
+
+        <p class='text-sm italic text-gray-200 py-4 whitespace-pre-wrap'>
+            {body}
+        </p>
+    </div>
+</a>

@@ -1,0 +1,55 @@
+{
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+    "formatter": {
+        "enabled": true,
+        "formatWithErrors": true,
+        "indentWidth": 4,
+        "indentStyle": "space",
+        "lineWidth": 80
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "single",
+            "jsxQuoteStyle": "single",
+            "semicolons": "always"
+        }
+    },
+    "json": {
+        "formatter": {
+            "trailingCommas": "none",
+            "indentStyle": "space",
+            "indentWidth": 4
+        }
+    },
+    "css": {
+        "formatter": {
+            "indentWidth": 4,
+            "indentStyle": "space",
+            "enabled": true
+        },
+        "parser": {
+            "tailwindDirectives": true
+        }
+    },
+    "html": {
+        "formatter": {
+            "enabled": true,
+            "indentStyle": "space",
+            "indentWidth": 4
+        },
+        "experimentalFullSupportEnabled": true
+    },
+    "linter": {
+        "enabled": true
+    },
+    "files": {
+        "includes": [
+            "**",
+            "!node_modules",
+            "!**/*.astro",
+            "!**/*.mdx",
+            "!**/*.md"
+        ],
+        "ignoreUnknown": true
+    }
+}

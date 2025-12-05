@@ -1,0 +1,4 @@
+{
+    "*.{js,jsx,ts,tsx,json}": ["biome format --write"],
+    "*.astro": ["prettier --write"]
+}

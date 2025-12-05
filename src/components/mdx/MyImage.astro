@@ -1,0 +1,27 @@
+---
+import { CldImage } from 'astro-cloudinary';
+
+type Props = {
+    src: string;
+    alt?: string;
+};
+
+const { src, alt = '', ...props } = Astro.props;
+---
+
+<figure class='relative flex flex-col justify-center items-center' {...props}>
+    <div class='relative'>
+        <CldImage
+            src={src}
+            alt={alt}
+            class='max-h-[550px] w-auto max-w-full object-contain rounded-lg transition-all duration-300'
+            quality={50}
+            sizes='100vw'
+            background='white'
+        />
+    </div>
+
+    <figcaption class='italic text-sm text-center'>
+        {alt}
+    </figcaption>
+</figure>

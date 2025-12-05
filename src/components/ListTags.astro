@@ -1,0 +1,72 @@
+---
+import ContentTypeSelection from '@/components/ContentTypeSelection';
+import { ContentTypeEnum } from '@/data/utils';
+import { slugify } from '@/utils';
+
+type Props = {
+    tags: string[];
+    activeTag: string;
+};
+const { tags, activeTag = '' } = Astro.props;
+---
+
+<style>
+    /* Container */
+    .tag-scroll {
+        position: relative;
+        overflow-y: auto;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+    }
+</style>
+
+<div class='relative mt-5 mb-8 h-72 w-full'>
+    <div
+        id='tagScrollContainer'
+        class='tag-scroll flex flex-col flex-wrap justify-center overflow-auto h-72'
+        data-active={activeTag}
+        client:load
+    >
+        {
+            tags.map((tag) => (
+                <ContentTypeSelection
+                    text={tag}
+                    slug={slugify(tag)}
+                    activeOption={activeTag}
+                    type={ContentTypeEnum.Tags}
+                />
+            ))
+        }
+    </div>
+</div>
+
+<script>
+    const scrollToActive = () => {
+        const container = document.getElementById('tagScrollContainer');
+        if (!container) return;
+
+        const activeTag = container.dataset?.active;
+        if (activeTag && activeTag.trim() !== '') {
+            const activeEl = container.querySelector(
+                `[data-slug="${activeTag}"]`
+            );
+            if (activeEl) {
+                const containerRect = container.getBoundingClientRect();
+                const elRect = activeEl.getBoundingClientRect();
+
+                const scrollLeft =
+                    container.scrollLeft +
+                    (elRect.left - containerRect.left) -
+                    containerRect.width / 2 +
+                    elRect.width / 2;
+
+                container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            }
+        } else {
+            container.scrollTo({ left: 0 });
+        }
+    };
+
+    scrollToActive();
+    document.addEventListener('astro:page-load', scrollToActive);
+</script>

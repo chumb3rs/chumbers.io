@@ -1,0 +1,30 @@
+---
+import ListPosts from '@/components/ListPosts';
+import BaseLayout from '@/layouts/BaseLayout';
+import { getLandingPosts } from '@/utils';
+
+const MAX_POSTS = 5; // max number of posts to show on the home page
+const posts = await getLandingPosts(MAX_POSTS);
+---
+
+<BaseLayout title='Home'>
+    <ListPosts FirstBig={true} posts={posts} />
+</BaseLayout>
+
+<script>
+    import { animate } from 'motion';
+    const showAnimations = localStorage.getItem('animations') === 'true';
+
+    if (showAnimations) {
+        animate(
+            '.title',
+            { y: [80, 0], opacity: [0, 1] },
+            {
+                duration: 2.5,
+                opacity: { duration: 3 },
+
+                offset: [0, 0.55, 0.75]
+            }
+        );
+    }
+</script>

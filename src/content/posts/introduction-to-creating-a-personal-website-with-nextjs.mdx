@@ -1,0 +1,314 @@
+---
+title: Introduction to Creating a Personal Website With Next.js
+heroImage: https://res.cloudinary.com/df6vf0noc/image/upload/v1763240372/introduction-to-creating-a-personal-website-with-nextjs/article-hero-1_nqmxth.jpg
+category: Learn
+project: ''
+series: ''
+description: An introduction to the motivation and decision-making process involved in creating my personal site. Technical specs to follow.
+pubDate: 2022-07-11T00:00:00.000Z
+tags:
+  - Web Development
+  - Writing
+  - Markdown
+  - Next.js
+---
+
+## Introduction
+
+This is the first in a series of articles detailing the
+**hows**, **whys** and in general grand misadventures I’ve crossed in
+making this website. For the technical details, read on ahead. The
+following will serve as a nice, holistic overview of what we will be
+working towards. I’m assuming that if you are reading this, you are
+either:
+
+-   doing so because I begged you to do so and bump up the audience 😘,
+    or
+
+-   are yourself interested in making such a personal website yourself.
+
+Let’s also be clear from the jump. This is a completely overdone topic -
+there are far better takes on what you are about to read - but
+nonetheless I’ve put this together, if only for my benefit to gain some
+heightened clarity around the broader project here.
+
+For some time, I had had in mind the plan of creating a site to which
+could act as a reservoir for different thoughts, essays and other
+miscellaneous pieces of content that I had written over the years.
+Despite the clear importance that was to be garnered from such a
+platform, <Highlight text="it was something that I persistently put off, with seemingly
+every other task rising above it on the priority ladder. This is procrastination in its purest form"/>. It was only after sufficient time
+that enough pressure built up behind the valve of postponement to
+finally set myself into action. On a side note, one insight I found
+useful in arresting my slumber is found in moments like this, from Scott
+Young’s
+[Ultralearning](https://www.amazon.com.au/Ultralearning-Strategies-Mastering-Skills-Getting/dp/0008305706/ref=sr_1_5?crid=26SGS1PI1W9IG&keywords=ultralearning&qid=1657437202&sprefix=ultralear%2Caps%2C730&sr=8-5).
+
+> My anxiety was that by committing something to paper, there was a good
+> chance I might end up writing it poorly. Silly, I know. But most
+> motives to procrastinate are silly when you verbalize them, yet that
+> doesn’t stop them from ruling your life. Which brings me to the first
+> step to overcoming procrastination: recognize when you are
+> procrastinating. (Young (2019))
+
+But all this is for another time. The point being was that early in
+December 2021 after finishing my university exams for the semester I
+[initialised a Git
+repository](https://github.com/nickmarks00/chumbers.io)…and then it just
+sat there. Because whilst I knew **what** I wanted to build, I did not
+yet know **how** I wanted to do it. And if you are new to front-end
+development, what you may not appreciate is that in this Wild West,
+there [are](https://nextjs.org/) [a](https://www.gatsbyjs.com/)
+[million](https://astro.build/blog/introducing-astro/)
+[ways](https://gohugo.io/hugo-pipes/js/) [to](https://jekyllrb.com/)
+[skin](https://ghost.org/docs/) a cat. I’m not even joking.
+
+So to start with, I want to address my decision making process in how I
+arrived at my desired tech-stack, and then we’ll dive into what that
+tech-stack is. Because the punchline is that I think there is immense
+benefit in creating such a platform for yourself. If you are already in
+the habit of doing something akin to journaling, then I recommend
+migrating this into some sort of web format. People are far more
+interested in what you have to say than we can generally anticipate. As
+in Kleon (2014),
+
+> A daily dispatch is even better than a résumé or a portfolio, because
+> it shows what we’re working on right now. When the artist Ze Frank was
+> interviewing job candidates, he complained, “When I ask them to show
+> me work, they show me things from school, or from another job, but I’m
+> more interested in what they did last weekend.” (Kleon, 2014, p. 48)
+
+Let’s get started.
+
+## Sifting Grain From Chaff
+
+As stated, there are infinite ways to go about this.
+
+### Using an All-In-One/No Code System
+
+If the sole objective of your site is to write content, then this is a
+perfectly rational path to take. Arguably, instead of waiting months and
+months for my technical bona fides to be good enough to code up this
+site, I should have just made something up quickly on a platform like
+[Squarespace](https://www.squarespace.com/). There are good videos
+documenting how you might do this: may I recommend as a starting point
+Nat Eliason (2020), if only for the fact that Nat’s work is a big
+inspiration for what I want to build towards in future.
+
+#### Downsides
+
+Well, this part is pretty simple. You lose **a lot** of the flexibility
+in terms of design[^1]. Again, this is fine if you are writing articles
+with simple text content, even code snippets, but beyond that, from
+experience, the interface can be lacking. Take for example attempting to
+typeset an article heavy with
+$$\LaTeX$$
+. This is going to be a frustrating experience, [by all
+accounts](https://webapps.stackexchange.com/questions/1636/latex-on-wordpress).
+It’s possible with plug-ins, but they muddy the site pretty quickly if
+you use too many.
+
+### Frameworks
+
+A lot of these are really good, and to be honest I didn’t try out all of
+them[^2] before selecting Next.js.
+
+#### Gatsby JS
+
+Gatsby is a really popular choice for building a static site. With very
+little effort, you get access to a well developed framework with lots of
+backing, a huge community and an even larger base of plug-ins for adding
+any colourful functionality to your website that you might like. There
+is no scope for dynamic, client-side rendered content which is clearly
+not going to be a serious concern for most blog-style sites. It also
+means you’re less likely to get headaches when things go wrong. Simple
+is better.
+
+I tried making this exact site using Gatsby first[^3], and to put it
+plainly had a lot of issues. This is **less** the fault of Gatsby, and
+more the fault of the CMS I chose to use and the subsequent plug-in set
+I was using.
+
+![Build errors I persistently got with
+Gatsby.](https://res.cloudinary.com/df6vf0noc/image/upload/v1763240697/introduction-to-creating-a-personal-website-with-nextjs/FTddbpjoym_tmlg1m.png)
+
+There is no doubt some way of fixing these errors, but I wasn’t
+interested in waiting around. It seemed to be that, coincidentally, I’d
+started building just as the new release of Gatsby 4 came out, and many
+of the plug-ins I wanted to use weren’t going to be upgraded from
+Version 3 for a little while.
+
+#### How To Decide?
+
+Pick a framework in a language you know. If it’s JavaScript, go with
+Next.js, Gatsby or Astro. If you know Golang[^4], use Hugo. It’s that
+simple. So why did I go with Next.js? To summarise, the drawcards were
+that it:
+
+-   ✅ Has **very** easy deployment to [Vercel](https://vercel.com), the
+    parent company of Next.js. This comes with a nice dashboard and
+    analytics. Perhaps the tool I like best, which is certainly not
+    unique to Vercel, is that if I’m working on a feature branch and
+    commit it with `git push origin my-branch`, instead of deploying
+    this build (once successful) to my attached domains (as it does with
+    pushes from `main`), Vercel will generate a custom domain at which I
+    can view and inspect the build for bugs, etc., before merging into
+    production,
+
+-   ✅ Is a very minimal framework, insofar as very few packages were
+    required to install from `npm` to get up and running. More on that
+    later. This means I got an overall smaller bundle size with Next.js
+    than I ever got from Gatsby, successful builds or otherwise.
+
+-   ✅ Has, despite its minimalism, some powerful tools to use for
+    adding server-side generation, even as of late incremental static
+    regeneration, to my site. This means that when I publish a new post
+    from my headless CMS, I **don’t have to** rebuild the site. Certain
+    pages will iteratively fetch fresh data from the server and will
+    therefore not go stale. <Highlight text="This should be a serious advantage"/> for
+    anyone that is intending to publish content frequently as I am.
+
+-   ✅ Allows for you to add a basic `api` to your website written in
+    Node.js. This comes in handy later on, when we look at adding
+    SEARCH, EMAIL and more complex features to the site.
+
+One thing I would **strongly** recommend against is building this sort
+of site with a fully fledged backend like Django or Node. It’s just
+simply not necessary, and not worth the pain. It might make for a good
+tutorial project, but if this is a site you are serious about, do not
+overcomplicate things if you don’t have to.
+
+## Content Management
+
+What about how I should integrate the content I produce into my site?
+Well, here again our path forks ten-fold. Let’s work our way up the
+complexity ladder, from simplest to most complex (and possibly
+over-engineered).
+
+### The Basics
+
+The simplest approach is to write the content in HTML and simply just
+drop that into the site. If you do that, it renders something like Next
+or Gatsby completely moot. Just some HTML, JavaScript for a bit of
+functionality, CSS for styling and you are good to go. This is honestly
+a good option if you are just wanting to make a portfolio with only a
+few pages. The fallback here is that writing articles in HTML is not
+conducive to how the brain likes to write, and its difficult to maintain
+since you are not separating concerns: form is merged with design.
+
+### The Less Basic
+
+A fantastic alternative to HTML, but still very much in the same vain,
+is to use Markdown. The syntax is super easy to understand for
+non-coders, it’s almost universally supported, and it’s quite flexible.
+Any flexibility that it doesn’t have out-of-the-box can be added with
+MDX (more on this in another article).
+
+You can write your articles as `.md` files and pretty much any static
+site framework worth its salt will be able to generate templated pages
+for those pieces. This is good news for us, because the template is now
+separate from the content, meaning that you can tweak the styling
+without worrying about overriding your writing in any sort of way.
+
+### The Less, Less Basic
+
+The last option is to use a headless CMS service. What is a headless
+CMS?
+
+> Headless CMS = where your content lives (the body) is detached from
+> where the content is presented (the head)
+
+Options here are again aplenty: [Contentful](https://contentful.com),
+[Strapi](https://strapi.io), or my choice
+[GraphCMS](https://graphcms.com), just to name a few. I chose GraphCMS
+for its usage of GraphQL to query data, which I’ll cover in a separate
+article.
+
+| ✅ Advantages                                                                                                                                                                                                                                             | ❌ Disadvantages                                                                                                                                                       |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Allows for complex relationships between your content. For instance I’ve created schemas for posts, categories, tags and series                                                                                                                           | Requires some setup and configuration, which can be challenging for beginners. It’s also harder to diagnose when something goes wrong                                  |
+| Natively (at least in the case of GraphCMS) provides webhooks through which you can automate complex tasks on the change of content                                                                                                                       | Your work is sitting on someone else’s servers. This means you are at their mercy: if they are doing site maintenance for a few hours, you’re out of luck              |
+| Provides a really clean and effective template for producing content. It also means that you can add collaborators, non-coders and so forth to your production side without them having to worry about learning markdown, or anything technical like that | Fetching data from a remote server will likely make your site less performant (that is, fast to load) compared to a website that is just pulling content files locally |
+
+Overall, at least in my case, the trade-offs were outweighed by the
+advantages. But that’s not to say this is the correct or best way of
+doing it. Such a thing doesn’t exist. I would recommend starting simple
+(as I did) and ramping up the complexity **as you need it** (JIT, or
+Just In Time), rather than operating from a JIC, or Just In Case
+heuristic.
+
+![The heuristics I used in deciding my tech stack.](https://res.cloudinary.com/df6vf0noc/image/upload/v1763240697/introduction-to-creating-a-personal-website-with-nextjs/036B-hUwfV_ovpvh4.png)
+
+### A Disclaimer…
+
+One point I cannot stress enough, and perhaps I am hypocritical in this
+regard, is to not over-engineer a project if you don’t have to. One
+observes the prevalence of [this sort of
+meme](https://www.youtube.com/watch?v=Sxxw3qtb3_g) increasingly in web
+development culture, and it objectively does not make for a better
+outcome, for the developer nor the end user. Unless, as I initially
+conceived of, you want your site to be **a lot more** than just a
+repository to house articles and other forms of content, then go with
+something simple. If I may recommend, **Local Markdown Files +
+Gatsby/Hugo** depending on the languages you are most comfortable with.
+If you want to learn Hugo, [check out this
+series](https://www.youtube.com/watch?v=qtIqKaDlqXo&list=PLLAZ4kZ9dFpOnyRlyS-liKL5ReHDcj4G3).
+
+Again, don’t make this so complicated that it never gets done, or cannot
+be maintained.
+
+So, with all that aside,
+
+```shell
+npx create-next-app my-site
+```
+
+
+And let’s continue.
+
+## References
+
+<div id="refs" class="references csl-bib-body hanging-indent"
+line-spacing="2">
+
+<div id="ref-kleon2014showyourwork" class="csl-entry">
+
+Kleon, A. (2014). *Show Your Work!: 10 Ways to Share Your Creativity and
+Get Discovered* (Illustrated edition.). New York, NY: Workman.
+
+</div>
+
+<div id="ref-nateliason2020howsetlife" class="csl-entry">
+
+Nat Eliason. (2020, November). How to Set up a Life Changing Blog (This
+Weekend!).
+
+</div>
+
+<div id="ref-young2019ultralearning" class="csl-entry">
+
+Young, S. (2019). *Ultralearning*. Thorsons/Element GB.
+
+</div>
+
+</div>
+
+---
+
+[^1]: Show me a Wordpress website and I bet a lot of money I could tell
+    you it’s a Wordpress. Though with that said, you won’t have to smash
+    your head against a wall working with CSS to get it looking pretty,
+    or googling 1000 times [how to centre a
+    div.](https://www.youtube.com/shorts/njdJeu95p6s)
+
+[^2]: Retaining my current sanity in the process…
+
+[^3]: Because as a literature snob there was something pleasing about
+    this being the right framework for me, but perhaps I “[asked too
+    much
+    of](https://www.litcharts.com/lit/the-great-gatsby/characters/jay-gatsby)
+     ~~her~~  it”…
+
+[^4]: And if you don’t know it, I’d recommend [trying it
+    out](https://www.youtube.com/watch?v=YS4e4q9oBaU) because it is very
+    powerful.

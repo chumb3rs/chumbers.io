@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-white: #f8f9fa;
+    --color-black: #1b1b1b;
+    --color-primary: #7c83bc;
+}
+
+@layer base {
+    /* body {
+		transition: background-color 0.5s ease;
+	} */
+
+    /* .prose code { */
+    /*     @apply text-base; */
+    /* } */
+    html {
+        @apply font-sans;
+        /* makes Manrope default everywhere */
+    }
+
+    code,
+    pre {
+        @apply font-code;
+        /* ensures code blocks use Fira Code */
+    }
+
+    /* prose styles here */
+    .prose h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply text-zinc-800 dark:text-zinc-100 !important;
+    }
+
+    html.dark .shiki,
+    html.dark .shiki span {
+        color: var(--shiki-dark) !important;
+        background-color: theme(colors.gray.900) !important;
+    }
+}
+
+.glass {
+    background: rgba(57, 56, 56, 0.52);
+    backdrop-filter: blur(13px) saturate(150%);
+    -webkit-backdrop-filter: blur(13px) saturate(150%);
+    z-index: -1;
+}
+
+.shadow {
+    box-shadow: -5px 3px 8px 1px rgba(0, 0, 0, 0.12);
+}
+
+.hoverLink {
+    transition: color 0.3s ease;
+}
+
+.hoverLink:hover {
+    color: var(--color-primary);
+}
+
+/* Base underline mixin */
+.underline--base {
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+}
+
+/* Magical underline with primary color */
+.underline--magical {
+  background-image: linear-gradient(120deg, var(--color-primary) 0%, var(--color-primary) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+  transition: background-size 0.25s ease-in, color 0.25s ease-in;
+}
+
+.underline--magical:hover {
+  background-size: 100% 88%;
+  color: var(--color-white);
+}
+
+/* Magical underline with white color */
+.underline--magical-white {
+  background-image: linear-gradient(120deg, var(--color-white) 0%, var(--color-white) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+  transition: background-size 0.25s ease-in;
+}
+
+.underline--magical-white:hover {
+  background-size: 100% 88%;
+  color: var(--color-black);
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 2px var(--color-primary),
+    inset -2px -2px -2px rgba(0, 0, 0, 0.25);
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    90deg,
+    var(--color-black)
+    var(--color-black) 50%,
+    var(--color-black) 0,
+    var(--color-black)
+  );
+}

@@ -1,0 +1,160 @@
+---
+import BaseLayout from '@/layouts/BaseLayout';
+import Loader from '@/components/Loader.astro';
+---
+
+<BaseLayout title='Subscribe'>
+    <h2 class='text-2xl font-heading font-bold'>
+        Sign-up for a weekly newsletter.
+    </h2>
+    <header class='my-3'>
+        <p class='mb-4'>
+            Each week I&apos;m collating the different blogs and essays
+            I&apos;ve written during that week and shipping it out along with
+            some other miscellaneous thoughts and ideas.
+        </p>
+        <p>
+            It is a useful way for me to capture what each week was like in the
+            moment, along with serving as a very direct and public way of
+            enforcing the routinely practice of sitting down to write. It is
+            really nothing special.
+        </p>
+        <p class='mt-6 font-display font-bold'>
+            View previous editions{' '}
+            <a
+                href='/categories/newsletter'
+                class='underline--magical'
+                target='_blank'
+                rel='noreferrer'
+            >
+                here on my website
+            </a>{' '}
+            or on the{' '}
+            <a
+                class='underline--magical'
+                target='_blank'
+                rel='noreferrer'
+                href='https://us12.campaign-archive.com/home/?u=ae8043f0d332135e9a03c7190&id=1fa8b7342c'
+            >
+                email archive
+            </a>
+            .
+        </p>
+    </header>
+
+    <section class='flex-col w-full mt-8'>
+        <form
+            id='contactForm'
+            class='space-y-6'
+            action='/api/subscribe'
+            method='POST'
+        >
+            <div class='flex flex-col md:flex-row gap-4'>
+                <!-- First Name -->
+                <div class='relative w-full'>
+                    <input
+                        id='firstName'
+                        name='fname'
+                        type='text'
+                        required
+                        class='peer w-full border-2 border-gray-300 rounded-md px-3 pt-5 pb-2 hover:border-primary focus:outline-none focus:border-primary transition text-black'
+                    />
+                    <label
+                        for='firstName'
+                        class='absolute left-3 top-2.5 text-gray-500 text-sm transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-blue-500 peer-focus:top-2.5 peer-focus:text-xs peer-focus:font-bold peer-focus:text-primary'
+                    >
+                        First name*
+                    </label>
+                </div>
+                <!-- Last Name -->
+                <div class='relative w-full'>
+                    <input
+                        id='lastName'
+                        name='lname'
+                        type='text'
+                        class='peer w-full border-2 border-gray-300 rounded-md px-3 pt-5 pb-2 hover:border-primary focus:outline-none focus:border-primary transition text-black'
+                    />
+                    <label
+                        for='lastName'
+                        class='absolute left-3 top-2.5 text-gray-500 text-sm transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-blue-500 peer-focus:top-2.5 peer-focus:text-xs peer-focus:font-bold peer-focus:text-primary'
+                    >
+                        Last name
+                    </label>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class='relative w-full'>
+                <input
+                    id='email'
+                    name='email'
+                    type='email'
+                    required
+                    class='peer w-full border-2 border-gray-300 rounded-md px-3 pt-5 pb-2 hover:border-primary focus:outline-none focus:border-primary transition text-black'
+                />
+                <label
+                    for='email'
+                    class='absolute left-3 top-2.5 text-gray-500 text-sm transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-blue-500 peer-focus:top-2.5 peer-focus:text-xs peer-focus:font-bold peer-focus:text-primary'
+                >
+                    Email*
+                </label>
+            </div>
+
+            <button
+                id='submitBtn'
+                type='submit'
+                class='w-fit border-2 border-primary font-semibold px-6 py-2 rounded-md hover:bg-primary/30 disabled:bg-gray-400 transition duration-500'
+            >
+                <span id='button-text'>Subscribe</span>
+                <span id='button-loading' class='hidden'>
+                    <Loader />
+                </span>
+            </button>
+
+            <div
+                id='form-message'
+                class='absolute hidden text-sm p-3 rounded-lg transition-all'
+                role='alert'
+            >
+            </div>
+        </form>
+    </section></BaseLayout
+>
+
+<script>
+    import { handleNewsletterSubmit } from '@/utils/newsletter';
+
+    const form = document.getElementById('contactForm') as HTMLFormElement;
+    const submitButton = document.getElementById(
+        'submitBtn'
+    ) as HTMLButtonElement;
+    const buttonText = document.getElementById(
+        'button-text'
+    ) as HTMLSpanElement;
+    const buttonLoading = document.getElementById(
+        'button-loading'
+    ) as HTMLSpanElement;
+    const firstNameInput = document.getElementById(
+        'firstName'
+    ) as HTMLInputElement;
+    const lastNameInput = document.getElementById(
+        'lastName'
+    ) as HTMLInputElement;
+    const emailInput = document.getElementById('email') as HTMLInputElement;
+    const messageContainer = document.getElementById(
+        'form-message'
+    ) as HTMLDivElement;
+
+    const elements = {
+        submitButton,
+        buttonText,
+        buttonLoading,
+        inputs: [firstNameInput, lastNameInput, emailInput],
+        messageContainer
+    };
+
+    form?.addEventListener('submit', async (e: SubmitEvent) => {
+        e.preventDefault();
+        await handleNewsletterSubmit(form, elements);
+    });
+</script>

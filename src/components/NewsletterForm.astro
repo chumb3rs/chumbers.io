@@ -1,0 +1,75 @@
+---
+import Loader from '@/components/Loader';
+---
+
+<form
+    id='newsletter-form'
+    class='relative w-full max-w-md mx-auto space-y-3'
+    action='/api/subscribe'
+    method='POST'
+>
+    <div
+        class='flex items-center rounded-2xl border-2 border-gray-300 transition-colors duration-300 hover:border-teal focus-within:border-primary overflow-hidden hover:border-primary'
+    >
+        <input
+            type='email'
+            name='email'
+            id='email-input'
+            required
+            placeholder='Enter your email'
+            class='flex-grow bg-transparent px-4 py-3 text-sm focus:outline-none'
+        />
+
+        <button
+            type='submit'
+            id='submit-button'
+            class='absolute right-0 h-full px-5 rounded-r-2xl bg-teal font-medium transition-colors duration-300 hover:bg-teal/90 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed'
+        >
+            <span id='button-text-footer'>Subscribe</span>
+            <span id='button-loading-footer' class='hidden'>
+                <Loader />
+            </span>
+        </button>
+    </div>
+
+    <div
+        id='form-message-footer'
+        class='absolute left-0 right-0 text-center mx-auto hidden text-sm p-3 rounded-lg transition-all'
+        role='alert'
+    >
+    </div>
+</form>
+
+<script>
+    import { handleNewsletterSubmit } from '@/utils/newsletter';
+
+    const form = document.getElementById('newsletter-form') as HTMLFormElement;
+    const submitButton = document.getElementById(
+        'submit-button'
+    ) as HTMLButtonElement;
+    const buttonText = document.getElementById(
+        'button-text-footer'
+    ) as HTMLSpanElement;
+    const buttonLoading = document.getElementById(
+        'button-loading-footer'
+    ) as HTMLSpanElement;
+    const emailInput = document.getElementById(
+        'email-input'
+    ) as HTMLInputElement;
+    const messageContainer = document.getElementById(
+        'form-message-footer'
+    ) as HTMLDivElement;
+
+    const elements = {
+        submitButton,
+        buttonText,
+        buttonLoading,
+        inputs: [emailInput],
+        messageContainer
+    };
+
+    form?.addEventListener('submit', async (e: SubmitEvent) => {
+        e.preventDefault();
+        await handleNewsletterSubmit(form, elements);
+    });
+</script>

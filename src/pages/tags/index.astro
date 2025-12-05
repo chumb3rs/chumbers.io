@@ -1,0 +1,11 @@
+---
+import ContentTypeLayout from '@/layouts/ContentTypeLayout';
+import ListTags from '@/components/ListTags';
+import { getTags } from '@/utils';
+
+const tags = await getTags();
+---
+
+<ContentTypeLayout contentType='tags' title='Tags'>
+    <ListTags tags={tags} activeTag='' />
+</ContentTypeLayout>

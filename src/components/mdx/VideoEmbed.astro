@@ -1,0 +1,29 @@
+---
+import { CldVideoPlayer } from 'astro-cloudinary';
+type Props = {
+    url: string;
+    caption: string;
+};
+
+const { url, caption, ...props } = Astro.props;
+---
+
+<figure {...Astro.props} class='mt-2 mb-1' {...props}>
+    <div>
+        <CldVideoPlayer
+            src={url}
+            controls
+            logo={false}
+            hideContextMenu
+            pictureInPictureToggle
+            height={300}
+            width={400}
+            colors={{
+                base: '#7c83bc'
+            }}
+        />
+    </div>
+    <figcaption class='italic text-sm text-center'>
+        {caption}
+    </figcaption>
+</figure>

@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ContentTypeSelection from '@/components/ContentTypeSelection';
+import { ContentTypeEnum } from '@/data/utils';
+
+type Props = {
+    categories: CollectionEntry<'categories'>[];
+    activeCategory: String;
+};
+
+const { categories, activeCategory = '' } = Astro.props;
+---
+
+<div class='mt-5 mb-8 flex flex-wrap justify-center w-full md:w-9/12 mx-auto'>
+    {
+        categories.map((category) => {
+            return (
+                <ContentTypeSelection
+                    text={category.data.title}
+                    slug={category.slug}
+                    activeOption={activeCategory}
+                    type={ContentTypeEnum.Categories}
+                />
+            );
+        })
+    }
+</div>

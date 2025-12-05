@@ -1,0 +1,53 @@
+---
+import ArchiveLayout from '@/layouts/ArchiveLayout';
+import Pagination from '@/components/Pagination';
+import { getPosts, groupPostsByMonth, getMonthName } from '@/utils';
+import { siteConfig } from '@/data/site.config';
+
+export async function getStaticPaths({ paginate }: any) {
+    const allPosts = await getPosts();
+
+    // Group posts by year and month
+    const yearMonthMap = new Map<string, any[]>();
+    allPosts.forEach((post) => {
+        const year = post.data.pubDate.getFullYear();
+        const month = post.data.pubDate.getMonth();
+        const monthName = getMonthName(month);
+        const key = `${year}-${monthName.toLowerCase()}`;
+
+        if (!yearMonthMap.has(key)) {
+            yearMonthMap.set(key, []);
+        }
+        yearMonthMap.get(key)!.push(post);
+    });
+
+    // Create paginated routes for each year-month combination
+    return Array.from(yearMonthMap.entries()).flatMap(([key, monthPosts]) => {
+        const [year, month] = key.split('-');
+        return paginate(monthPosts, {
+            params: {
+                year: year,
+                month: month
+            },
+            pageSize: siteConfig.paginationSize
+        });
+    });
+}
+
+const { year, month } = Astro.params;
+const { page } = Astro.props;
+
+const allPosts = await getPosts();
+const yearNumber = parseInt(year!);
+const monthsData = groupPostsByMonth(allPosts, yearNumber);
+const posts = page.data;
+---
+
+<ArchiveLayout
+    currentYear={yearNumber}
+    currentMonth={month}
+    posts={posts}
+    monthsData={monthsData}
+>
+    <Pagination page={page} />
+</ArchiveLayout>

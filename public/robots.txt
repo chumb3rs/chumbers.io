@@ -1,7 +1,4 @@
-User-agent: AdsBot-Google
-Disallow: /
-
 User-agent: *
-Disallow: /NicholasMarks_resume.pdf
+Allow: /
 
-Sitemap: https://chumbers.io/sitemap.xml
+Sitemap: https://chumbers.io/sitemap-index.xml

@@ -1,0 +1,45 @@
+---
+import { cn } from '@/utils';
+import SelectionButton from '@/components/SelectionButton';
+
+interface Props {
+    year: number;
+    monthName: string;
+    count: number;
+    currentMonth: string;
+}
+
+const { year, monthName, count, currentMonth } = Astro.props;
+
+const isActive = currentMonth
+    ? currentMonth === monthName.toLowerCase()
+    : false;
+---
+
+<SelectionButton
+    href={`/archive/${year}/${monthName.toLowerCase()}/1`}
+    rootHref={`/archive/${year}/1`}
+    isActive={isActive}
+>
+    <div class='text-center'>
+        <h4
+            class={cn(
+                'text-lg font-semibold transition-colors duration-200',
+                'text-gray-900 dark:text-white group-hover:text-primary',
+                isActive && 'text-primary'
+            )}
+        >
+            {monthName}
+        </h4>
+        <p
+            class={cn(
+                'text-xs font-medium transition-colors duration-200',
+                'text-gray-600 dark:text-gray-300 group-hover:text-gray-700 dark:group-hover:text-gray-200',
+                isActive && 'text-primary/80'
+            )}
+        >
+            {count}
+            {count === 1 ? 'post' : 'posts'}
+        </p>
+    </div>
+</SelectionButton>

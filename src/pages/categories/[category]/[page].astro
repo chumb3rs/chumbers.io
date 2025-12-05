@@ -1,0 +1,54 @@
+---
+import ContentTypeLayout from '@/layouts/ContentTypeLayout';
+import ListPosts from '@/components/ListPosts';
+import ListCategories from '@/components/ListCategories';
+import {
+    slugify,
+    unslugify,
+    getCategories,
+    getPosts,
+    capitalizeWord
+} from '@/utils';
+import { siteConfig } from '@/data/site.config';
+import Pagination from '@/components/Pagination';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths({ paginate }: any) {
+    const categories = await getCategories();
+    const allPosts = await getPosts();
+
+    return categories.flatMap((category: CollectionEntry<'categories'>) => {
+        const {
+            data: { title }
+        } = category;
+        const unsluglifyNameCategory = unslugify(title!.toLowerCase());
+        const filteredPosts = allPosts.filter(
+            (post) =>
+                post.data.category.toLowerCase() === unsluglifyNameCategory
+        );
+
+        return paginate(filteredPosts, {
+            params: {
+                category: slugify(title.toLowerCase())
+            },
+            pageSize: siteConfig.paginationSize
+        });
+    });
+}
+const params = Astro.params;
+const { page } = Astro.props;
+
+const categories = await getCategories();
+
+const categoryTitle = unslugify(params.category!.toLowerCase());
+const posts = page.data;
+---
+
+<ContentTypeLayout
+    contentType='categories'
+    title={capitalizeWord(categoryTitle)}
+>
+    <ListCategories categories={categories} activeCategory={categoryTitle} />
+    <ListPosts posts={posts} />
+    <Pagination page={page} />
+</ContentTypeLayout>
