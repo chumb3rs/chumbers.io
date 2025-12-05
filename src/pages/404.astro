@@ -1,0 +1,155 @@
+---
+import BaseLayout from '@/layouts/BaseLayout';
+---
+
+<BaseLayout title='404 - Page Not Found'>
+    <main class='min-h-[600px] flex items-center justify-center px-4'>
+        <div class='text-center'>
+            <div class='glitch-wrapper mb-8'>
+                <h1
+                    class='glitch text-8xl md:text-9xl font-bold'
+                    data-text='404'
+                >
+                    404
+                </h1>
+            </div>
+
+            <h2 class='text-2xl md:text-4xl font-semibold mb-4'>
+                Page Not Found
+            </h2>
+            <p class='text-lg text-opacity-70 mb-8 max-w-md mx-auto'>
+                The page you are looking for has wandered off...
+            </p>
+
+            <div class='flex flex-col sm:flex-row gap-4 justify-center'>
+                <a
+                    href='/'
+                    class='px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-200 font-semibold'
+                >
+                    Return Home
+                </a>
+                <a
+                    href='mailto:uw0drarf@duck.com'
+                    class='px-6 py-3 border-2 border-current rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-200 font-semibold'
+                >
+                    Report Issue
+                </a>
+            </div>
+        </div>
+    </main>
+</BaseLayout>
+
+<style>
+    .glitch-wrapper {
+        position: relative;
+    }
+
+    .glitch {
+        position: relative;
+        color: #fff;
+        animation: glitch-skew 1s infinite linear alternate-reverse;
+    }
+
+    .glitch::before,
+    .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .glitch::before {
+        left: 2px;
+        text-shadow: -2px 0 #ff00c1;
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch-anim 5s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+        left: -2px;
+        text-shadow:
+            -2px 0 #00fff9,
+            2px 2px #ff00c1;
+        animation: glitch-anim2 1s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim {
+        0% {
+            clip: rect(31px, 9999px, 94px, 0);
+        }
+        20% {
+            clip: rect(85px, 9999px, 40px, 0);
+        }
+        40% {
+            clip: rect(65px, 9999px, 73px, 0);
+        }
+        60% {
+            clip: rect(20px, 9999px, 10px, 0);
+        }
+        80% {
+            clip: rect(50px, 9999px, 60px, 0);
+        }
+        100% {
+            clip: rect(70px, 9999px, 80px, 0);
+        }
+    }
+
+    @keyframes glitch-anim2 {
+        0% {
+            clip: rect(65px, 9999px, 119px, 0);
+        }
+        20% {
+            clip: rect(90px, 9999px, 30px, 0);
+        }
+        40% {
+            clip: rect(10px, 9999px, 85px, 0);
+        }
+        60% {
+            clip: rect(40px, 9999px, 95px, 0);
+        }
+        80% {
+            clip: rect(25px, 9999px, 55px, 0);
+        }
+        100% {
+            clip: rect(75px, 9999px, 15px, 0);
+        }
+    }
+
+    @keyframes glitch-skew {
+        0% {
+            transform: skew(0deg);
+        }
+        10% {
+            transform: skew(-2deg);
+        }
+        20% {
+            transform: skew(2deg);
+        }
+        30% {
+            transform: skew(0deg);
+        }
+        40% {
+            transform: skew(1deg);
+        }
+        50% {
+            transform: skew(-1deg);
+        }
+        60% {
+            transform: skew(0deg);
+        }
+        70% {
+            transform: skew(-2deg);
+        }
+        80% {
+            transform: skew(2deg);
+        }
+        90% {
+            transform: skew(0deg);
+        }
+        100% {
+            transform: skew(-1deg);
+        }
+    }
+</style>
