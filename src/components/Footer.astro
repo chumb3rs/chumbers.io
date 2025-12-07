@@ -4,13 +4,15 @@ import { footerLinks } from '@/data/links';
 ---
 
 <footer
-    class='w-full h-56 flex flex-col items-center justify-center gap-6 mb-5 mt-12'
+    class='w-full h-56 flex flex-col items-center justify-center gap-6 mb-5 mt-12 text-sm md:text-base'
 >
     <div
         class='border-t-2 py-10 flex flex-col-reverse md:flex-row justify-center items-center gap-12 w-full'
     >
         <div class='flex-[4] flex flex-col items-center gap-3'>
-            <p>Okay, it's not that interesting. Go do something.</p>
+            <p class='text-center'>
+                Okay, it's not that interesting. Go do something.
+            </p>
             <NewsletterForm />
         </div>
         <div class='flex-[2] flex'>
@@ -18,7 +20,7 @@ import { footerLinks } from '@/data/links';
                 footerLinks.map((link, index) => (
                     <div class='flex gap-2 ml-2'>
                         <a
-                            class='hoverLink'
+                            class='underline--magical'
                             href={link.url}
                             target={link.openInNewTab ? '_blank' : undefined}
                             rel={
@@ -36,17 +38,25 @@ import { footerLinks } from '@/data/links';
         </div>
     </div>
 
-    <div class='border-t-2 w-full text-center pt-8 pb-4'>
-        Built with 💜 using <a
-            href='https://astro.build/'
-            class='underline--magical hoverLink'
-            target='_blank'
-            rel='noopener noreferrer'>Astro</a
-        > &#10022; Inspired by <a
-            href='https://github.com/danielcgilibert/blog-template'
-            class='underline--magical hoverLink'
-            target='_blank'
-            rel='noopener noreferrer'>danielcgilibert</a
-        >
+    <div
+        class='border-t-2 w-full text-center pt-8 pb-4 flex flex-col md:flex-row md:gap-2 justify-center'
+    >
+        <p>
+            Built with 💜 using <a
+                href='https://astro.build/'
+                class='underline--magical hoverLink'
+                target='_blank'
+                rel='noopener noreferrer'>Astro</a
+            >
+        </p>
+        <p>&#10022;</p>
+        <p>
+            Inspired by <a
+                href='https://github.com/danielcgilibert/blog-template'
+                class='underline--magical hoverLink'
+                target='_blank'
+                rel='noopener noreferrer'>danielcgilibert</a
+            >
+        </p>
     </div>
 </footer>
