@@ -9,7 +9,9 @@ module.exports = {
             colors: {
                 white: '#f8f9fa',
                 black: '#1b1b1b',
-                primary: '#7c83bc'
+                primary: '#7c83bc',
+                secondary: '#7aa2f7',
+                accent: '#a7f0f9',
             },
             fontFamily: {
                 body: ['manrope', ...defaultTheme.fontFamily.sans],

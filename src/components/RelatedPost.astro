@@ -42,7 +42,9 @@ const { post, readTime } = Astro.props;
             {post.data.title}
         </p>
 
-        <p class='text-sm italic text-gray-200 py-4 whitespace-pre-wrap'>
+        <p
+            class='text-sm italic dark:text-gray-200 text-gray-600 py-4 whitespace-pre-wrap'
+        >
             {post.data.description}
         </p>
     </div>

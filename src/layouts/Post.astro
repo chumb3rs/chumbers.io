@@ -68,7 +68,7 @@ const seriesObj = await getSeries(series);
                     <a
                         href={`/series/${slugify(series.toLowerCase())}/1`}
                         aria-label={series}
-                        class='border-2 border-green-600 dark:border-green-900 font-semibold text-sm w-fit px-2 py-1 md:px-5 md:py-2 rounded-lg hover:bg-green-600 hover:dark:bg-green-900 transition-all duration-700'
+                        class='border-2 border-secondary font-semibold text-sm w-fit px-2 py-1 md:px-5 md:py-2 rounded-lg hover:bg-secondary transition-all duration-700'
                     >
                         {seriesObj?.data.title}
                     </a>
@@ -121,26 +121,21 @@ const seriesObj = await getSeries(series);
                 if (entry.isIntersecting) {
                     index?.classList.remove(
                         'bg-slate-200',
-                        'dark:bg-slate-800'
+                        'dark:bg-slate-800',
+                        'dark:text-white'
                     ); // remove bg
                     index?.classList.add(
-                        'bg-indigo-600',
-                        'dark:bg-indigo-700',
-                        'text-white',
-                        'font-bold',
-                        'transition-colors',
-                        'duration-200'
+                        'bg-secondary',
+                        'text-black',
+                        'font-bold'
                     );
                 } else {
-                    index?.classList.add('bg-slate-200', 'dark:bg-slate-800'); // add bg
-                    index?.classList.remove(
-                        'bg-indigo-600',
-                        'dark:bg-indigo-700',
-                        'text-white',
-                        'font-bold',
-                        'transition-colors',
-                        'duration-200'
-                    );
+                    index?.classList.add(
+                        'bg-slate-200',
+                        'dark:bg-slate-800',
+                        'dark:text-white'
+                    ); // add bg
+                    index?.classList.remove('bg-secondary', 'font-bold');
                 }
             });
         }
