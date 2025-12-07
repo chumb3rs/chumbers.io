@@ -1,21 +1,7 @@
 export const prerender = false;
 
-import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import type { APIRoute } from 'astro';
-import {
-    AWS_ACCESS_KEY_ID,
-    AWS_SECRET_ACCESS_KEY,
-    TO_EMAIL,
-    FROM_EMAIL,
-} from 'astro:env/server';
-
-const client = new SESClient({
-    region: 'ap-southeast-2',
-    credentials: {
-        accessKeyId: AWS_ACCESS_KEY_ID,
-        secretAccessKey: AWS_SECRET_ACCESS_KEY,
-    },
-});
+import { TO_EMAIL, FROM_EMAIL } from 'astro:env/server';
 
 export const POST: APIRoute = async ({ request }) => {
     const form = await request.formData();
@@ -25,37 +11,37 @@ export const POST: APIRoute = async ({ request }) => {
     const subject = form.get('subject')?.toString() ?? '';
     const message = form.get('message')?.toString() ?? '';
 
+    const isDev = import.meta.env.DEV;
+
+    if (isDev) {
+        console.log('📧 Contact form submission (dev mode):');
+        console.log(`To: ${TO_EMAIL}`);
+        console.log(`From: ${email} (${name})`);
+        console.log(`Subject: ${subject}`);
+        console.log(`Message: ${message}`);
+        return new Response('Success (dev mode - check console)', {
+            status: 200,
+        });
+    }
+
     try {
-        await sesSend(TO_EMAIL, email, message, name, subject);
+        await fetch('https://api.mailchannels.net/tx/v1/send', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+                personalizations: [{ to: [{ email: TO_EMAIL }] }],
+                from: { email: FROM_EMAIL, name: 'chumbers.io' },
+                subject: `Correspondence from chumbers.io: ${subject}`,
+                content: [
+                    {
+                        type: 'text/plain',
+                        value: `Name: ${name}\nContact: ${email}\n\nMessage: ${message}`,
+                    },
+                ],
+            }),
+        });
         return new Response('Success', { status: 200 });
     } catch (err) {
-        return new Response(`/error:${err}`, { status: 400 });
+        return new Response(`Error: ${err}`, { status: 500 });
     }
 };
-
-function sesSend(
-    emailTo: string,
-    emailFrom: string,
-    message: string,
-    name: string,
-    subject: string,
-) {
-    const params = new SendEmailCommand({
-        Destination: {
-            ToAddresses: [emailTo],
-        },
-        Message: {
-            Body: {
-                Text: {
-                    Data: `Name: ${name}\nContact: ${emailFrom}\n\nMessage: ${message}`,
-                },
-            },
-            Subject: {
-                Data: `Correspondence from chumbers.io: ${subject}`,
-            },
-        },
-        Source: FROM_EMAIL,
-    });
-
-    return client.send(params);
-}

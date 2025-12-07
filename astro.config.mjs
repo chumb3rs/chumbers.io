@@ -44,14 +44,6 @@ export default defineConfig({
                 context: 'client',
                 access: 'public',
             }),
-            AWS_ACCESS_KEY_ID: envField.string({
-                context: 'server',
-                access: 'public',
-            }),
-            AWS_SECRET_ACCESS_KEY: envField.string({
-                context: 'server',
-                access: 'secret',
-            }),
             FROM_EMAIL: envField.string({
                 context: 'server',
                 access: 'secret',
