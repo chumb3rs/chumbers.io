@@ -2,11 +2,7 @@
 
 This is a website I made in the summer of 2021 to host a collection of essays, posts and other content I wrote and am writing.
 
-<div align="center">
-
-[![Check out the site](https://vercel.com/button)](https://chumbers.io)
-
-</div>
+Check out the site [here](https://chumbers.io).
 
 To make and run a local copy:
 
