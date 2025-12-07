@@ -23,7 +23,7 @@ const { tags, activeTag = '' } = Astro.props;
 <div class='relative mt-5 mb-8 h-72 w-full'>
     <div
         id='tagScrollContainer'
-        class='tag-scroll flex flex-col flex-wrap justify-center overflow-auto h-72'
+        class='tag-scroll flex flex-col flex-wrap justify-center overflow-auto h-72 gap-y-2 gap-x-3'
         data-active={activeTag}
         client:load
     >
