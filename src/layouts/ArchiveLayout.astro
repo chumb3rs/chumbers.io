@@ -70,19 +70,18 @@ const archiveData = createArchiveData(allPosts);
                     </div>
                 )
             }
+        </div>
 
+        <!--For pagination-->
+        <slot />
+
+        <div>
             <!-- Posts Section -->
-            <div class='mb-8'>
-                <div class='mb-8'>
-                    <hr />
-                </div>
+            <div class='my-8'>
                 <div id='posts-container'>
                     <ListPosts posts={selectedPosts} />
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Add slot for pagination -->
-    <slot />
 </ContentTypeLayout>

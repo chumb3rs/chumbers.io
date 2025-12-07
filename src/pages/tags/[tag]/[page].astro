@@ -41,6 +41,6 @@ const posts = page.data;
 
 <ContentTypeLayout contentType='tags' title={capitalizeWord(tag)}>
     <ListTags tags={tags} activeTag={tag} />
-    <ListPosts posts={posts} />
     <Pagination page={page} />
+    <ListPosts posts={posts} />
 </ContentTypeLayout>
