@@ -11,5 +11,5 @@ export const getSeries = async (
     series: string | '',
 ): Promise<CollectionEntry<'series'> | null> => {
     if (!series) return null;
-    return await getEntry('series', `${series}.mdx`);
+    return await getEntry('series', series);
 };
