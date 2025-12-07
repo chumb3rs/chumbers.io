@@ -18,6 +18,7 @@
 - Add more metadata to series/categories e.g. the number of posts
 - Add next/previous post links as in previous site
 - [x] More metadata about post below title (e.g. category)
+- Restrict number of series/projects loaded initially (use same format as posts?????)
 - Paginate /archive page
 - Paginate /series page
 - Paginate /projects page
@@ -28,14 +29,14 @@
 ## Bugs
 - [x] Footer doesn't push to bottom of page (see /category/category-1) for example
 - [x] Migrate post collection to /content or /posts or something (currently /blog)
-- Read Post on the series cards should flip when the entire row is hovered not just that text
+- [x] Read Series on the series cards should flip when the entire row is hovered not just that text
 - [x] Add <Highlight> and <VideoEmbed> component to mdx
 - [x] Make every word capitalized in baes layout title. Go Series > Purdue ... for example
 - [x] Fix image mdx component to show alt as caption
 - [x] Footnotes not working on mdx pages
 - Fix share functionality not working - though it does work on Mac
-- On Mac there are some weird wrapping behaviours
-- Verify that phone layout and appearance is good...Brave devtools playing up
+- On Mac + Brave there are some weird wrapping behaviours
+- [x] Verify that phone layout and appearance is good...Brave devtools playing up
 - [x] Verify code block syntax highlighting working
 - [x] There are two "Footnotes" heading links that appear in the toc
   - The fix was just to replace the manual header I had with a horizontal rule
@@ -45,19 +46,18 @@
 - [x] Card mdx component is garbage
 - [x] Consistency on video and image captions
 - [x] Fix image and video height and width setup
-- When selected on phone to the tag selector button text covers the cross
+- [x] When selected on phone to the tag selector button text covers the cross
 - [x] Fix latex png images looking shite
-- Restrict number of series/projects loaded initially (use same format as posts?????)
 - [x] Fix issue with tags/[tag] redirecting
-- Have burger menu hidden not just pushed to the right off screen
-- PageFind UI does not seem to work after returning home or navigating to another link after using it once
+- [x] Have burger menu hidden not just pushed to the right off screen
+- [x] PageFind UI does not seem to work after returning home or navigating to another link after using it once
 
 ## Jobs
 - [x] Run backfill using specter to convert <Highlight /> tags. Check also for ^^
   - Use <Highlight text=['"](.*)['"] /> and <Highlight>\1</Highlight>
 - [x] Update internal page links since they still point to /content/<post-name>
 - Try viewing on multiple browsers...Firefox seems to be weird
-- [x] Can I set up permanent redirects for all the Instagram story blog links??
+- Can I set up permanent redirects for all the Instagram story blog links??
 - [x] Fix roam-style italics?? _dfj_
   - Nothing required
 - Update introductory email and [this](https://chumbers.us12.list-manage.com/subscribe?u=ae8043f0d332135e9a03c7190&id=1fa8b7342c)
@@ -72,6 +72,23 @@
 - [x] Configure pagefind
     - Should not scrape non-post pages
     - Should render the title of that page as the link
+- [x] Decide on colours across the site (streamline secondary/tertiary e.g.)
+
+### Bug Squashing Mobile
+- [x] Show actual series name not just the file name
+- [x] Footer "Okay..." text should be text-center
+- [x] Footer "Built with..." text should flex col
+- [x] Footer "About..." text should wrap perhaps
+- [x] Rewrite /about
+- [x] Padding on /subscribe and /contact page all off (and /projects)
+- [x] Series link on post -> 404
+- [x] Tag link on post -> 404 when tag is two words
+- [x] Decrease size of tags on /tag
+- [x] Series card on /series -> 404
+- [x] 404 text on light mode should be black
+- [x] Check if series non-null before showing on post page
+- Content type selection hidden behind drop down toggle on mobile?
+- Only show "share" if links aren't blocked
 
 ## Future...
 - Level things up with motion.dev
