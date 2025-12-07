@@ -5,7 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout';
 import Tag from '@/components/Tag';
 import type { MarkdownHeading } from 'astro';
 import { CldImage } from 'astro-cloudinary';
-import { slugify } from '@/utils';
+import { slugify, getSeries } from '@/utils';
 
 type Props = {
     id: CollectionEntry<'posts'>['id'];
@@ -22,10 +22,11 @@ const {
     heroImage,
     tags,
     category,
-    series = null
+    series = ''
 } = data;
 
 const articleDate = pubDate.toISOString();
+const seriesObj = await getSeries(series);
 ---
 
 <BaseLayout
@@ -35,7 +36,7 @@ const articleDate = pubDate.toISOString();
     articleDate={articleDate}
 >
     <article class='min-w-full md:py-4 sm:max-w-none md:max-w-none'>
-        <header class='mb-3 flex flex-col justify-center items-center gap-6'>
+        <header class='mb-3 flex flex-col justify-center items-center gap-4'>
             <div class='flex flex-col gap-2'>
                 <div class='text-center text-lg font-mono'>
                     <a class='underline--magical' href='/'>Home</a><span
@@ -63,20 +64,18 @@ const articleDate = pubDate.toISOString();
                 </div>
             </div>
             {
-                series && (
+                seriesObj && seriesObj.data.title !== '' && (
                     <a
-                        href={`/series/${encodeURIComponent(series.toLowerCase())}`}
+                        href={`/series/${slugify(series.toLowerCase())}/1`}
                         aria-label={series}
-                        class='mb-2'
+                        class='border-2 border-green-600 dark:border-green-900 font-semibold text-sm w-fit px-2 py-1 md:px-5 md:py-2 rounded-lg hover:bg-green-600 hover:dark:bg-green-900 transition-all duration-700'
                     >
-                        <span class='border-2 border-green-600 dark:border-green-900 font-semibold text-sm w-fit px-2 py-1 md:px-5 md:py-2 rounded-lg hover:bg-green-600 hover:dark:bg-green-900 transition-all duration-700'>
-                            {series}
-                        </span>
+                        {seriesObj?.data.title}
                     </a>
                 )
             }
             <div
-                class='flex flex-wrap justify-center items-center gap-2 gap-y-4 md:gap-3'
+                class='flex flex-wrap justify-center items-center gap-2 gap-y-2 md:gap-3'
             >
                 {tags.map((tag) => <Tag tag={tag} />)}
             </div>
