@@ -57,7 +57,7 @@
   - Use <Highlight text=['"](.*)['"] /> and <Highlight>\1</Highlight>
 - [x] Update internal page links since they still point to /content/<post-name>
 - Try viewing on multiple browsers...Firefox seems to be weird
-- Can I set up permanent redirects for all the Instagram story blog links??
+- [x] Can I set up permanent redirects for all the Instagram story blog links??
 - [x] Fix roam-style italics?? _dfj_
   - Nothing required
 - Update introductory email and [this](https://chumbers.us12.list-manage.com/subscribe?u=ae8043f0d332135e9a03c7190&id=1fa8b7342c)
@@ -73,6 +73,7 @@
     - Should not scrape non-post pages
     - Should render the title of that page as the link
 - [x] Decide on colours across the site (streamline secondary/tertiary e.g.)
+- DRY up series & project pages since they are so similar
 
 ### Bug Squashing Mobile
 - [x] Show actual series name not just the file name
