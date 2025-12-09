@@ -1,23 +1,20 @@
 ---
-import NewsletterForm from '@/components/NewsletterForm';
+import FooterDecoration from '@/components/icons/FooterDecoration';
 import { footerLinks } from '@/data/links';
+const filteredFooterLinks = footerLinks.filter((link) => link.shouldDisplay);
 ---
 
 <footer
-    class='w-full flex flex-col items-center justify-center gap-6 mb-5 mt-12 text-sm md:text-base'
+    class='w-full flex flex-col items-center justify-center mb-5 mt-12 text-sm md:text-base'
 >
     <div
         class='border-t-2 py-6 md:py-10 flex flex-col-reverse md:flex-row justify-center items-center gap-6 md:gap-12 w-full'
     >
-        <div class='flex-[4] flex flex-col items-center gap-3'>
-            <p class='text-center'>
-                Okay, it's not that interesting. Go do something.
-            </p>
-            <NewsletterForm />
-        </div>
-        <div class='flex-[2] flex'>
+        <FooterDecoration />
+
+        <div class='flex-[2] flex justify-end md:pr-20'>
             {
-                footerLinks.map((link, index) => (
+                filteredFooterLinks.map((link, index) => (
                     <div class='flex gap-2 ml-2'>
                         <a
                             class='hoverLink'
@@ -31,7 +28,9 @@ import { footerLinks } from '@/data/links';
                         >
                             {link.text}
                         </a>
-                        {index != footerLinks.length - 1 && <p>&#10022;</p>}
+                        {index != filteredFooterLinks.length - 1 && (
+                            <p>&#10022;</p>
+                        )}
                     </div>
                 ))
             }
@@ -41,8 +40,15 @@ import { footerLinks } from '@/data/links';
     <div
         class='border-t-2 w-full text-center pt-8 pb-4 flex flex-col md:flex-row md:gap-2 justify-center'
     >
-        <p>
-            Built with 💜 using <a
+        <p class='flex items-center gap-1 mx-auto md:mx-0'>
+            Built with <svg
+                class='h-4 w-auto'
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 480 480'
+                ><path
+                    d='M438.82 74.19c-54.9-54.9-143.92-54.9-198.82 0-54.9-54.9-143.92-54.9-198.82 0-54.9 54.9-54.9 143.92 0 198.82l156.4 156.4a60 60 0 0 0 84.85 0l156.4-156.4c54.9-54.9 54.9-143.92 0-198.82Z'
+                    fill='#7c83bc'></path></svg
+            > using <a
                 href='https://astro.build/'
                 class='underline--magical hoverLink'
                 target='_blank'

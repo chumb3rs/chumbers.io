@@ -26,19 +26,23 @@ export const footerLinks: PageLink[] = [
     {
         text: 'About',
         url: '/about',
+        shouldDisplay: true,
     },
     {
         text: 'Contact',
         url: '/contact',
+        shouldDisplay: false,
     },
     {
         text: 'Subscribe',
         url: '/subscribe',
+        shouldDisplay: false,
     },
     {
         text: 'Resume',
         url: '/NicholasMarks_Resume.pdf',
         openInNewTab: true,
+        shouldDisplay: true,
     },
 ] as const;
 
