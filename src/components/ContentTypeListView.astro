@@ -6,7 +6,7 @@ import { ContentTypeEnum } from '@/data/utils';
 import { capitalizeWord } from '@/utils';
 
 type Props = {
-    entities: CollectionEntry<'series'>[];
+    entities: CollectionEntry<'series'>[] | CollectionEntry<'projects'>[];
     contentType: ContentTypeEnum;
 };
 
@@ -26,7 +26,7 @@ const { entities, contentType } = Astro.props;
                     class='group flex flex-col md:flex-row items-stretch gap-6 w-full border-y dark:border-gray-200 light:border-gray-600 hover:bg-primary/30 hover:border-primary transition-all duration-500'
                     aria-label={`Read more about ${title}`}
                 >
-                    <a href={`/series/${slug}/1`}>
+                    <a href={`/${contentType}/${slug}/1`}>
                         {heroImage && (
                             <div class='hidden md:block w-[400px] h-[200px] overflow-hidden flex-shrink-0 rounded-md'>
                                 <CldImage
@@ -45,7 +45,7 @@ const { entities, contentType } = Astro.props;
                     </a>
                     <a
                         class='flex flex-col justify-between text-left w-full md:w-2/3 py-4'
-                        href={`/series/${slug}/1`}
+                        href={`/${contentType}/${slug}/1`}
                         aria-label={`Read more about ${title}`}
                     >
                         <div>

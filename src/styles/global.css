@@ -106,9 +106,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-primary-muted);
+  background: var(--color-primary);
   border-radius: 10px;
-  box-shadow: inset 2px 2px 2px var(--color-primary-muted),
+  box-shadow: inset 2px 2px 2px var(--color-primary),
     inset -2px -2px -2px rgba(0, 0, 0, 0.25);
 }
 

@@ -8,6 +8,7 @@ export {
 } from './post';
 export { getCategories, getCategory, getNonEmptyCategories } from './category';
 export { getAllSeries, getSeries } from './series';
+export { getAllProjects, getProject } from './projects';
 export {
     groupPostsByYear,
     groupPostsByMonth,

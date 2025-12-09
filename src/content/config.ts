@@ -13,6 +13,7 @@ const posts = defineCollection({
             heroImage: image(),
             category: z.string(),
             series: z.string().optional(),
+            project: z.string().optional(),
             tags: z.array(z.string()),
             draft: z.boolean().default(false),
             featured: z.boolean().default(false),
@@ -36,4 +37,23 @@ const series = defineCollection({
         }),
 });
 
-export const collections = { posts, categories, series };
+const StatusEnum = z.enum([
+    'Not started',
+    'In progress',
+    'Completed',
+    'Abandoned',
+]);
+
+const projects = defineCollection({
+    schema: ({ image }) =>
+        z.object({
+            title: z.string().max(80),
+            description: z.string(),
+            heroImage: image(),
+            status: StatusEnum,
+            startDate: z.date(),
+            endDate: z.date().optional(),
+        }),
+});
+
+export const collections = { posts, categories, series, projects };
