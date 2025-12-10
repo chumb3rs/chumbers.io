@@ -2,11 +2,14 @@
 import ContentTypeLayout from '@/layouts/ContentTypeLayout';
 import ListPosts from '@/components/ListPosts';
 import ContentTypeSelection from '@/components/ContentTypeSelection';
+import TabSwitcher from '@/components/TabSwitcher';
+import OverviewContent from '@/components/OverviewContent';
 import {
     slugify,
     unslugify,
     getAllProjects,
     getPosts,
+    getProject,
     capitalizePhrase
 } from '@/utils';
 import { siteConfig } from '@/data/site.config';
@@ -38,11 +41,35 @@ export async function getStaticPaths({ paginate }: any) {
         });
     });
 }
+
 const params = Astro.params;
 const { page } = Astro.props;
 
 const projectTitle = unslugify(params.project!.toLowerCase());
 const posts = page.data;
+
+// Get the project entry for overview content
+const projectSlug = slugify(projectTitle.toLowerCase());
+const projectEntry = await getProject(projectSlug);
+
+// Default to 'posts' for server-side rendering
+// Client-side JavaScript will handle the correct tab based on URL
+const activeTab = 'posts';
+
+// Generate tab URLs
+const baseUrl = `/projects/${params.project}/${page.currentPage}`;
+const tabs = [
+    {
+        id: 'overview',
+        label: 'Overview',
+        href: `${baseUrl}?tab=overview`
+    },
+    {
+        id: 'posts',
+        label: 'Posts',
+        href: `${baseUrl}?tab=posts`
+    }
+];
 ---
 
 <ContentTypeLayout contentType='project' title={capitalizePhrase(projectTitle)}>
@@ -54,6 +81,24 @@ const posts = page.data;
             type={ContentTypeEnum.Projects}
         />
     </div>
-    <Pagination page={page} />
-    <ListPosts posts={posts} />
+
+    <TabSwitcher tabs={tabs} activeTab={activeTab} />
+
+    <div class='tab-container w-full max-w-full overflow-hidden'>
+        {
+            projectEntry ? (
+                <div
+                    class='overview-content tab-content'
+                    style='display: none;'
+                >
+                    <OverviewContent entry={projectEntry} isVisible={true} />
+                </div>
+            ) : null
+        }
+
+        <div class='posts-content tab-content' style='display: none;'>
+            <Pagination page={page} />
+            <ListPosts posts={posts} />
+        </div>
+    </div>
 </ContentTypeLayout>

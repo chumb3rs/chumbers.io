@@ -1,0 +1,189 @@
+---
+type Tab = {
+    id: string;
+    label: string;
+    href: string;
+};
+
+type Props = {
+    tabs: Tab[];
+    activeTab: string;
+};
+
+const { tabs, activeTab } = Astro.props;
+---
+
+<div class='tab-switcher w-full mb-6 text-left'>
+    <div class='flex border-b border-gray-200 dark:border-gray-700'>
+        {
+            tabs.map((tab) => {
+                const isActive = tab.id === activeTab;
+                return (
+                    <a
+                        href={tab.href}
+                        class={`py-2 px-4 text-center text-sm md:text-base font-bold transition-all duration-300 border-b-2 tab-link ${
+                            isActive
+                                ? 'border-primary text-primary active-tab'
+                                : 'border-transparent text-gray-500 inactive-tab'
+                        }`}
+                        data-tab={tab.id}
+                    >
+                        {tab.label}
+                    </a>
+                );
+            })
+        }
+    </div>
+</div>
+
+<style>
+    .tab-content {
+        opacity: 1;
+        transition: opacity 300ms ease-in-out;
+    }
+
+    /* Ensure hover states work properly */
+    .tab-link.inactive-tab:hover {
+        color: rgb(55 65 81) !important; /* gray-700 */
+        border-color: rgb(209 213 219) !important; /* gray-300 */
+    }
+
+    .dark .tab-link.inactive-tab:hover {
+        color: rgb(209 213 219) !important; /* gray-300 */
+        border-color: rgb(75 85 99) !important; /* gray-600 */
+    }
+
+    /* Ensure active tab maintains primary color on hover */
+    .tab-link.active-tab:hover {
+        color: var(--color-primary) !important;
+        border-color: var(--color-primary) !important;
+    }
+</style>
+
+<script>
+    // Progressive enhancement for tab switching
+    document.addEventListener('astro:page-load', () => {
+        const tabSwitcher = document.querySelector('.tab-switcher');
+        if (!tabSwitcher) return;
+
+        const tabLinks = tabSwitcher.querySelectorAll('a[data-tab]');
+
+        // Initialize correct tab based on URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentTab = urlParams.get('tab') || 'posts';
+
+        // Set initial tab state
+        setActiveTab(currentTab, tabLinks);
+        showTabContent(currentTab);
+
+        tabLinks.forEach((link) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const targetTab = link.getAttribute('data-tab');
+                const targetUrl = link.getAttribute('href');
+
+                // Update URL without page reload
+                window.history.pushState({}, '', targetUrl);
+
+                // Update active tab styling and content
+                setActiveTab(targetTab, tabLinks);
+                showTabContent(targetTab);
+            });
+        });
+
+        // Helper function to set active tab styling
+        function setActiveTab(
+            activeTabId: string,
+            tabLinks: NodeListOf<Element>
+        ) {
+            tabLinks.forEach((l) => {
+                const isActive = l.getAttribute('data-tab') === activeTabId;
+
+                if (isActive) {
+                    l.classList.remove(
+                        'border-transparent',
+                        'text-gray-500',
+                        'dark:text-gray-400',
+                        'inactive-tab'
+                    );
+                    l.classList.add(
+                        'border-primary',
+                        'text-primary',
+                        'active-tab'
+                    );
+                } else {
+                    l.classList.remove(
+                        'border-primary',
+                        'text-primary',
+                        'active-tab'
+                    );
+                    l.classList.add(
+                        'border-transparent',
+                        'text-gray-500',
+                        'dark:text-gray-400',
+                        'inactive-tab'
+                    );
+                }
+            });
+        }
+
+        // Helper function to show/hide content sections with smooth transitions
+        function showTabContent(activeTabId: string) {
+            const overviewContent = document.querySelector('.overview-content');
+            const postsContent = document.querySelector('.posts-content');
+
+            // Add transition classes if not already present
+            if (
+                overviewContent &&
+                !overviewContent.classList.contains('transition-opacity')
+            ) {
+                overviewContent.classList.add(
+                    'transition-opacity',
+                    'duration-300'
+                );
+            }
+            if (
+                postsContent &&
+                !postsContent.classList.contains('transition-opacity')
+            ) {
+                postsContent.classList.add(
+                    'transition-opacity',
+                    'duration-300'
+                );
+            }
+
+            if (activeTabId === 'overview' && overviewContent) {
+                // Fade out posts, then show overview
+                if (postsContent) {
+                    postsContent.style.opacity = '0';
+                    setTimeout(() => {
+                        postsContent.style.display = 'none';
+                        overviewContent.style.display = 'block';
+                        setTimeout(() => {
+                            overviewContent.style.opacity = '1';
+                        }, 10);
+                    }, 150);
+                } else {
+                    overviewContent.style.display = 'block';
+                    overviewContent.style.opacity = '1';
+                }
+            } else if (activeTabId === 'posts' && postsContent) {
+                // Fade out overview, then show posts
+                if (overviewContent) {
+                    overviewContent.style.opacity = '0';
+                    setTimeout(() => {
+                        overviewContent.style.display = 'none';
+                        postsContent.style.display = 'block';
+                        setTimeout(() => {
+                            postsContent.style.opacity = '1';
+                        }, 10);
+                    }, 150);
+                } else {
+                    postsContent.style.display = 'block';
+                    postsContent.style.opacity = '1';
+                }
+            }
+        }
+    });
+</script>

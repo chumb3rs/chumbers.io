@@ -2,11 +2,14 @@
 import ContentTypeLayout from '@/layouts/ContentTypeLayout';
 import ListPosts from '@/components/ListPosts';
 import ContentTypeSelection from '@/components/ContentTypeSelection';
+import TabSwitcher from '@/components/TabSwitcher';
+import OverviewContent from '@/components/OverviewContent';
 import {
     slugify,
     unslugify,
     getAllSeries,
     getPosts,
+    getSeries,
     capitalizePhrase
 } from '@/utils';
 import { siteConfig } from '@/data/site.config';
@@ -38,11 +41,36 @@ export async function getStaticPaths({ paginate }: any) {
         });
     });
 }
+
 const params = Astro.params;
 const { page } = Astro.props;
+const url = Astro.url;
 
 const seriesTitle = unslugify(params.series!.toLowerCase());
 const posts = page.data;
+
+// Get the series entry for overview content
+const seriesSlug = slugify(seriesTitle.toLowerCase());
+const seriesEntry = await getSeries(seriesSlug);
+
+// Default to 'posts' for server-side rendering
+// Client-side JavaScript will handle the correct tab based on URL
+const activeTab = 'posts';
+
+// Generate tab URLs
+const baseUrl = `/series/${params.series}/${page.currentPage}`;
+const tabs = [
+    {
+        id: 'overview',
+        label: 'Overview',
+        href: `${baseUrl}?tab=overview`
+    },
+    {
+        id: 'posts',
+        label: 'Posts',
+        href: `${baseUrl}?tab=posts`
+    }
+];
 ---
 
 <ContentTypeLayout contentType='series' title={capitalizePhrase(seriesTitle)}>
@@ -54,6 +82,19 @@ const posts = page.data;
             type={ContentTypeEnum.Series}
         />
     </div>
-    <Pagination page={page} />
-    <ListPosts posts={posts} />
+
+    <TabSwitcher tabs={tabs} activeTab={activeTab} />
+
+    {
+        seriesEntry && (
+            <div class='overview-content tab-content' style='display: none;'>
+                <OverviewContent entry={seriesEntry} isVisible={true} />
+            </div>
+        )
+    }
+
+    <div class='posts-content tab-content' style='display: none;'>
+        <Pagination page={page} />
+        <ListPosts posts={posts} />
+    </div>
 </ContentTypeLayout>

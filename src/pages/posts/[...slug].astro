@@ -1,20 +1,13 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
 import Post from '@/layouts/Post';
-import Code from '@/components/mdx/Code';
 import ListRelatedPosts from '@/components/ListRelatedPosts';
 import Share from '@/components/Share';
 import TableOfContents from '@/components/TableOfContents';
 import { getPosts } from '@/utils';
-import Highlight from '@/components/mdx/Highlight';
-import VideoEmbed from '@/components/mdx/VideoEmbed';
-import MyImage from '@/components/mdx/MyImage';
-import Button from '@/components/mdx/Button';
-import Carousel from '@/components/mdx/Carousel';
-import Card from '@/components/mdx/Card';
 import Disqus from '@/components/Disqus';
+import MyContent from '@/components/mdx/MyContent';
 import { disqusConfig } from '@/data/disqus.config';
-import AnchorLink from '@/components/mdx/AnchorLink';
 
 const posts = await getCollection('posts');
 export async function getStaticPaths() {
@@ -73,18 +66,7 @@ const disqusEnabled = disqusConfig.enabled;
                 class='prose prose-lg md:prose-xl dark:prose-invert mb-12 min-w-full'
                 data-pagefind-body
             >
-                <Content
-                    components={{
-                        pre: Code,
-                        Highlight,
-                        VideoEmbed,
-                        img: MyImage,
-                        a: AnchorLink,
-                        Button,
-                        Carousel,
-                        Card
-                    }}
-                />
+                <MyContent Content={Content} />
             </div>
 
             <!-- related posts -->

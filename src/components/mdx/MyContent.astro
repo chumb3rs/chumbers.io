@@ -1,0 +1,25 @@
+---
+import Code from '@/components/mdx/Code';
+import Highlight from '@/components/mdx/Highlight';
+import VideoEmbed from '@/components/mdx/VideoEmbed';
+import MyImage from '@/components/mdx/MyImage';
+import Button from '@/components/mdx/Button';
+import Carousel from '@/components/mdx/Carousel';
+import Card from '@/components/mdx/Card';
+import AnchorLink from '@/components/mdx/AnchorLink';
+
+const { Content } = Astro.props;
+---
+
+<Content
+    components={{
+        pre: Code,
+        Highlight,
+        VideoEmbed,
+        img: MyImage,
+        a: AnchorLink,
+        Button,
+        Carousel,
+        Card
+    }}
+/>

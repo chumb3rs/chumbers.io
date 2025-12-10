@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import MyContent from './mdx/MyContent.astro';
+
+type Props = {
+    entry: CollectionEntry<'series'> | CollectionEntry<'projects'>;
+    isVisible: boolean;
+};
+
+const { entry, isVisible = false } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<div
+    class={`overview-content w-11/12 md:w-10/12 ${isVisible ? 'block' : 'hidden'}`}
+>
+    <article class='prose prose-lg dark:prose-invert max-w-none'>
+        <MyContent Content={Content} />
+    </article>
+</div>
