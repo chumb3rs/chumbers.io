@@ -57,7 +57,9 @@ const { entities, contentType } = Astro.props;
 
                         <footer class='flex justify-start items-center mt-4'>
                             <p class='flex justify-center items-center dark:text-white rounded-full hover:translate-x-1 transition-transform duration-150 ease-in-out font-semibold gap-1'>
-                                {`Read ${capitalizeWord(contentType)}`}
+                                {contentType != ContentTypeEnum.Projects
+                                    ? `Read ${capitalizeWord(contentType)}`
+                                    : 'Go to Project'}
                                 <span class='mt-[1px] group-hover:rotate-45 transition-transform duration-200 ease-in-out'>
                                     <ArrowUp width='18' height='18' />
                                 </span>
