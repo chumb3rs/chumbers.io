@@ -10,7 +10,7 @@
 - [x] Ability to pin a post to the large spot on the landing page
 - [x] Better related posts layout
 - Support putting LaTeX in the image/video caption
-- Add overview tab for series/projects
+- [x] Add overview tab for series/projects
 - Add validators to Zed so that categories/projects/series etc. have to come from existing list
 - Have proper numbered pagination not just left and right arrows
 - [x] Do something better with tags now that I have so many. Also what is the format for tags in the frontmatter? e.g. is is "First second" or "First Second"...can I have it so it doesn't matter
@@ -25,6 +25,7 @@
 - Use [this](https://ebacala.com/blog/create-a-code-block-with-a-copy-button-using-astro-markdown-and-shiki/) example to upgrade code blocks
 - content type bar should scroll on small width not wrap
 - [x] Verify search functinality
+- Display metadata about projects (e.g status, start date)
 
 ## Bugs
 - [x] Footer doesn't push to bottom of page (see /category/category-1) for example
@@ -56,7 +57,7 @@
 - [x] Run backfill using specter to convert <Highlight /> tags. Check also for ^^
   - Use <Highlight text=['"](.*)['"] /> and <Highlight>\1</Highlight>
 - [x] Update internal page links since they still point to /content/<post-name>
-- Try viewing on multiple browsers...Firefox seems to be weird
+- [x] Try viewing on multiple browsers...Firefox seems to be weird
 - [x] Can I set up permanent redirects for all the Instagram story blog links??
 - [x] Fix roam-style italics?? _dfj_
   - Nothing required
@@ -74,6 +75,7 @@
     - Should render the title of that page as the link
 - [x] Decide on colours across the site (streamline secondary/tertiary e.g.)
 - DRY up series & project pages since they are so similar
+- Look into GitHub actions with cloudflare pages
 
 ### Bug Squashing Mobile
 - [x] Show actual series name not just the file name
@@ -88,6 +90,7 @@
 - [x] Series card on /series -> 404
 - [x] 404 text on light mode should be black
 - [x] Check if series non-null before showing on post page
+- Firefox search toggle does not work
 - Content type selection hidden behind drop down toggle on mobile?
 - Only show "share" if links aren't blocked
 
