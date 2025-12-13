@@ -46,127 +46,96 @@ import SearchIcon from '@/components/icons/SearchIcon';
 
 <script>
     import { animate } from 'motion';
-
     class SiteSearch extends HTMLElement {
-        dialog;
-        dialogFrame;
-        openBtn;
-        closeBtn;
-
         constructor() {
             super();
+            const openBtn = this.querySelector('button[data-open-modal]');
+            const closeBtn = this.querySelector('button[data-close-modal]');
+            const dialog = this.querySelector('dialog');
+            const dialogFrame = this.querySelector('.dialog-frame');
 
-            this.openBtn = this.querySelector('button[data-open-modal]');
-            this.closeBtn = this.querySelector('button[data-close-modal]');
-            this.dialog = this.querySelector('dialog');
-            this.dialogFrame = this.querySelector('.dialog-frame');
+            const onWindowClick = (event) => {
+                // make sure the click is outside the of the dialog
+                if (
+                    document.body.contains(event.target) &&
+                    !dialogFrame.contains(event.target)
+                )
+                    closeModal();
+            };
+            const handleEscKey = (e) => {
+                if (e.key === 'Escape' && dialog.open) {
+                    closeModal();
+                    window.removeEventListener('keydown', handleEscKey);
+                } else return;
+            };
+            const openModal = (event) => {
+                dialog.showModal();
 
-            // --- Event bindings ---
-            this.openBtn?.addEventListener('click', this.openModal);
-            this.closeBtn?.addEventListener('click', this.closeModal);
-            this.openBtn.disabled = false;
+                animate(
+                    'dialog',
+                    {
+                        clipPath: [
+                            'polygon(0 0, 100% 0, 100% -200%, -200% -200%)',
+                            'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
+                        ],
+                        opacity: [0, 1]
+                    },
+                    { duration: 0.2 }
+                );
+                document.body.classList.add('overflow-hidden');
+                this.querySelector('input')?.focus();
+                event?.stopPropagation();
+                window.addEventListener('click', onWindowClick);
+                window.addEventListener('keydown', handleEscKey);
+            };
 
-            // Global shortcut "/"
+            const closeModal = () => {
+                dialog.close();
+                document.body.classList.remove('overflow-hidden');
+                window.removeEventListener('click', onWindowClick);
+                window.addEventListener('keydown', handleEscKey);
+            };
+
+            openBtn.addEventListener('click', openModal);
+            openBtn.disabled = false;
+            closeBtn.addEventListener('click', closeModal);
+            document.addEventListener('astro:after-swap', closeModal);
+
+            // Listen for `/` keyboard shortcut
             window.addEventListener('keydown', (e) => {
-                if (e.key === '/' && !this.dialog?.open) {
+                if (e.key === '/' && !dialog.open) {
+                    openModal();
                     e.preventDefault();
-                    this.openModal();
                 }
             });
 
-            // Close modal on page navigation
-            document.addEventListener('astro:after-swap', () => {
-                this.closeModal();
-                this.reinitPagefind();
-            });
+            // Initialize Pagefind once
+            const initPagefind = () => {
+                if (import.meta.env.DEV) return;
 
-            // Initial Pagefind load
-            window.addEventListener('DOMContentLoaded', () => {
-                this.reinitPagefind();
-            });
-        }
+                const container = document.querySelector('#pagefind__search');
+                if (!container) return;
 
-        // --- Modal open ---
-        openModal = () => {
-            this.dialog?.showModal();
+                // Only initialize if not already done
+                if (container.children.length > 0) return;
 
-            // Animate only *this* dialog
-            animate(
-                this.dialog,
-                {
-                    clipPath: [
-                        'polygon(0 0, 100% 0, 100% -200%, -200% -200%)',
-                        'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
-                    ],
-                    opacity: [0, 1]
-                },
-                { duration: 0.2 }
-            );
-
-            document.body.classList.add('overflow-hidden');
-
-            const searchInput = this.querySelector('input');
-            if (searchInput) searchInput.focus();
-
-            // Close on click outside
-            window.addEventListener('click', this.onWindowClick);
-            window.addEventListener('keydown', this.handleEscKey);
-        };
-
-        // --- Modal close ---
-        closeModal = () => {
-            if (!this.dialog?.open) return;
-            this.dialog?.close();
-
-            document.body.classList.remove('overflow-hidden');
-
-            window.removeEventListener('click', this.onWindowClick);
-            window.removeEventListener('keydown', this.handleEscKey);
-        };
-
-        onWindowClick = (event) => {
-            // Click is outside dialog frame
-            if (
-                this.dialog?.open &&
-                !this.dialogFrame?.contains(event.target) &&
-                event.target !== this.openBtn
-            ) {
-                this.closeModal();
-            }
-        };
-
-        handleEscKey = (e) => {
-            if (e.key === 'Escape') {
-                this.closeModal();
-            }
-        };
-
-        // --- Pagefind UI re-initialization ---
-        async reinitPagefind() {
-            if (import.meta.env.DEV) return;
-
-            const container = this.querySelector('#pagefind__search');
-            if (!container) return;
-
-            // Clear previous UI (DOM was swapped)
-            container.innerHTML = '';
-
-            const onIdle =
-                window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
-
-            onIdle(async () => {
-                // @ts-ignore
-                const { PagefindUI } = await import('@pagefind/default-ui');
-                new PagefindUI({
-                    element: container,
-                    baseUrl: import.meta.env.BASE_URL,
-                    bundlePath:
-                        import.meta.env.BASE_URL.replace(/\/$/, '') +
-                        '/pagefind/',
-                    showImages: false,
-                    showSubResults: true
+                const onIdle =
+                    window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+                onIdle(async () => {
+                    const { PagefindUI } = await import('@pagefind/default-ui');
+                    new PagefindUI({
+                        element: '#pagefind__search',
+                        baseUrl: import.meta.env.BASE_URL,
+                        bundlePath:
+                            import.meta.env.BASE_URL.replace(/\/$/, '') +
+                            '/pagefind/',
+                        showImages: false
+                    });
                 });
-            });
+            };
+
+            // Initialize on load
+            initPagefind();
         }
     }
 

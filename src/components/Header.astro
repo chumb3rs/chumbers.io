@@ -18,7 +18,7 @@ import { siteConfig } from '@/data/site.config';
         <Title title={siteConfig.displayTitle} />
         <div
             id='astro-header-drawer'
-            class='shadow rounded-l-lg md:bg-transparent dark:md:bg-transparent bg-white dark:bg-[#0a0910] md:shadow-none md:rounded-none md:h-auto md:static absolute transition-all duration-300 ease-in-out hidden md:inline top-12 -right-5 pl-4 pt-6 pb-4 md:p-0 h-[200px] w-[200px] z-50 opacity-0 md:opacity-100'
+            class='shadow rounded-l-lg md:bg-transparent dark:md:bg-transparent bg-white dark:bg-[#0a0910] md:shadow-none md:rounded-none md:h-auto md:static absolute transition-all duration-300 ease-in-out hidden md:inline top-12 -right-5 pl-4 pt-6 pb-4 md:p-0 h-[200px] w-[200px] z-50'
         >
             <nav
                 class='flex h-full flex-col justify-between gap-12 text-left md:flex-row md:w-full md:gap-5'
@@ -71,9 +71,16 @@ import { siteConfig } from '@/data/site.config';
         const menuButton = document.getElementById(
             'astro-header-drawer-button'
         );
+
         const isClickInside =
             menu?.contains(event.target as HTMLDivElement) ||
             menuButton?.contains(event.target as HTMLButtonElement);
+
+        const isSearchRelated = event.target?.closest('site-search');
+
+        if (isSearchRelated) {
+            return;
+        }
 
         if (isClickInside) {
             toggleMobileMenu(menu);
@@ -88,29 +95,18 @@ import { siteConfig } from '@/data/site.config';
         const isHidden = menu.classList.contains('hidden');
 
         if (isHidden) {
-            // Show menu with fade in
             menu.classList.remove('hidden');
             menu.classList.add('inline');
-            // Force reflow
-            menu.offsetHeight;
-            menu.style.opacity = '1';
         } else {
-            // Hide menu with fade out
-            menu.style.opacity = '0';
-            setTimeout(() => {
-                menu.classList.add('hidden');
-                menu.classList.remove('inline');
-            }, 300); // Match transition duration
+            menu.classList.add('hidden');
+            menu.classList.remove('inline');
         }
     }
 
     function closeMobileMenu(menu: HTMLElement | null) {
         if (!menu || menu.classList.contains('hidden')) return;
 
-        menu.style.opacity = '0';
-        setTimeout(() => {
-            menu.classList.add('hidden');
-            menu.classList.remove('inline');
-        }, 300);
+        menu.classList.add('hidden');
+        menu.classList.remove('inline');
     }
 </script>
