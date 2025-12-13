@@ -18,9 +18,49 @@ const { tags, activeTag = '' } = Astro.props;
         overflow-x: auto;
         scroll-behavior: smooth;
     }
+
+    .blur-overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 40px;
+        pointer-events: none;
+        z-index: 10;
+        transition: opacity 0.3s ease;
+    }
+
+    .blur-left {
+        left: 0;
+        background: linear-gradient(
+            to right,
+            rgb(248 249 250 / 0.8),
+            transparent
+        );
+        backdrop-filter: blur(2px);
+    }
+
+    .blur-right {
+        right: 0;
+        background: linear-gradient(
+            to left,
+            rgb(248 249 250 / 0.8),
+            transparent
+        );
+        backdrop-filter: blur(2px);
+    }
+
+    :global(.dark) .blur-left {
+        background: linear-gradient(to right, rgb(10 9 16 / 0.8), transparent);
+    }
+
+    :global(.dark) .blur-right {
+        background: linear-gradient(to left, rgb(10 9 16 / 0.8), transparent);
+    }
 </style>
 
 <div class='relative mt-5 mb-8 h-72 w-full'>
+    <div class='blur-overlay blur-left opacity-0' id='blurLeft'></div>
+    <div class='blur-overlay blur-right opacity-100' id='blurRight'></div>
     <div
         id='tagScrollContainer'
         class='tag-scroll flex flex-col flex-wrap justify-center overflow-auto h-72 gap-y-2 gap-x-3'
@@ -41,6 +81,22 @@ const { tags, activeTag = '' } = Astro.props;
 </div>
 
 <script>
+    const updateBlurOverlays = () => {
+        const container = document.getElementById('tagScrollContainer');
+        const blurLeft = document.getElementById('blurLeft');
+        const blurRight = document.getElementById('blurRight');
+
+        const blurBuffer = 30;
+
+        if (!container || !blurLeft || !blurRight) return;
+
+        const { scrollLeft, scrollWidth, clientWidth } = container;
+
+        blurLeft.style.opacity = scrollLeft > blurBuffer ? '1' : '0';
+        blurRight.style.opacity =
+            scrollLeft < scrollWidth - clientWidth - blurBuffer ? '1' : '0';
+    };
+
     const scrollToActive = () => {
         const container = document.getElementById('tagScrollContainer');
         if (!container) return;
@@ -65,8 +121,22 @@ const { tags, activeTag = '' } = Astro.props;
         } else {
             container.scrollTo({ left: 0 });
         }
+
+        setTimeout(updateBlurOverlays, 100);
+    };
+
+    const init = () => {
+        const container = document.getElementById('tagScrollContainer');
+        if (container) {
+            container.addEventListener('scroll', updateBlurOverlays);
+            updateBlurOverlays();
+        }
     };
 
     scrollToActive();
-    document.addEventListener('astro:page-load', scrollToActive);
+    init();
+    document.addEventListener('astro:page-load', () => {
+        scrollToActive();
+        init();
+    });
 </script>
