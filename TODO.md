@@ -5,7 +5,7 @@
 - [x] Add page analytics as on my previous site
 - [x] Add LaTeX support in post content
 - [x] Add back to top button
-- Add reading progress bar
+- [x] Add reading progress bar
 - Look at setting up disqus
 - [x] Ability to pin a post to the large spot on the landing page
 - [x] Better related posts layout
