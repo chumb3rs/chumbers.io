@@ -25,7 +25,7 @@
 - Use [this](https://ebacala.com/blog/create-a-code-block-with-a-copy-button-using-astro-markdown-and-shiki/) example to upgrade code blocks
 - content type bar should scroll on small width not wrap
 - [x] Verify search functinality
-- Display metadata about projects (e.g status, start date)
+- [x] Display metadata about projects (e.g status, start date)
 
 ## Bugs
 - [x] Footer doesn't push to bottom of page (see /category/category-1) for example
@@ -36,7 +36,7 @@
 - [x] Fix image mdx component to show alt as caption
 - [x] Footnotes not working on mdx pages
 - Fix share functionality not working - though it does work on Mac
-- On Mac + Brave there are some weird wrapping behaviours
+- [x] On Mac + Brave there are some weird wrapping behaviours
 - [x] Verify that phone layout and appearance is good...Brave devtools playing up
 - [x] Verify code block syntax highlighting working
 - [x] There are two "Footnotes" heading links that appear in the toc
