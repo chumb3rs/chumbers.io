@@ -1,5 +1,6 @@
 import { getCollection, getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import { StatusEnum } from '@/data/utils';
 
 export const getAllProjects = async (): Promise<
     CollectionEntry<'projects'>[]
@@ -14,4 +15,18 @@ export const getProject = async (
 ): Promise<CollectionEntry<'projects'> | null> => {
     if (!project) return null;
     return await getEntry('projects', project);
+};
+
+export const getProjectStatus = (
+    startDate: string,
+    endDate: string,
+): StatusEnum => {
+    const today = new Date();
+    if (today < new Date(startDate)) {
+        return StatusEnum.Not_started;
+    } else if (endDate == '') {
+        return StatusEnum.In_progress;
+    }
+
+    return StatusEnum.Completed;
 };

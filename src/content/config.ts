@@ -37,20 +37,12 @@ const series = defineCollection({
         }),
 });
 
-const StatusEnum = z.enum([
-    'Not started',
-    'In progress',
-    'Completed',
-    'Abandoned',
-]);
-
 const projects = defineCollection({
     schema: ({ image }) =>
         z.object({
             title: z.string().max(80),
             description: z.string(),
             heroImage: image(),
-            status: StatusEnum,
             startDate: z.date(),
             endDate: z.date().optional(),
         }),

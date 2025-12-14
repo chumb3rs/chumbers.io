@@ -25,3 +25,10 @@ export enum ContentTypeEnum {
     Projects = 'projects',
     Archive = 'archive',
 }
+
+export enum StatusEnum {
+    Not_started = 'Not started',
+    In_progress = 'In progress',
+    Completed = 'Completed',
+    Abandoned = 'Abandoned',
+}
