@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import FormattedDate from '@/components/FormattedDate';
+import ReadingProgressBar from '@/components/ReadingProgressBar';
 import BaseLayout from '@/layouts/BaseLayout';
 import Tag from '@/components/Tag';
 import type { MarkdownHeading } from 'astro';
@@ -35,6 +36,7 @@ const seriesObj = await getSeries(series);
     image={heroImage?.src}
     articleDate={articleDate}
 >
+    <ReadingProgressBar />
     <article class='min-w-full md:py-4 sm:max-w-none md:max-w-none'>
         <header class='mb-3 flex flex-col justify-center items-center gap-4'>
             <div class='flex flex-col gap-2'>

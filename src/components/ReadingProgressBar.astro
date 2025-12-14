@@ -1,0 +1,30 @@
+---
+const height = 'h-[3px]';
+---
+
+<div
+    id='reading-progress'
+    class={`fixed top-0 left-0 z-[9999] w-full ${height}
+          origin-left scale-x-0
+          bg-gradient-to-r from-indigo-500 via-violet-500 to-indigo-300
+          transition-transform duration-75 ease-linear`}
+>
+</div>
+
+<script>
+    const progressEl = document.getElementById('reading-progress');
+
+    function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
+
+        const progress = Math.min(scrollTop / docHeight, 1);
+        progressEl.style.transform = `scaleX(${progress})`;
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+
+    updateProgress();
+</script>
