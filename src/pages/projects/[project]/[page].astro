@@ -76,7 +76,12 @@ const tabs = [
 
 const { startDate = '', endDate = '' } = projectEntry?.data;
 const projectStatus = getProjectStatus(startDate, endDate);
-const statusColors = {
+type StatusColor = {
+    bg: string;
+    border: string;
+};
+
+const statusColors: Record<StatusEnum, StatusColor> = {
     [StatusEnum.Not_started]: {
         bg: 'hover:bg-red-800/50',
         border: 'border-red-800'
@@ -88,6 +93,10 @@ const statusColors = {
     [StatusEnum.Completed]: {
         bg: 'hover:bg-green-800/50',
         border: 'border-green-800'
+    },
+    [StatusEnum.Abandoned]: {
+        bg: 'hover:bg-slate-800/50',
+        border: 'border-slate-800'
     }
 };
 ---
@@ -103,7 +112,7 @@ const statusColors = {
     </div>
 
     <!-- project-specific metadata -->
-    <div class='flex flex-col justify-center items-center gap-3'>
+    <div class='flex flex-col justify-center items-center gap-3 mb-3'>
         <div class='flex items-center gap-1'>
             <p>
                 <span class='font-bold'>Start date: </span>{
