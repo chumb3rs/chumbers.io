@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import Post from '@/layouts/Post';
 import ListRelatedPosts from '@/components/ListRelatedPosts';
+import BackToTopButton from '@/components/BackToTopButton';
 import Share from '@/components/Share';
 import TableOfContents from '@/components/TableOfContents';
 import { getPosts } from '@/utils';
@@ -47,16 +48,19 @@ const disqusEnabled = disqusConfig.enabled;
 >
     <div class='grid grid-cols-1 md:grid-cols-[20%_auto] gap-10 mt-8'>
         <!-- aside  -->
-        <aside class='md:flex flex-col gap-8 hidden'>
-            <Share />
-            <div
-                class='sticky top-24 self-start hidden md:block transition-all duration-200'
-            >
-                {
-                    headings && headings.length > 0 && (
-                        <TableOfContents {headings} />
-                    )
-                }
+        <aside class='md:flex flex-col gap-8'>
+            <div class='hidden md:inline'>
+                <Share />
+            </div>
+            <div class='sticky top-24 self-start transition-all duration-200'>
+                <div class='hidden md:block transition-all duration-200'>
+                    {
+                        headings && headings.length > 0 && (
+                            <TableOfContents {headings} />
+                        )
+                    }
+                </div>
+                <BackToTopButton />
             </div>
         </aside>
 
