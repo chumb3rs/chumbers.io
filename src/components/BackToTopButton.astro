@@ -5,27 +5,34 @@ import ArrowUp from '@/components/icons/ArrowUp';
 <button
     id='scrollToTopBtn'
     class='/* mobile floating button */
-  fixed bottom-6 left-1/2 -translate-x-1/2
-  h-16 p-2
-  z-[10000]
-  rounded-xl
-  border-2 border-primary
-  bg-primary hover:bg-white
-  transition-all duration-500
-  /* desktop inline link */
-  md:static
-  md:h-auto md:p-0
-  md:border-0
-  md:bg-transparent md:hover:bg-transparent
-  md:rounded-none
-  md:translate-x-0'
+    opacity-0
+    fixed bottom-6 right-6
+    h-16 w-16
+    z-[10000]
+    rounded-full
+    border-2 border-primary
+    bg-primary hover:bg-white
+    text-white
+    hover:text-primary
+    transition-all duration-500
+    focus:outline-none
+    focus-visible:outline-none
+    focus-visible:ring-0
+    /* desktop inline link */
+    md:static
+    md:h-auto md:w-auto md:p-0
+    md:border-0
+    md:bg-transparent md:hover:bg-transparent
+    md:rounded-none
+    md:hover:text-primary
+    md:mt-4
+    md:translate-x-0'
 >
     <span
         class='hidden text-slate-700 dark:text-slate-300 text-lg font-semibold group-hover:rotate-45 transition-transform duration-250 ease-in-out md:flex items-end'
         >Back to top <ArrowUp /></span
     >
     <span class='flex md:hidden justify-center items-center gap-3'>
-        Back to top
         <div class='-rotate-45'>
             <ArrowUp width='30' height='30' />
         </div>
