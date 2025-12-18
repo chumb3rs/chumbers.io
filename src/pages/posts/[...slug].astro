@@ -6,7 +6,6 @@ import BackToTopButton from '@/components/BackToTopButton';
 import Share from '@/components/Share';
 import TableOfContents from '@/components/TableOfContents';
 import { getPosts } from '@/utils';
-import Disqus from '@/components/Disqus';
 import MyContent from '@/components/mdx/MyContent';
 import { disqusConfig } from '@/data/disqus.config';
 
@@ -36,8 +35,6 @@ const getRelatedPosts = (post: Props) => {
 const relatedPosts = getRelatedPosts(post);
 
 const { Content, headings, remarkPluginFrontmatter } = await post.render();
-
-const disqusEnabled = disqusConfig.enabled;
 ---
 
 <Post
@@ -82,6 +79,4 @@ const disqusEnabled = disqusConfig.enabled;
             </footer>
         </article>
     </div>
-
-    {disqusEnabled && <Disqus />}
 </Post>

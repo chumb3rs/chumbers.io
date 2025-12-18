@@ -6,7 +6,7 @@
 - [x] Add LaTeX support in post content
 - [x] Add back to top button
 - [x] Add reading progress bar
-- Look at setting up disqus
+- Add comments to blog posts (with Giscus? Or self-host?)
 - [x] Ability to pin a post to the large spot on the landing page
 - [x] Better related posts layout
 - Support putting LaTeX in the image/video caption
@@ -76,6 +76,7 @@
 - [x] Decide on colours across the site (streamline secondary/tertiary e.g.)
 - DRY up series & project pages since they are so similar
 - Look into GitHub actions with cloudflare pages
+- Check whether site is being crawled + indexed
 
 ### Bug Squashing Mobile
 - [x] Show actual series name not just the file name
@@ -90,7 +91,7 @@
 - [x] Series card on /series -> 404
 - [x] 404 text on light mode should be black
 - [x] Check if series non-null before showing on post page
-- Firefox search toggle does not work
+- [x] Firefox search toggle does not work
 - Content type selection hidden behind drop down toggle on mobile?
 - Only show "share" if links aren't blocked
 
