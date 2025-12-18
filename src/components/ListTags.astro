@@ -23,7 +23,6 @@ const { tags, activeTag = '' } = Astro.props;
         position: absolute;
         top: 0;
         bottom: 0;
-        width: 40px;
         pointer-events: none;
         z-index: 10;
         transition: opacity 0.3s ease;
@@ -59,8 +58,16 @@ const { tags, activeTag = '' } = Astro.props;
 </style>
 
 <div class='relative mt-5 mb-8 h-72 w-full'>
-    <div class='blur-overlay blur-left opacity-0' id='blurLeft'></div>
-    <div class='blur-overlay blur-right opacity-100' id='blurRight'></div>
+    <div
+        class='blur-overlay blur-left opacity-0 w-[15px] md:w-[35px]'
+        id='blurLeft'
+    >
+    </div>
+    <div
+        class='blur-overlay blur-right opacity-100 w-[15px] md:w-[35px]'
+        id='blurRight'
+    >
+    </div>
     <div
         id='tagScrollContainer'
         class='tag-scroll flex flex-col flex-wrap justify-center overflow-auto h-72 gap-y-2 gap-x-3'
